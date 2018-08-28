@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Coma Certo</string>
+    <string name="navigation_bar_list_meal">Refeições</string>
+    <string name="navigation_bar_generate_report">Relatórios</string>
+    <string name="navigation_bar_settings">Configurações</string>
+    <string name="navigation_bar_help">Ajuda</string>
 </resources>
