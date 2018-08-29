@@ -16,7 +16,8 @@
     </style>
 
     <style name="BottomNavigationViewStyle">
-        <item name="itemBackground">@color/primary</item>
+        <item name="android:background">@color/primary</item>
+        <item name="itemBackground">@android:color/transparent</item>
         <item name="itemIconTint">@color/white</item>
         <item name="itemTextColor">@color/white</item>
     </style>
