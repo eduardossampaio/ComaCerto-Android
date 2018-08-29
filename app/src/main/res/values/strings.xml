@@ -7,4 +7,13 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no_meals_registered">Sem refeições cadastradas</string>
+    <string name="how_i_feel_title">Como me senti</string>
+    <string name="what_meal_i_doing_title">Que refeição estou fazendo?</string>
+    <string name="menu_add_meal">Adicionar Refeição</string>
+    <string name="when_i_eat">Quando comi</string>
+    <string name="date">Date</string>
+    <string name="hour">Hora</string>
+    <string name="what_i_ate">O que comi</string>
+    <string name="what_was_doing">O que estava fazendo</string>
 </resources>
