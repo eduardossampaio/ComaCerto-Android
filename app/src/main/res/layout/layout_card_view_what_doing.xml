@@ -11,11 +11,10 @@
         android:layout_height="wrap_content"
         android:text="@string/what_was_doing" />
 
-    <TextView
+    <EditText
         android:id="@+id/what_doing"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:lines="3"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
 </android.support.constraint.ConstraintLayout>

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -18,6 +19,13 @@ import kotlinx.android.synthetic.main.activity_home.*
 
 
 class HomeActivity : AppCompatActivity() {
+    var lastFragment : Fragment? = null
+    val listMealFragment = ListMealsFragment.newInstance()
+    val generateReportFragment = GenerateReportFragment.newInstance()
+    val settingsFragment = SettingsFragment.newInstance()
+    val helpFragment = HelpFragment.newInstance()
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,22 +34,21 @@ class HomeActivity : AppCompatActivity() {
         bottom_navigation_view.setOnNavigationItemSelectedListener { item ->
             when (item.getItemId()) {
                 R.id.navigation_meal_list -> {
-                    displayMealFragment()
+                    openFragment(listMealFragment)
                 }
                 R.id.navigation_meal_reports -> {
-                    displayGenerateReportsFragment()
+                    openFragment(generateReportFragment)
                 }
                 R.id.navigation_meal_settings -> {
-                    displaySettingsFragment()
+                    openFragment(settingsFragment)
                 }
                 R.id.navigation_meal_help -> {
-                    displayHelpFragment()
-
+                    openFragment(helpFragment)
                 }
             }
             true
         }
-        displayMealFragment()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -61,30 +68,18 @@ class HomeActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun displayMealFragment() {
-        val fragment = ListMealsFragment.newInstance()
-        openFragment(fragment)
-    }
-
-    private fun displayGenerateReportsFragment() {
-        val fragment = GenerateReportFragment.newInstance()
-        openFragment(fragment)
-    }
-
-    private fun displaySettingsFragment() {
-        val fragment = SettingsFragment.newInstance()
-        openFragment(fragment)
-    }
-
-    private fun displayHelpFragment() {
-        val fragment = HelpFragment.newInstance()
-        openFragment(fragment)
-    }
 
     private fun openFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.container, fragment)
+        transaction.remove(fragment)
+        transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
+        transaction.add(R.id.container, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
+        Log.d("HomeActivity","Fragment size:"+ supportFragmentManager.fragments.size)
+    }
+
+    override fun onBackPressed() {
+
     }
 }

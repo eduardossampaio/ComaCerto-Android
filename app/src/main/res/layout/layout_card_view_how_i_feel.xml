@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -12,7 +13,7 @@
         android:layout_height="wrap_content" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/meal_list_rv"
+        android:id="@+id/feeling_list_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
