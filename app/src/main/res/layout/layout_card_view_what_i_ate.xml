@@ -7,14 +7,32 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="match_parent"
+        style="@style/CardViewTitleStyle"
+
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/what_i_ate" />
 
+    <ImageView
+        android:id="@+id/button_add_food"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/ic_add"
+        android:tint="@color/accent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/foods_list_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
+    <TextView
+        app:layout_constraintTop_toBottomOf="@id/foods_list_rv"
+        android:text="@string/add_foods_to_meals"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </android.support.constraint.ConstraintLayout>

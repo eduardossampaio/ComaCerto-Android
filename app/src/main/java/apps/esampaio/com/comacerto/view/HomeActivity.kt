@@ -48,6 +48,7 @@ class HomeActivity : AppCompatActivity() {
             }
             true
         }
+//        openFragment(listMealFragment)
 
     }
 
@@ -71,9 +72,10 @@ class HomeActivity : AppCompatActivity() {
 
     private fun openFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.remove(fragment)
-        transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
-        transaction.add(R.id.container, fragment)
+
+        transaction.setCustomAnimations(R.anim.slide_in_left, 0);
+
+        transaction.replace(R.id.container, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
         Log.d("HomeActivity","Fragment size:"+ supportFragmentManager.fragments.size)

@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ccc"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.meals.list.ListMealsFragment">
 
@@ -13,7 +12,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_width="0dp"
-        android:layout_height="70dp"/>
+        android:layout_height="65dp"/>
 
     <TextView
         android:visibility="gone"
@@ -27,6 +26,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v4.view.ViewPager
+        android:id="@+id/daily_meal_view_pager"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"

@@ -1,76 +1,36 @@
 package apps.esampaio.com.comacerto.core.entity
 
+import android.content.Context
+import android.graphics.drawable.Drawable
+import android.os.Build
+import android.support.v4.content.ContextCompat
+import apps.esampaio.com.comacerto.R
+
 enum class Feeling {
-    None,
-    Natural,
-    Anxiety,
-    Frustration,
-    Irritation,
-    Hurry,
-    Rage,
-    Boredom,
-    Sad
+    None(0,0),
+    Natural(R.string.feeling_natural,R.drawable.feeling_normal),
+    Anxiety(R.string.feeling_anxiety,R.drawable.feeling_anxiety),
+    Frustration(R.string.feeling_frustration,R.drawable.feeling_frustration),
+    Irritation(R.string.feeling_irritation,R.drawable.feeling_irritation),
+    Hurry(R.string.feeling_hurry,R.drawable.feeling_hurry),
+    Rage(R.string.feeling_rage,R.drawable.feeling_rage),
+    Boredom(R.string.feeling_boredom,R.drawable.feeling_boredom),
+    Sad(R.string.feeling_sad,R.drawable.feeling_sad);
+
+    private val nameId:Int
+    private val imageId:Int
+
+    constructor(nameId:Int,imageId:Int){
+        this.nameId = nameId
+        this.imageId = imageId
+    }
+
+    fun getImage(context: Context) : Drawable? {
+        return ContextCompat.getDrawable(context,imageId)
+    }
+
+    fun getName(context: Context) : String {
+        return context.resources.getString(nameId)
+    }
 
 }
-
-
-//
-//  Feeling.swift
-//  Coma Certo
-//
-//  Created by Eduardo Soares on 10/08/2018.
-//  Copyright © 2018 Eduardo Soares. All rights reserved.
-//
-
-//import Foundation
-//import UIKit
-//struct Feeling : Equatable,Displayable,Codable {
-//
-//    func displayName() -> String {
-//        return name
-//    }
-//
-//    func displayImage() -> UIImage? {
-//        return UIImage(named: imageName)
-//    }
-//
-//    func equals(other: Displayable) -> Bool {
-//        return self.displayName() == other.displayName()
-//    }
-//
-//    var id:Int
-//    var name:String
-//    var imageName:String
-//    init(id:Int, _ name:String, _ imageName:String) {
-//        self.id = id
-//        self.name = name
-//        self.imageName = imageName
-//    }
-//
-//    static func ==(lhs: Feeling, rhs: Feeling) -> Bool {
-//        return lhs.id == rhs.id
-//    }
-//
-//    static let allFeelings = [
-////        Feeling(id: 1,"Alegria", "emoji-happy"),
-//        Feeling(id: 1,"Tranquilo", "emoji-natural"),
-//    Feeling(id: 2,"Ansioso", "emoji-anxiety"),
-//    Feeling(id: 3,"Frustado", "emoji-frustration"),
-//    Feeling(id: 4,"Irritado", "emoji-irritation"),
-//    Feeling(id: 5,"Com pressa", "emoji-hurry"),
-//    Feeling(id: 6,"Com raiva", "emoji-rage"),
-//    Feeling(id: 7,"Entediado", "emoji-boredom"),
-//    Feeling(id: 8,"Triste", "emoji-sad")
-//    ]
-//
-//    static let none = Feeling(id: -1, "", "")
-//
-//    static func getFeeling(byId id: Int) -> Feeling{
-//        for felling in allFeelings{
-//            if felling.id == id {
-//                return felling
-//            }
-//        }
-//        return allFeelings[0]
-//    }
-//}

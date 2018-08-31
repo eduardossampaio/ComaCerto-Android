@@ -16,4 +16,29 @@
     <string name="hour">Hora</string>
     <string name="what_i_ate">O que comi</string>
     <string name="what_was_doing">O que estava fazendo</string>
+    <string name="blank"></string>
+    <!-- Feelings-->
+    <string name="feeling_natural">Normal</string>
+    <string name="feeling_anxiety">Ansioso</string>
+    <string name="feeling_frustration">Frustrado</string>
+    <string name="feeling_irritation">Irritado</string>
+    <string name="feeling_hurry">Com pressa</string>
+    <string name="feeling_rage">Com raiva</string>
+    <string name="feeling_boredom">Entediado</string>
+    <string name="feeling_sad">Triste</string>
+
+    <!-- Meals -->
+    <string name="meal_breakfast">Café da manhã</string>
+    <string name="meal_lunch">Almoço</string>
+    <string name="meal_snack">Lanche</string>
+    <string name="meal_dinner">Janta</string>
+    <string name="hunger_level">Nível de fome</string>
+    <string name="hungry">Fome</string>
+    <string name="hungry_level">nível de fome</string>
+    <string name="satiety">Saciedade</string>
+    <string name="satiety_level">Nível de saciedade</string>
+    <string name="add_foods_to_meals">Adicione os alimentos desta refeição</string>
+    <string name="save_meal">Salvar refeição</string>
+    <string name="add_new_meal">Adicionar uma nova refeição</string>
+
 </resources>

@@ -8,15 +8,17 @@
     android:layout_height="wrap_content">
 
     <TextView
+        style="@style/CardViewTitleStyle"
         android:text="@string/how_i_feel_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/feeling_list_rv"
+        android:nestedScrollingEnabled="false"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        tools:orientation="horizontal"
         tools:layoutManager="android.support.v7.widget.GridLayoutManager"
         tools:listitem="@layout/image_collection_recycler_view_item" />
 
