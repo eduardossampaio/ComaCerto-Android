@@ -7,6 +7,9 @@ import android.view.View
 import android.widget.RelativeLayout
 import android.widget.TextView
 import apps.esampaio.com.comacerto.R
+import apps.esampaio.com.comacerto.core.extensions.getFirsDayOfWeek
+import apps.esampaio.com.comacerto.core.extensions.getWeek
+import apps.esampaio.com.comacerto.core.extensions.sameDay
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -18,52 +21,22 @@ class DateListView : RelativeLayout {
         val completeDayFormatter = DateFormat.getDateInstance(DateFormat.LONG)
     }
     interface DayItemSelectedListener{
-        fun daySelected(day:Date,position: Int)
+        fun daySelected(day:Date)
     }
 
-    inner class DayViewHolder(val view: View,val positionInView:Int) : View.OnClickListener {
-
-        private val subview:View
-        private val dayItem: TextView
-        private val weekDayItem: TextView
-        var date:Date? = null
-
-        init {
-            view.setOnClickListener(this)
-            subview = view.findViewById(R.id.subview)
-            dayItem = view.findViewById(R.id.day_item)
-            weekDayItem = view.findViewById(R.id.week_day_item)
-        }
-
-        fun setSelectedDate(date: Date) {
-            dayItem.text = weekDayFormatter.format(date)
-            weekDayItem.text = weekDayNameFormatter.format(date)
-            this.date = date
-        }
-
-        fun setSelected(selected:Boolean){
-            if ( selected ){
-                subview.background = ContextCompat.getDrawable(view.context,R.drawable.circle_drawable)
-                dayItem.setTextColor(ContextCompat.getColor(view.context,R.color.white))
-                weekDayItem.setTextColor(ContextCompat.getColor(view.context,R.color.white))
-            }else{
-                subview.background = ContextCompat.getDrawable(view.context,android.R.color.transparent)
-                dayItem.setTextColor(ContextCompat.getColor(view.context,R.color.primary))
-                weekDayItem.setTextColor(ContextCompat.getColor(view.context,R.color.primary))
-            }
-        }
-
-        override fun onClick(p0: View?) {
-            updateSelectedDayItem(this)
-            onDayItemSelectedListener?.daySelected(this.date!!,getCurrentSelectedIndex())
-        }
-    }
-
-    var days = mutableListOf<DayViewHolder>()
-    var selectedDayTextView: TextView? = null
-    var selectedDayView: DayViewHolder? = null
-    var currentWeek = 0
     var onDayItemSelectedListener : DayItemSelectedListener? = null
+    //views
+    var dayViews = mutableListOf<DayViewHolder>()
+    var selectedDayTextView: TextView? = null
+
+    //fields
+    var currentWeek = 0
+    var selectedDay:Date = Date(System.currentTimeMillis())
+        set(value) {
+            field = value
+            refreshViews()
+        }
+
 
     constructor(context: Context) : super(context) {
         initView()
@@ -81,73 +54,109 @@ class DateListView : RelativeLayout {
         inflate(getContext(), R.layout.date_list_view, this);
         selectedDayTextView = findViewById(R.id.selected_day);
 
-        days.add(0, DayViewHolder(findViewById(R.id.sunday_view),0))
-        days.add(1, DayViewHolder(findViewById(R.id.monday_view),1))
-        days.add(2, DayViewHolder(findViewById(R.id.tuesday_view),2))
-        days.add(3, DayViewHolder(findViewById(R.id.wednesday_view),3))
-        days.add(4, DayViewHolder(findViewById(R.id.thursday_view),4))
-        days.add(5, DayViewHolder(findViewById(R.id.friday_view),5))
-        days.add(6, DayViewHolder(findViewById(R.id.saturday_view),6))
-        currentWeek = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR)
-        setupDays()
-        updateSelectedDayItem(0)
+        dayViews.add(0, DayViewHolder(findViewById(R.id.sunday_view),0))
+        dayViews.add(1, DayViewHolder(findViewById(R.id.monday_view),1))
+        dayViews.add(2, DayViewHolder(findViewById(R.id.tuesday_view),2))
+        dayViews.add(3, DayViewHolder(findViewById(R.id.wednesday_view),3))
+        dayViews.add(4, DayViewHolder(findViewById(R.id.thursday_view),4))
+        dayViews.add(5, DayViewHolder(findViewById(R.id.friday_view),5))
+        dayViews.add(6, DayViewHolder(findViewById(R.id.saturday_view),6))
+
+        refreshViews()
     }
 
-    private fun setupDays() {
-        val calendar = Calendar.getInstance()
-        calendar.set(Calendar.WEEK_OF_YEAR, currentWeek)
-
-        while (calendar.get(Calendar.DAY_OF_WEEK) > calendar.firstDayOfWeek) {
-            calendar.add(Calendar.DATE, -1);
+    fun refreshViews(){
+        val selectedDayWeek = selectedDay.getWeek()
+        val sameWeek = (selectedDayWeek == currentWeek);
+        if ( sameWeek){
+            setSelectedView()
+        }else{
+            updateWeek(selectedDayWeek)
         }
+    }
 
+    fun updateViews(){
+        val firstDayOfWeek = selectedDay.getFirsDayOfWeek()
+        val calendar = Calendar.getInstance()
+        calendar.time = firstDayOfWeek
         for (i in 0..6) {
-            days[i].setSelectedDate(calendar.time)
+            dayViews[i].setDate(calendar.time)
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
-
     }
-    fun updateSelectedDayItem(newSelectedDayPosition: Int){
-        updateSelectedDayItem(days[newSelectedDayPosition])
-    }
-    fun updateSelectedDayItem(newSelectedDay: DayViewHolder){
-
-        if (selectedDayView != null) {
-            selectedDayView!!.setSelected(false)
+    fun setSelectedView(){
+        for (i in 0..6) {
+            if(selectedDay.sameDay(dayViews[i].itemDate!!)){
+                dayViews[i].setSelected(true)
+            }else{
+                dayViews[i].setSelected(false)
+            }
         }
-        newSelectedDay.setSelected(true)
-        this.selectedDayView = newSelectedDay
-        displaySelectedDayText()
     }
 
-    private fun displaySelectedDayText(){
-        if (selectedDayTextView != null && this.selectedDayView!!.date != null) {
-            val formattedCurrentDay = completeDayFormatter.format(selectedDayView!!.date)
-            selectedDayTextView!!.text = formattedCurrentDay
-
-        }
+    fun updateWeek(newWeek: Int){
+        currentWeek = newWeek
+        updateViews()
+        setSelectedView()
+        //refresh days
     }
 
     fun selectNextDay(){
-        var currentSelected = getCurrentSelectedIndex()
-        currentSelected--
-        if( currentSelected >= 0){
-            updateSelectedDayItem(currentSelected)
-        }
+        val calendar = Calendar.getInstance()
+        calendar.time = selectedDay
+        calendar.add(Calendar.DAY_OF_YEAR,-1)
+        selectedDay = calendar.time
+        refreshViews()
     }
 
     fun selectPreviousDay(){
-        var currentSelected = getCurrentSelectedIndex()
-        currentSelected++
-        if( currentSelected < days.size){
-            updateSelectedDayItem(currentSelected)
-        }
+        val calendar = Calendar.getInstance()
+        calendar.time = selectedDay
+        calendar.add(Calendar.DAY_OF_YEAR,1)
+        selectedDay = calendar.time
+        refreshViews()
     }
 
-    private fun getCurrentSelectedIndex() : Int{
-        if (selectedDayView != null){
-            return selectedDayView!!.positionInView
+
+
+    inner class DayViewHolder(val view: View,val positionInView:Int) : View.OnClickListener {
+
+        private val subview:View
+        private val dayItem: TextView
+        private val weekDayItem: TextView
+        var itemDate:Date? = null
+
+        init {
+            view.setOnClickListener(this)
+            subview = view.findViewById(R.id.subview)
+            dayItem = view.findViewById(R.id.day_item)
+            weekDayItem = view.findViewById(R.id.week_day_item)
         }
-        return 0;
+
+        fun setDate(date: Date) {
+            dayItem.text = weekDayFormatter.format(date)
+            weekDayItem.text = weekDayNameFormatter.format(date)
+            this.itemDate = date
+        }
+
+        fun setSelected(selected:Boolean){
+            if ( selected ){
+                subview.background = ContextCompat.getDrawable(view.context,R.drawable.circle_drawable)
+                dayItem.setTextColor(ContextCompat.getColor(view.context,R.color.white))
+                weekDayItem.setTextColor(ContextCompat.getColor(view.context,R.color.white))
+                selectedDayTextView!!.text = completeDayFormatter.format(selectedDay)
+            }else{
+                subview.background = ContextCompat.getDrawable(view.context,android.R.color.transparent)
+                dayItem.setTextColor(ContextCompat.getColor(view.context,R.color.primary))
+                weekDayItem.setTextColor(ContextCompat.getColor(view.context,R.color.primary))
+            }
+        }
+
+        override fun onClick(p0: View?) {
+            if (itemDate != null) {
+                selectedDay = itemDate!!
+                onDayItemSelectedListener?.daySelected(selectedDay)
+            }
+        }
     }
 }

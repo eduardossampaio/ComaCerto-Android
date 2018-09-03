@@ -3,18 +3,24 @@ package apps.esampaio.com.comacerto.view.meals.list
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import apps.esampaio.com.comacerto.R
+import apps.esampaio.com.comacerto.core.extensions.dayOfYear
 import apps.esampaio.com.comacerto.view.custom.DateListView
 import apps.esampaio.com.comacerto.view.meals.list.adapter.DailyMealViewPager
 import kotlinx.android.synthetic.main.fragment_list_meals.*
 import java.util.*
+import kotlin.math.log
 
 
 class ListMealsFragment : Fragment(), ViewPager.OnPageChangeListener, DateListView.DayItemSelectedListener {
-    override fun daySelected(day: Date, position: Int) {
+
+    override fun daySelected(day: Date) {
+        val position = day.dayOfYear()
+        Log.d("ListMealsFragment","day selected from header. day:${day} position: ${position}")
         currentItemPosition = position
         daily_meal_view_pager.currentItem = position
     }
@@ -52,7 +58,6 @@ class ListMealsFragment : Fragment(), ViewPager.OnPageChangeListener, DateListVi
         daily_meal_view_pager.currentItem = adapter.count -1
         daily_meal_view_pager.addOnPageChangeListener(this)
         currentItemPosition = daily_meal_view_pager.currentItem
-        navigation_header.updateSelectedDayItem(currentItemPosition)
         navigation_header.onDayItemSelectedListener = this
     }
 

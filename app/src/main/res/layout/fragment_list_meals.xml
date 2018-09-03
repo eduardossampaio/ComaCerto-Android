@@ -4,14 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="15dp"
     tools:context=".view.meals.list.ListMealsFragment">
 
     <apps.esampaio.com.comacerto.view.custom.DateListView
-        android:background="#e7e7e7"
         android:id="@+id/navigation_header"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_width="0dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:layout_height="wrap_content"/>
 
     <TextView
