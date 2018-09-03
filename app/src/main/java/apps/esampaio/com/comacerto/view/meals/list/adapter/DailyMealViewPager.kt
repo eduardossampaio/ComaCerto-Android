@@ -12,7 +12,8 @@ class  DailyMealViewPager(fragmentManager:FragmentManager) : FragmentPagerAdapte
     }
 
     override fun getCount(): Int {
-       return 5
+       return 7
     }
+
 
 }

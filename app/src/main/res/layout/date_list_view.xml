@@ -10,42 +10,49 @@
         android:orientation="horizontal">
 
         <include
+            android:id="@+id/sunday_view"
             layout="@layout/date_list_view_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
         <include
+            android:id="@+id/monday_view"
             layout="@layout/date_list_view_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
         <include
+            android:id="@+id/tuesday_view"
             layout="@layout/date_list_view_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
         <include
+            android:id="@+id/wednesday_view"
             layout="@layout/date_list_view_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
         <include
+            android:id="@+id/thursday_view"
             layout="@layout/date_list_view_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
         <include
+            android:id="@+id/friday_view"
             layout="@layout/date_list_view_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
         <include
+            android:id="@+id/saturday_view"
             layout="@layout/date_list_view_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -53,6 +60,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/selected_day"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"

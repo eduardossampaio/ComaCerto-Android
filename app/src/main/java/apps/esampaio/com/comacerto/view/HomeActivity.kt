@@ -48,8 +48,7 @@ class HomeActivity : AppCompatActivity() {
             }
             true
         }
-//        openFragment(listMealFragment)
-
+        openFragment(listMealFragment)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -71,6 +70,9 @@ class HomeActivity : AppCompatActivity() {
 
 
     private fun openFragment(fragment: Fragment) {
+        if (lastFragment == fragment){
+            return
+        }
         val transaction = supportFragmentManager.beginTransaction()
 
         transaction.setCustomAnimations(R.anim.slide_in_left, 0);
