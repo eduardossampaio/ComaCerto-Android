@@ -21,7 +21,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.meals.register.AddNewMealActivity"></activity>
+        <activity
+            android:theme="@style/AppTheme"
+            android:name=".view.meals.register.AddNewMealActivity">
+
+        </activity>
     </application>
 
 </manifest>

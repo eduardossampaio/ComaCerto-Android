@@ -34,6 +34,10 @@
         <item name="android:paddingLeft">8dp</item>
         <item name="android:layout_marginTop">4dp</item>
         <item name="android:layout_marginBottom">4dp</item>
+    </style>
 
+    <style name="divider">
+        <item name="android:height">1dp</item>
+        <item name="android:background">@color/divider</item>
     </style>
 </resources>

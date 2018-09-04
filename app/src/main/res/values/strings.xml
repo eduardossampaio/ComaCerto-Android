@@ -40,5 +40,9 @@
     <string name="add_foods_to_meals">Adicione os alimentos desta refeição</string>
     <string name="save_meal">Salvar refeição</string>
     <string name="add_new_meal">Adicionar uma nova refeição</string>
+    <string name="foods">Alimentos</string>
+    <string name="add_foods">Adicionar alimentos</string>
+    <string name="meal">Refeição</string>
+    <string name="feeling">Sentimento</string>
 
 </resources>
