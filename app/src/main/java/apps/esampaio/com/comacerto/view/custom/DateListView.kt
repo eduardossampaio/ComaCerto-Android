@@ -36,7 +36,7 @@ class DateListView : RelativeLayout {
             field = value
             refreshViews()
         }
-
+    var currentDay = Date(System.currentTimeMillis())
 
     constructor(context: Context) : super(context) {
         initView()
@@ -124,6 +124,7 @@ class DateListView : RelativeLayout {
         private val subview:View
         private val dayItem: TextView
         private val weekDayItem: TextView
+        private var enabled = true;
         var itemDate:Date? = null
 
         init {
@@ -137,9 +138,16 @@ class DateListView : RelativeLayout {
             dayItem.text = weekDayFormatter.format(date)
             weekDayItem.text = weekDayNameFormatter.format(date)
             this.itemDate = date
+            this.enabled = date.time <= currentDay.time
         }
 
         fun setSelected(selected:Boolean){
+            if (!enabled){
+                subview.background = ContextCompat.getDrawable(view.context,android.R.color.transparent)
+                dayItem.setTextColor(ContextCompat.getColor(view.context,R.color.date_disabled))
+                weekDayItem.setTextColor(ContextCompat.getColor(view.context,R.color.date_disabled))
+                return
+            }
             if ( selected ){
                 subview.background = ContextCompat.getDrawable(view.context,R.drawable.circle_drawable)
                 dayItem.setTextColor(ContextCompat.getColor(view.context,R.color.white))
@@ -153,7 +161,7 @@ class DateListView : RelativeLayout {
         }
 
         override fun onClick(p0: View?) {
-            if (itemDate != null) {
+            if (itemDate != null && enabled) {
                 selectedDay = itemDate!!
                 onDayItemSelectedListener?.daySelected(selectedDay)
             }
