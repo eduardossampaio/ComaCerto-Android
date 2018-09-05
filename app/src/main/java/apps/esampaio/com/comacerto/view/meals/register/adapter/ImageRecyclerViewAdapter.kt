@@ -16,7 +16,7 @@ abstract class ImageRecyclerViewAdapter(val context:Context): RecyclerView.Adapt
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ImageRecyclerViewAdapterViewHolder {
         val baseView = LayoutInflater.from(context).inflate(R.layout.image_collection_recycler_view_item,null,false)
-        return ImageRecyclerViewAdapterViewHolder(baseView,this)
+        return ImageRecyclerViewAdapterViewHolder(baseView)
     }
 
     override fun onBindViewHolder(viewHolder: ImageRecyclerViewAdapterViewHolder, position: Int) {
@@ -27,21 +27,22 @@ abstract class ImageRecyclerViewAdapter(val context:Context): RecyclerView.Adapt
         }
     }
 
-    class ImageRecyclerViewAdapterViewHolder(view:View,adapter: ImageRecyclerViewAdapter) : RecyclerView.ViewHolder(view), View.OnClickListener {
+    inner class ImageRecyclerViewAdapterViewHolder(view:View) : RecyclerView.ViewHolder(view), View.OnClickListener {
         var itemImage:ImageView? = null
         var itemName:TextView? = null
-        var adapter:ImageRecyclerViewAdapter
+
+
         init {
             itemImage = view.findViewById(R.id.item_image)
             itemName = view.findViewById(R.id.item_name)
             itemView.setOnClickListener(this)
-            this.adapter = adapter
         }
 
-        override fun onClick(p0: View?) {
-            adapter.selectedItem = adapterPosition
-            adapter.notifyDataSetChanged()
-
+        override fun onClick(view: View?) {
+            val position = getPosition()
+            selectedItem = position
+            notifyDataSetChanged()
+            itemSelectedAtPosition(position)
         }
 
         fun markAsSelected() {
@@ -50,5 +51,9 @@ abstract class ImageRecyclerViewAdapter(val context:Context): RecyclerView.Adapt
         fun markAsDeselected(){
             itemView.setBackgroundColor(ContextCompat.getColor(itemView.context,R.color.item_deselected_color))
         }
+    }
+
+    open fun itemSelectedAtPosition(position: Int){
+
     }
 }

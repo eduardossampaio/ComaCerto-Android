@@ -1,5 +1,7 @@
 package apps.esampaio.com.comacerto.core.extensions
 
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 fun Date.getWeek() : Int{
@@ -30,4 +32,24 @@ fun Date.dayOfYear(): Int{
     val calendar = Calendar.getInstance()
     calendar.time = this
     return calendar.get(Calendar.DAY_OF_YEAR)
+}
+
+fun Date.asString(format: DateFormat): String = format.format(this)
+
+fun Date.asString(format: String): String = asString(SimpleDateFormat(format))
+
+fun Calendar.createDate(day:Int,month:Int,year:Int) : Date{
+    time = Date(System.currentTimeMillis())
+    set(Calendar.DAY_OF_MONTH,day)
+    set(Calendar.MONTH,month)
+    set(Calendar.YEAR,year)
+    return time
+}
+
+fun Calendar.createHour(hour:Int,miute:Int,second:Int = 0) : Date{
+    time = Date(System.currentTimeMillis())
+    set(Calendar.HOUR_OF_DAY,hour)
+    set(Calendar.MINUTE,miute)
+    set(Calendar.SECOND,second)
+    return time
 }
