@@ -121,6 +121,8 @@
 
             <AutoCompleteTextView
                 android:maxLines="1"
+                android:inputType="text"
+                android:imeOptions="actionDone"
                 android:id="@+id/add_foods_edit_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -137,6 +139,11 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/foods_list_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
         <View
             style="@style/divider"
             android:layout_width="match_parent"
@@ -144,7 +151,7 @@
 
         <include
 
-            layout="@layout/layout_card_view_hunger_level"/>
+            layout="@layout/layout_view_hunger_level"/>
         <View
             style="@style/divider"
             android:layout_width="match_parent"

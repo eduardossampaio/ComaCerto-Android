@@ -48,8 +48,8 @@ class ListFoodRecyclerViewAdapter(val context: Context) : RecyclerView.Adapter<L
         return foodsList.size
     }
 
-    fun addNewRow(){
-        foodsList.add(Food("",""))
+    fun addFood(foodName: String){
+        foodsList.add(Food(foodName,"Meus Alimentos"))
         notifyDataSetChanged()
     }
 
