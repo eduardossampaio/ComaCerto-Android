@@ -95,9 +95,6 @@ class AddNewMealActivity : AppCompatActivity(), CalendarDatePickerDialogFragment
         val foods = listOf("Arroz","ArrFeijão","ArrCarne","ArrBatata","ArrOvo")
         val adapter = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, foods)
         add_foods_edit_text.setAdapter(adapter)
-        add_foods_edit_text.setOnItemClickListener({ adapter,view,position,id ->
-
-        })
 
         add_foods_edit_text.setOnEditorActionListener { textView, actionId, keyEvent ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {

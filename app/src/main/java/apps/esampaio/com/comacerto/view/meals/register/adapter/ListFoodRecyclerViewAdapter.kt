@@ -9,7 +9,6 @@ import android.widget.EditText
 import android.widget.TextView
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.core.entity.Food
-import com.shalan.mohamed.itemcounterview.IncDecView
 
 class ListFoodRecyclerViewAdapter(val context: Context) : RecyclerView.Adapter<ListFoodRecyclerViewAdapter.ListFoodRecyclerViewHolder>() {
 
@@ -18,12 +17,12 @@ class ListFoodRecyclerViewAdapter(val context: Context) : RecyclerView.Adapter<L
     class ListFoodRecyclerViewHolder : RecyclerView.ViewHolder {
         val foodNameTextView:TextView
         val foodNameEditText:EditText
-        val foodPortionCounter:IncDecView
+//        val foodPortionCounter:IncDecView
 
         constructor(view: View) : super(view) {
             foodNameEditText = view.findViewById(R.id.foodNameEditText)
             foodNameTextView = view.findViewById(R.id.foodNameTextView)
-            foodPortionCounter = view.findViewById(R.id.foodPortion)
+//            foodPortionCounter = view.findViewById(R.id.foodPortion)
         }
     }
 
