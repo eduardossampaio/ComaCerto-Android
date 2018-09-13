@@ -220,6 +220,10 @@
                 android:hint="@string/what_was_doing" />
 
         </LinearLayout>
+        <View
+            style="@style/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1px" />
 
     </LinearLayout>
 </ScrollView>

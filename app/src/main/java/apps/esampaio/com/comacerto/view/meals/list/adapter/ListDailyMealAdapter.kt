@@ -14,12 +14,6 @@ import java.util.*
 class ListDailyMealAdapter(val context: Context,var mealList:List<Meal>) : RecyclerView.Adapter<ListDailyMealAdapter.ListDailyMealAdapterViewHolder>() {
 
     init{
-
-//        mealList = listOf(
-//                Meal("",MealType.Breakfast,"",Date(), listOf(), Level.hunger(), Level.satiety(),Feeling.Natural),
-//                Meal("",MealType.Lunch,"",Date(), listOf(), Level.hunger(), Level.satiety(),Feeling.Natural),
-//                Meal("",MealType.Snack,"",Date(), listOf(), Level.hunger(), Level.satiety(),Feeling.Natural),
-//                Meal("",MealType.Dinner,"",Date(), listOf(), Level.hunger(), Level.satiety(),Feeling.Natural))
     }
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ListDailyMealAdapterViewHolder {
         return ListDailyMealAdapterViewHolder(LayoutInflater.from(context).inflate(R.layout.list_daily_meal_view_item,null,false))

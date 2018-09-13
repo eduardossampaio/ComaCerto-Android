@@ -2,31 +2,42 @@ package apps.esampaio.com.comacerto.view.meals.register
 
 import android.os.Bundle
 import android.os.Handler
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
-import android.view.KeyEvent
 import android.view.Menu
+import android.view.MenuItem
 import android.view.inputmethod.EditorInfo
+import android.widget.ArrayAdapter
+import android.widget.SeekBar
 import apps.esampaio.com.comacerto.R
+import apps.esampaio.com.comacerto.core.entity.Food
+import apps.esampaio.com.comacerto.core.entity.Level
+import apps.esampaio.com.comacerto.core.entity.Meal
+import apps.esampaio.com.comacerto.core.extensions.appendDate
+import apps.esampaio.com.comacerto.core.extensions.appendTime
 import apps.esampaio.com.comacerto.core.extensions.asString
-import apps.esampaio.com.comacerto.core.extensions.createDate
-import apps.esampaio.com.comacerto.core.extensions.createHour
+
+import apps.esampaio.com.comacerto.core.service.meal.MealPresenter
+import apps.esampaio.com.comacerto.view.BaseActivity
 import apps.esampaio.com.comacerto.view.meals.register.adapter.FeelingsListRecyclerViewAdapter
+import apps.esampaio.com.comacerto.view.meals.register.adapter.ListFoodRecyclerViewAdapter
 import apps.esampaio.com.comacerto.view.meals.register.adapter.MealListRecyclerViewAdapter
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment
 import com.codetroopers.betterpickers.radialtimepicker.RadialTimePickerDialogFragment
 import kotlinx.android.synthetic.main.activity_add_new_meal_2.*
-import java.text.DateFormat
-import java.util.*
-import android.widget.ArrayAdapter
-import android.widget.SeekBar
-import apps.esampaio.com.comacerto.core.entity.Level
-import apps.esampaio.com.comacerto.view.meals.register.adapter.ListFoodRecyclerViewAdapter
 import kotlinx.android.synthetic.main.layout_view_hunger_level.*
+import java.text.DateFormat
+import apps.esampaio.com.comacerto.core.service.meal.MealService
+import kotlinx.android.synthetic.main.date_list_view.*
+import java.util.*
 
 
-class AddNewMealActivity : AppCompatActivity(), CalendarDatePickerDialogFragment.OnDateSetListener, RadialTimePickerDialogFragment.OnTimeSetListener,SeekBar.OnSeekBarChangeListener {
+class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment.OnDateSetListener, RadialTimePickerDialogFragment.OnTimeSetListener,SeekBar.OnSeekBarChangeListener,MealPresenter {
+    override fun updateMealList(meals: List<Meal>) {
+
+    }
+
+
     override fun onProgressChanged(seekbar: SeekBar?, progress: Int, fromUser: Boolean) {
         if ( seekbar?.id == hunger_level_seek_bar.id){
             hunger_level_text.text = Level.hungerStatusNames[progress]
@@ -40,19 +51,22 @@ class AddNewMealActivity : AppCompatActivity(), CalendarDatePickerDialogFragment
     override fun onStopTrackingTouch(p0: SeekBar?) {}
 
     override fun onTimeSet(dialog: RadialTimePickerDialogFragment?, hourOfDay: Int, minute: Int) {
-        val hour = Calendar.getInstance().createHour(hourOfDay,minute)
-        hour_text_view.text = "${hour.asString("HH:mm")}"
+        meal.date = Calendar.getInstance().appendTime(meal.date,hourOfDay,minute)
+        updateTimeTextView(meal.date)
     }
 
     override fun onDateSet(dialog: CalendarDatePickerDialogFragment?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
-        val date = Calendar.getInstance().createDate(day = dayOfMonth,month = monthOfYear,year = year)
-        complete_date_text_view.text = "${date.asString(DateFormat.getDateInstance(DateFormat.LONG))}"
+        meal.date = Calendar.getInstance().appendDate(date = meal.date,day = dayOfMonth,month = monthOfYear,year = year)
+        updateDateTextView( meal.date)
     }
 
     companion object {
         val FRAG_TAG_DATE_PICKER = "FRAG_TAG_DATE_PICKER"
         val FRAG_TAG_TIME_PICKER = "FRAG_TAG_TIME_PICKER"
     }
+
+    var meal = Meal()
+    val mealInteractor = MealService(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,8 +78,17 @@ class AddNewMealActivity : AppCompatActivity(), CalendarDatePickerDialogFragment
         setupFeelingsList()
         setupAutocompleteFoods()
         setupHungerAndSatietySliders()
-    }
 
+        updateDateTextView(meal.date)
+        updateTimeTextView(meal.date)
+
+    }
+    private fun updateDateTextView(date:Date){
+        complete_date_text_view.text = "${date.asString(DateFormat.getDateInstance(DateFormat.LONG))}"
+    }
+    private fun updateTimeTextView(hour:Date){
+        hour_text_view.text = "${hour.asString("HH:mm")}"
+    }
     private fun setupFoodsList() {
         foods_list_rv.adapter = ListFoodRecyclerViewAdapter(this)
         foods_list_rv.layoutManager = LinearLayoutManager(this)
@@ -73,6 +96,10 @@ class AddNewMealActivity : AppCompatActivity(), CalendarDatePickerDialogFragment
 
     private fun addFoodToList(foodName:String){
         (foods_list_rv.adapter as ListFoodRecyclerViewAdapter).addFood(foodName)
+    }
+
+    private fun getFoods() : List<Food> {
+        return (foods_list_rv.adapter as ListFoodRecyclerViewAdapter).foodsList
     }
 
     private fun setupHungerAndSatietySliders() {
@@ -111,6 +138,23 @@ class AddNewMealActivity : AppCompatActivity(), CalendarDatePickerDialogFragment
         return true
     }
 
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if(item?.itemId == R.id.save_meal_menu_item){
+          saveMeal()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun saveMeal(){
+//        meal.date = selected_day;
+        meal.foods = getFoods()
+        meal.hunger = Level.hunger( hunger_level_seek_bar.progress)
+        meal.satiety = Level.satiety( hunger_level_seek_bar.progress)
+        meal.whatDoing = what_doing_text_view.text.toString()
+        mealInteractor.onSavePressed(meal)
+        finish()
+    }
+
     private fun setupMealsList(){
         cell_meal.setOnClickListener {
             list_meal_expandable_layout.toggle(true)
@@ -120,10 +164,12 @@ class AddNewMealActivity : AppCompatActivity(), CalendarDatePickerDialogFragment
         meal_list_rv.adapter = adapter
         meal_list_rv.layoutManager = GridLayoutManager(this,4)
         adapter.onMealSelectedListener = {
+            meal.mealType = it;
             meal_name.text = it.getName(this)
             Handler().postDelayed( {
                 list_meal_expandable_layout.collapse()
             },100)
+
         }
     }
 
@@ -136,6 +182,7 @@ class AddNewMealActivity : AppCompatActivity(), CalendarDatePickerDialogFragment
         feeling_list_rv.layoutManager = GridLayoutManager(this,4)
         (feeling_list_rv.adapter as FeelingsListRecyclerViewAdapter).notifyDataSetChanged()
         adapter.onFeelingSelectedListener = {
+            meal.feeling = it;
             feeling_name.text = it.getName(this)
             Handler().postDelayed( {
                 list_feelings_expandable_layout.collapse()

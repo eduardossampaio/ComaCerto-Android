@@ -38,16 +38,16 @@ fun Date.asString(format: DateFormat): String = format.format(this)
 
 fun Date.asString(format: String): String = asString(SimpleDateFormat(format))
 
-fun Calendar.createDate(day:Int,month:Int,year:Int) : Date{
-    time = Date(System.currentTimeMillis())
+fun Calendar.appendDate(date: Date,day:Int,month:Int,year:Int) : Date{
+    time = date
     set(Calendar.DAY_OF_MONTH,day)
     set(Calendar.MONTH,month)
     set(Calendar.YEAR,year)
     return time
 }
 
-fun Calendar.createHour(hour:Int,miute:Int,second:Int = 0) : Date{
-    time = Date(System.currentTimeMillis())
+fun Calendar.appendTime(date: Date,hour:Int,miute:Int,second:Int = 0) : Date{
+    time = date
     set(Calendar.HOUR_OF_DAY,hour)
     set(Calendar.MINUTE,miute)
     set(Calendar.SECOND,second)

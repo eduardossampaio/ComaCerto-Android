@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.TextView
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.core.entity.Food
+import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
 
 class ListFoodRecyclerViewAdapter(val context: Context) : RecyclerView.Adapter<ListFoodRecyclerViewAdapter.ListFoodRecyclerViewHolder>() {
 
@@ -16,26 +17,19 @@ class ListFoodRecyclerViewAdapter(val context: Context) : RecyclerView.Adapter<L
 
     class ListFoodRecyclerViewHolder : RecyclerView.ViewHolder {
         val foodNameTextView:TextView
-        val foodNameEditText:EditText
-//        val foodPortionCounter:IncDecView
+        val portionButton:ElegantNumberButton
 
         constructor(view: View) : super(view) {
-            foodNameEditText = view.findViewById(R.id.foodNameEditText)
+
             foodNameTextView = view.findViewById(R.id.foodNameTextView)
-//            foodPortionCounter = view.findViewById(R.id.foodPortion)
+            portionButton = view.findViewById(R.id.foodPortion)
         }
     }
 
     override fun onBindViewHolder(viewHolder: ListFoodRecyclerViewHolder, index: Int) {
         val food = foodsList.get(index)
-        if ( food.name.isEmpty()){
-            viewHolder.foodNameEditText.visibility = View.VISIBLE
-            viewHolder.foodNameTextView.visibility = View.GONE
-        }else{
-            viewHolder.foodNameEditText.visibility = View.GONE
-            viewHolder.foodNameTextView.visibility = View.VISIBLE
-            viewHolder.foodNameTextView.text = food.name
-        }
+        viewHolder.foodNameTextView.text = food.name
+        viewHolder.portionButton.number = "${food.portion}"
 
     }
 

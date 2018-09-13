@@ -4,18 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
     android:paddingLeft="10dp"
     android:paddingRight="10dp">
 
-    <EditText
-
-        android:id="@+id/foodNameEditText"
-        android:layout_width="241dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/foodPortion"
-        android:visibility="gone" />
 
     <TextView
         android:id="@+id/foodNameTextView"
@@ -30,11 +23,13 @@
 
     <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
         android:id="@+id/foodPortion"
-        android:layout_width="95dp"
-        app:textSize="14sp"
+        android:layout_width="70dp"
+        android:background="@drawable/rounded_corned_drawable"
+        app:initialNumber="1"
         app:textColor="@color/primary"
         app:backGroundColor="@android:color/transparent"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
+
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true" />
 
