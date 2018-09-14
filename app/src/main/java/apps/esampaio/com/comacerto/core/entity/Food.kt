@@ -1,6 +1,8 @@
 package apps.esampaio.com.comacerto.core.entity
 
-data class Food(val name:String, val category: String)  {
+import java.io.Serializable
+
+data class Food(val name:String, val category: String) : Serializable  {
     var primaryKey : String? = null
     var portion : Int? = 1
 }

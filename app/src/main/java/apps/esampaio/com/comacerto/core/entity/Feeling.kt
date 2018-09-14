@@ -26,12 +26,14 @@ enum class Feeling {
     constructor(nameId:Int,imageId:Int){
         this.nameId = nameId
         this.imageId = imageId
-        imageDrawable = ContextCompat.getDrawable(MyApplication.instance,R.mipmap.ic_launcher)
+        if ( imageId != 0) {
+            imageDrawable = ContextCompat.getDrawable(MyApplication.instance, imageId)
+        }else{
+            imageDrawable = null
+        }
     }
 
     fun getImage(context: Context) : Drawable? {
-//        return ContextCompat.getDrawable(context,R.mipmap.ic_launcher)
-//        return ContextCompat.getDrawable(context,imageId)
         return imageDrawable
     }
 

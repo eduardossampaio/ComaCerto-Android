@@ -20,12 +20,14 @@ enum class MealType {
     constructor(nameId:Int,imageId:Int){
         this.nameId = nameId
         this.imageId = imageId
-        imageDrawable = ContextCompat.getDrawable(MyApplication.instance,R.mipmap.ic_launcher)
+        if ( imageId != 0) {
+            imageDrawable = ContextCompat.getDrawable(MyApplication.instance, imageId)
+        }else{
+            imageDrawable = null
+        }
     }
 
     fun getImage(context: Context) : Drawable? {
-//        return context.resources.getDrawable(imageId)
-//        return ContextCompat.getDrawable(context,R.mipmap.ic_launcher)
         return imageDrawable
     }
 

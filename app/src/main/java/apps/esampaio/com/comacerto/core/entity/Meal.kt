@@ -1,8 +1,9 @@
 package apps.esampaio.com.comacerto.core.entity
 
+import java.io.Serializable
 import java.util.*
 
-class Meal  {
+class Meal : Serializable  {
     var primaryKey  = ""
     var mealType: MealType = MealType.None
     var whatDoing = ""

@@ -18,7 +18,6 @@ class MealPersistence {
         }else{
             updateMeal(meal)
         }
-        mealsList.add(meal);
     }
     fun saveMeal( meal: Meal){
 //        val realm = try! Realm()

@@ -15,7 +15,7 @@ import apps.esampaio.com.comacerto.view.meals.list.adapter.ListDailyMealAdapter
 import kotlinx.android.synthetic.main.fragment_daily_meals.*
 
 class MealFragment : BaseFragment() {
-    var mealList:List<Meal> = emptyList()
+    var mealList:Array<Meal> = emptyArray()
     var dailyMealsRecyclerView : RecyclerView? = null
     var noMealsRegisteredTextView : TextView? = null
 
@@ -29,11 +29,9 @@ class MealFragment : BaseFragment() {
         noMealsRegisteredTextView = no_meals_registered_text_view
         updateViews()
     }
-    fun update(mealList: List<Meal>){
-        this.mealList = mealList
-        updateViews()
-    }
+
     private fun updateViews(){
+        mealList = arguments?.get(PARAM_MEAL_LIST) as Array<Meal>
         Log.d("MealFragment","updateViews")
         if (mealList.isEmpty()){
             dailyMealsRecyclerView?.visibility = View.GONE
@@ -43,15 +41,19 @@ class MealFragment : BaseFragment() {
             dailyMealsRecyclerView?.visibility = View.VISIBLE
             noMealsRegisteredTextView?.visibility = View.GONE
             dailyMealsRecyclerView?.layoutManager = LinearLayoutManager(activity)
-            dailyMealsRecyclerView?.adapter = ListDailyMealAdapter(activity!!, mealList)
+            dailyMealsRecyclerView?.adapter = ListDailyMealAdapter(activity!!, mealList.asList())
         }
 
     }
 
     companion object {
+        private const val PARAM_MEAL_LIST = "PARAM_MEAL_LIST"
         @JvmStatic
-        fun newInstance() = MealFragment().apply {
-
+        fun newInstance(mealList:List<Meal>) = MealFragment().apply {
+            val args = Bundle()
+            val mealsArray = mealList.toTypedArray()
+            args.putSerializable(PARAM_MEAL_LIST, mealsArray )
+            setArguments(args)
         }
     }
 }

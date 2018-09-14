@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.core.entity.*
+import apps.esampaio.com.comacerto.core.extensions.asString
 import java.util.*
 
 class ListDailyMealAdapter(val context: Context,var mealList:List<Meal>) : RecyclerView.Adapter<ListDailyMealAdapter.ListDailyMealAdapterViewHolder>() {
@@ -27,14 +28,20 @@ class ListDailyMealAdapter(val context: Context,var mealList:List<Meal>) : Recyc
         val meal = mealList.get(index)
         viewHolder.mealName.text = meal.mealType.getName(context)
         viewHolder.iconImage.setImageDrawable(meal.mealType.getImage(context))
+        viewHolder.foodCount.text = "${meal.foods.size} Alimentos"
+        viewHolder.mealHour.text = meal.date.asString("HH:mm")
     }
 
     class ListDailyMealAdapterViewHolder(view:View) : RecyclerView.ViewHolder(view){
         val iconImage:ImageView
         val mealName:TextView
+        val foodCount:TextView
+        val mealHour:TextView
         init{
             iconImage = view.findViewById(R.id.meal_image)
             mealName = view.findViewById(R.id.meal_name)
+            foodCount = view.findViewById(R.id.food_count)
+            mealHour = view.findViewById(R.id.meal_hour)
         }
     }
 

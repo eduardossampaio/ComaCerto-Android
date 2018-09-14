@@ -1,6 +1,8 @@
 package apps.esampaio.com.comacerto.core.entity
 
-class Level {
+import java.io.Serializable
+
+class Level : Serializable{
 
     var level: Int = 1
     var levelNames : Array<String> = emptyArray()
