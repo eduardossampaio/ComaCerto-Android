@@ -76,6 +76,7 @@ class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener, DateLi
         daily_meal_view_pager.addOnPageChangeListener(this)
         currentItemPosition = daily_meal_view_pager.currentItem
         navigation_header.onDayItemSelectedListener = this
+        onPageSelected(adapter!!.count -1)
     }
 
     companion object {
