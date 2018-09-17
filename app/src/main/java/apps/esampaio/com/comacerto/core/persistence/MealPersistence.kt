@@ -1,86 +1,97 @@
 package apps.esampaio.com.comacerto.core.persistence;
 
+import android.content.Context
+import android.support.annotation.UiThread
+import apps.esampaio.com.comacerto.core.entity.Food
 import apps.esampaio.com.comacerto.core.entity.Meal
 import apps.esampaio.com.comacerto.core.extensions.sameDay
+import apps.esampaio.com.comacerto.core.persistence.entities.FoodEntity
+import apps.esampaio.com.comacerto.core.persistence.entities.MealAndFoods
+import apps.esampaio.com.comacerto.core.persistence.entities.MealEntity
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.runOnUiThread
 import java.util.*
 
-class MealPersistence {
-    companion object {
-        var mealsList = mutableListOf<Meal>()
-    }
-//    private fun getRealmObject(_ meal:Meal) : MealRealmEntity?{
-//        val realm = try! Realm()
-//        return realm.object(ofType: MealRealmEntity.self, forPrimaryKey: meal.primaryKey)
-//    }
-    fun saveOrUpdateMeal(meal: Meal){
-        if(meal.primaryKey == null || (meal.primaryKey?.isEmpty())){
-            saveMeal(meal)
-        }else{
-            updateMeal(meal)
-        }
-    }
+class MealPersistence(val context: Context) {
+
+
     fun saveMeal( meal: Meal){
-//        val realm = try! Realm()
-//        val mealRealmEntity = MealRealmEntity()
-//        mealRealmEntity.fromMeal(meal: meal)
-//        
-//        try! realm.write {
-//            realm.add(mealRealmEntity)
-//        }
-        mealsList.add(meal);
-    }
-    fun updateMeal(newMeal : Meal){
-        for(meal in mealsList){
-            if (meal.primaryKey == newMeal.primaryKey){
-                val index = mealsList.indexOf(meal);
-                mealsList.add(index,newMeal);
+        doAsync{
+            val mealDao = AppDatabase.getInstance(context)?.mealDao()
+            val foodDao = AppDatabase.getInstance(context)?.foodDao()
+            if (mealDao != null) {
+                val mealEntity = MealEntity(meal)
+                val mealEntityId = mealDao.save(mealEntity)
+                for(food in meal.foods){
+                    val foodEntity = FoodEntity(food,mealEntityId)
+                    foodDao?.save(foodEntity)
+                }
             }
         }
-//        if val mealRealmEntity = getRealmObject(meal){
-//        val realm = try! Realm()
-//            try! realm.write {
-//                mealRealmEntity.fromMeal(meal: meal)
-//                realm.add(mealRealmEntity, update: true)
+    }
+    fun updateMeal(meal : Meal){
+        doAsync {
+            val mealDao = AppDatabase.getInstance(context)?.mealDao()
+            if (mealDao != null) {
+                val mealEntity = MealEntity(meal)
+                mealDao.update(mealEntity)
+            }
+        }
+    }
+    
+    fun getMeals(date: Date, result: (List<Meal>) -> Unit){
+        doAsync {
+            var selectedMeals = mutableListOf<Meal>()
+            val mealDao = AppDatabase.getInstance(context)?.mealDao()
+            if (mealDao != null) {
+                val mealAndFoodsList = mealDao.getAll()
+                for (mealAndFoods in mealAndFoodsList) {
+                    val mealEntity = mealAndFoods.meal
+                    if (mealEntity!=null && mealEntity.date.sameDay(date)) {
+                        val meal = mealEntity?.toMeal()
+                        meal.foods = foodsEntityToFood(mealAndFoods.foods)
+                        if (meal != null) {
+                            selectedMeals.add(meal)
+                        }
+                    }
+                }
+                context.runOnUiThread {
+                    result(selectedMeals)
+                }
+            }
+
+        }
+
+    }
+    private fun foodsEntityToFood(entities: List<FoodEntity>? ) : List<Food>{
+        if(entities == null){
+            return emptyList()
+        }
+        val foods = mutableListOf<Food>()
+        for (entity in entities){
+            foods.add(entity.toFood())
+        }
+        return foods;
+    }
+    
+//    fun getMeals(initialDate: Date,finalDate:Date) : List<Meal> {
+//        val selectedMeals = mutableListOf<Meal>()
+//        for (meal in mealsList){
+//            if (meal.date.after(initialDate) && meal.date.before(finalDate)){
+//                selectedMeals.add(meal)
 //            }
 //        }
-    }
-    
-    fun getMeals(date: Date) : List<Meal> {
-        val selectedMeals = mutableListOf<Meal>()
-        for (meal in mealsList){
-            if (meal.date.sameDay(date)){
-                selectedMeals.add(meal)
-            }
-        }
-        return selectedMeals
-    }
-    
-    
-    fun getMeals(initialDate: Date,finalDate:Date) : List<Meal> {
-        val selectedMeals = mutableListOf<Meal>()
-        for (meal in mealsList){
-            if (meal.date.after(initialDate) && meal.date.before(finalDate)){
-                selectedMeals.add(meal)
-            }
-        }
-//        val realm = try! Realm()
-//        val mealEntities = realm.objects(MealRealmEntity.self).filter("dateAndTime BETWEEN %@", [initialDate.beginOfDay(), finalDate.endOfDay()]).sorted(byKeyPath: "dateAndTime", ascending: true)
-//        var allMeals = [Meal]()
-//        for mealEntity in mealEntities{
-//            val meal = mealEntity.toMeal()
-//            allMeals.append(meal)
-//        }
-//        return allMeals
-        return selectedMeals
-    }
-    
+//        return selectedMeals
+//    }
+//
     
     fun deleteMeal(meal: Meal){
-//        val realm = try! Realm()
-//        if val mealRealmEntity = getRealmObject(meal){
-//            try! realm.write {
-//                realm.devale(mealRealmEntity)
-//            }
-//        }
+       doAsync {
+            val mealDao = AppDatabase.getInstance(context)?.mealDao()
+            if (mealDao != null) {
+                val mealEntity = MealEntity(meal)
+                mealDao.delete(mealEntity)
+            }
+        }
     }
 }

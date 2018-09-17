@@ -34,4 +34,14 @@ enum class MealType {
     fun getName(context: Context) : String {
         return context.resources.getString(nameId)
     }
+    companion object {
+        fun getByOrdinal(ordinal: Int): MealType {
+            for (mealType in MealType.values()) {
+                if (mealType.ordinal == ordinal) {
+                    return mealType
+                }
+            }
+            return None
+        }
+    }
 }

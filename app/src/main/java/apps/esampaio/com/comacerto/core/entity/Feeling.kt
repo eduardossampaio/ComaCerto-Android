@@ -41,4 +41,15 @@ enum class Feeling {
         return context.resources.getString(nameId)
     }
 
+    companion object {
+        fun getByOrdinal(ordinal: Int): Feeling {
+            for (feeling in Feeling.values()) {
+                if (feeling.ordinal == ordinal) {
+                    return feeling
+                }
+            }
+            return None
+        }
+    }
+
 }

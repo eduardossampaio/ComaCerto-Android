@@ -4,7 +4,7 @@ import java.io.Serializable
 import java.util.*
 
 class Meal : Serializable  {
-    var primaryKey  = ""
+    var primaryKey : Long? = null
     var mealType: MealType = MealType.None
     var whatDoing = ""
     var date = Date()
@@ -15,7 +15,7 @@ class Meal : Serializable  {
     constructor(){
 
     }
-    constructor(primaryKey: String, mealType: MealType, whatDoing: String, date: Date, foods: List<Food>, hunger: Level, satiety: Level, feeling: Feeling) {
+    constructor(primaryKey: Long?, mealType: MealType, whatDoing: String, date: Date, foods: List<Food>, hunger: Level, satiety: Level, feeling: Feeling) {
         this.primaryKey = primaryKey
         this.mealType = mealType
         this.whatDoing = whatDoing

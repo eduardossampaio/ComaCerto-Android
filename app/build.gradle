@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-
+apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -33,6 +33,9 @@ dependencies {
     implementation "com.android.support:design:$suport_design_version"
     implementation 'com.cepheuen.elegant-number-button:lib:1.0.2'
     implementation 'com.github.chuross:expandable-layout:1.0.5'
-
+    implementation "android.arch.persistence.room:runtime:1.0.0"
+    kapt "android.arch.persistence.room:compiler:1.0.0"
+    implementation "org.jetbrains.anko:anko-coroutines:$anko_version"
+    implementation "org.jetbrains.anko:anko-common:$anko_version"
 
 }
