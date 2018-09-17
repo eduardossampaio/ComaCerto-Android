@@ -21,4 +21,8 @@ abstract class BaseFragment : Fragment(), ViewPresenter {
     override fun hideLoading() {
 
     }
+
+    override fun finishScreen() {
+
+    }
 }

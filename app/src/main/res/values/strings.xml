@@ -44,5 +44,6 @@
     <string name="add_foods">Adicionar alimentos</string>
     <string name="meal">Refeição</string>
     <string name="feeling">Sentimento</string>
+    <string name="delete_meal">Deletar Refeição</string>
 
 </resources>

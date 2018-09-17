@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.view.help.HelpFragment
 import apps.esampaio.com.comacerto.view.meals.list.ListMealsFragment
@@ -24,8 +25,7 @@ class HomeActivity : AppCompatActivity() {
     val generateReportFragment = GenerateReportFragment.newInstance()
     val settingsFragment = SettingsFragment.newInstance()
     val helpFragment = HelpFragment.newInstance()
-
-
+    private var newMealOption: MenuItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,11 +52,8 @@ class HomeActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val isNewMeal = true
-        if (isNewMeal) {
-            menuInflater.inflate(R.menu.meals_main_menu,menu)
-            return true
-        }
+        menuInflater.inflate(R.menu.meals_main_menu,menu)
+        newMealOption = menu?.findItem(R.id.add_new_meal_menu_item)
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -73,6 +70,7 @@ class HomeActivity : AppCompatActivity() {
         if (lastFragment == fragment){
             return
         }
+
         val transaction = supportFragmentManager.beginTransaction()
 
         transaction.setCustomAnimations(R.anim.slide_in_left, 0);
@@ -81,6 +79,12 @@ class HomeActivity : AppCompatActivity() {
         transaction.addToBackStack(null)
         transaction.commit()
         Log.d("HomeActivity","Fragment size:"+ supportFragmentManager.fragments.size)
+
+        if (fragment == listMealFragment){
+            newMealOption?.setVisible(true)
+        }else{
+            newMealOption?.setVisible(false)
+        }
     }
 
     override fun onBackPressed() {

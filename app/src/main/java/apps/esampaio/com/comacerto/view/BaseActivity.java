@@ -24,4 +24,9 @@ public abstract class BaseActivity extends AppCompatActivity implements ViewPres
     public void hideLoading() {
 
     }
+
+    @Override
+    public void finishScreen() {
+        finish();
+    }
 }

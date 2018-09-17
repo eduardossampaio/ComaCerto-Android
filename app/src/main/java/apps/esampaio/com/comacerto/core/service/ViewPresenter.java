@@ -9,4 +9,6 @@ public interface ViewPresenter {
     void showLoading();
     
     void hideLoading();
+
+    void finishScreen();
 }

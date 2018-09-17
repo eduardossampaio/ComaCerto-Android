@@ -7,6 +7,7 @@ import apps.esampaio.com.comacerto.core.service.meal.MealIteractor
 import apps.esampaio.com.comacerto.core.service.meal.MealPresenter
 import java.util.*
 class MealService : MealIteractor {
+
     val mealPresenter: MealPresenter
     val mealPersistence = MealPersistence()
 
@@ -20,6 +21,10 @@ class MealService : MealIteractor {
 //        val sortedMeals = mealsForDate.sorted(by: { $0.mealType.rawValue < $1.mealType.rawValue })
 //        mealPresenter.updateMealList(meals: sortedMeals)
         mealPresenter.updateMealList(mealsForDate)
+    }
+
+    override fun onUpdatePressed(meal: Meal) {
+
     }
 
     override fun onSavePressed(meal: Meal) {

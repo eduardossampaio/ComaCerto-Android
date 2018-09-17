@@ -10,9 +10,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import android.widget.SeekBar
 import apps.esampaio.com.comacerto.R
-import apps.esampaio.com.comacerto.core.entity.Food
-import apps.esampaio.com.comacerto.core.entity.Level
-import apps.esampaio.com.comacerto.core.entity.Meal
+import apps.esampaio.com.comacerto.core.entity.*
 import apps.esampaio.com.comacerto.core.extensions.appendDate
 import apps.esampaio.com.comacerto.core.extensions.appendTime
 import apps.esampaio.com.comacerto.core.extensions.asString
@@ -28,15 +26,13 @@ import kotlinx.android.synthetic.main.activity_add_new_meal_2.*
 import kotlinx.android.synthetic.main.layout_view_hunger_level.*
 import java.text.DateFormat
 import apps.esampaio.com.comacerto.core.service.meal.MealService
-import kotlinx.android.synthetic.main.date_list_view.*
 import java.util.*
 
 
-class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment.OnDateSetListener, RadialTimePickerDialogFragment.OnTimeSetListener,SeekBar.OnSeekBarChangeListener,MealPresenter {
+open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment.OnDateSetListener, RadialTimePickerDialogFragment.OnTimeSetListener,SeekBar.OnSeekBarChangeListener,MealPresenter {
     override fun updateMealList(meals: List<Meal>) {
 
     }
-
 
     override fun onProgressChanged(seekbar: SeekBar?, progress: Int, fromUser: Boolean) {
         if ( seekbar?.id == hunger_level_seek_bar.id){
@@ -63,6 +59,7 @@ class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment.OnDa
     companion object {
         val FRAG_TAG_DATE_PICKER = "FRAG_TAG_DATE_PICKER"
         val FRAG_TAG_TIME_PICKER = "FRAG_TAG_TIME_PICKER"
+        val MEAL_INTENT_PARAM    = "PARAM_MEAL"
     }
 
     var meal = Meal()
@@ -81,7 +78,13 @@ class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment.OnDa
 
         updateDateTextView(meal.date)
         updateTimeTextView(meal.date)
+        setSelectedFeeling(Feeling.Natural)
+        setSelectedMealType(MealType.Breakfast)
 
+        val receivedMeal = intent?.extras?.getSerializable(MEAL_INTENT_PARAM) as Meal?
+        if ( receivedMeal != null){
+            this.meal = receivedMeal
+        }
     }
     private fun updateDateTextView(date:Date){
         complete_date_text_view.text = "${date.asString(DateFormat.getDateInstance(DateFormat.LONG))}"
@@ -145,8 +148,22 @@ class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment.OnDa
         return super.onOptionsItemSelected(item)
     }
 
+    private fun setSelectedMealType(mealType: MealType){
+        meal.mealType = mealType;
+        meal_name.text = mealType.getName(this)
+        Handler().postDelayed( {
+            list_meal_expandable_layout.collapse()
+        },100)
+    }
+    private fun setSelectedFeeling(feeling: Feeling){
+        meal.feeling = feeling;
+        feeling_name.text = feeling.getName(this)
+        Handler().postDelayed( {
+            list_feelings_expandable_layout.collapse()
+        },100)
+    }
+
     private fun saveMeal(){
-//        meal.date = selected_day;
         meal.foods = getFoods()
         meal.hunger = Level.hunger( hunger_level_seek_bar.progress)
         meal.satiety = Level.satiety( hunger_level_seek_bar.progress)
@@ -164,12 +181,7 @@ class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment.OnDa
         meal_list_rv.adapter = adapter
         meal_list_rv.layoutManager = GridLayoutManager(this,4)
         adapter.onMealSelectedListener = {
-            meal.mealType = it;
-            meal_name.text = it.getName(this)
-            Handler().postDelayed( {
-                list_meal_expandable_layout.collapse()
-            },100)
-
+            setSelectedMealType(it)
         }
     }
 
@@ -182,11 +194,7 @@ class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment.OnDa
         feeling_list_rv.layoutManager = GridLayoutManager(this,4)
         (feeling_list_rv.adapter as FeelingsListRecyclerViewAdapter).notifyDataSetChanged()
         adapter.onFeelingSelectedListener = {
-            meal.feeling = it;
-            feeling_name.text = it.getName(this)
-            Handler().postDelayed( {
-                list_feelings_expandable_layout.collapse()
-            },100)
+           setSelectedFeeling(it)
         }
     }
 

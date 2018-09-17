@@ -10,6 +10,8 @@ interface MealIteractor {
 
     fun onSavePressed(meal: Meal)
 
+    fun onUpdatePressed(meal: Meal)
+
     fun onDeletePressed(meal: Meal)
 
     fun onCancelPressed()
