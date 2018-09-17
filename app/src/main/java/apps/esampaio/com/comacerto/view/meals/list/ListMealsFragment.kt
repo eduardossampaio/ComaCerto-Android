@@ -49,6 +49,7 @@ class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener, DateLi
 
     fun newDaySelected(day: Date){
         mealIterator.dateSelected(day)
+
     }
     override fun onPageSelected(pageIndex: Int) {
         val newPosition = pageIndex;

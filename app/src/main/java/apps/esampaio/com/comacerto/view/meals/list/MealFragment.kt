@@ -15,9 +15,10 @@ import apps.esampaio.com.comacerto.view.meals.list.adapter.ListDailyMealAdapter
 import kotlinx.android.synthetic.main.fragment_daily_meals.*
 
 class MealFragment : BaseFragment() {
-    var mealList:Array<Meal> = emptyArray()
-    var dailyMealsRecyclerView : RecyclerView? = null
-    var noMealsRegisteredTextView : TextView? = null
+    var mealList: Array<Meal> = emptyArray()
+    var fragmentPosition : Int? = 0;
+    var dailyMealsRecyclerView: RecyclerView? = null
+    var noMealsRegisteredTextView: TextView? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_daily_meals, container, false)
@@ -30,29 +31,41 @@ class MealFragment : BaseFragment() {
         updateViews()
     }
 
-    private fun updateViews(){
+    private fun updateViews() {
         mealList = arguments?.get(PARAM_MEAL_LIST) as Array<Meal>
-        Log.d("MealFragment","updateViews")
-        if (mealList.isEmpty()){
+        fragmentPosition = arguments?.getInt(PARAM_FRAGMENT_LIST_POSITION)
+        update(mealList)
+
+    }
+
+    fun getFragmentPosition() : Int{
+       return if (fragmentPosition != null)  fragmentPosition!! else -1
+    }
+
+    fun update(mealList: Array<Meal>) {
+        Log.d("MealFragment", "updateViews")
+        this.mealList = mealList
+        if (mealList.isEmpty()) {
             dailyMealsRecyclerView?.visibility = View.GONE
             noMealsRegisteredTextView?.visibility = View.VISIBLE
             noMealsRegisteredTextView?.append(".")
-        }else {
+        } else {
             dailyMealsRecyclerView?.visibility = View.VISIBLE
             noMealsRegisteredTextView?.visibility = View.GONE
             dailyMealsRecyclerView?.layoutManager = LinearLayoutManager(activity)
             dailyMealsRecyclerView?.adapter = ListDailyMealAdapter(activity!!, mealList.asList())
         }
-
     }
 
     companion object {
         private const val PARAM_MEAL_LIST = "PARAM_MEAL_LIST"
+        private const val PARAM_FRAGMENT_LIST_POSITION = "PARAM_FRAGMENT_LIST_POSITION"
         @JvmStatic
-        fun newInstance(mealList:List<Meal>) = MealFragment().apply {
+        fun newInstance(mealList: List<Meal>,position: Int) = MealFragment().apply {
             val args = Bundle()
             val mealsArray = mealList.toTypedArray()
-            args.putSerializable(PARAM_MEAL_LIST, mealsArray )
+            args.putSerializable(PARAM_MEAL_LIST, mealsArray)
+            args.putSerializable(PARAM_FRAGMENT_LIST_POSITION, position)
             setArguments(args)
         }
     }

@@ -8,14 +8,12 @@ import apps.esampaio.com.comacerto.core.entity.Meal
 import apps.esampaio.com.comacerto.core.extensions.dayOfYear
 import apps.esampaio.com.comacerto.view.meals.list.MealFragment
 import java.util.*
-import android.provider.SyncStateContract.Helpers.update
-import android.support.v4.view.PagerAdapter
 
 
 class  DailyMealViewPager(fragmentManager:FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
     var itemCount = 0
-    var mealList = listOf<Meal>()
     var mealsMap = hashMapOf<Int,List<Meal>>()
+
     init {
        itemCount = Date(System.currentTimeMillis()).dayOfYear() + 1
     }
@@ -25,13 +23,12 @@ class  DailyMealViewPager(fragmentManager:FragmentManager) : FragmentStatePagerA
         notifyDataSetChanged()
     }
 
-
     override fun getItem(index: Int): Fragment {
         var mealList = mealsMap[index]
         if (mealList == null){
             mealList = emptyList()
         }
-        return MealFragment.newInstance(mealList)
+        return MealFragment.newInstance(mealList,index)
     }
 
     override fun getCount(): Int {
@@ -39,7 +36,13 @@ class  DailyMealViewPager(fragmentManager:FragmentManager) : FragmentStatePagerA
     }
 
     override fun getItemPosition(fragmentObject: Any): Int {
-        return PagerAdapter.POSITION_NONE
+
+        val f = fragmentObject as MealFragment
+        val fragmentPosition = fragmentObject.getFragmentPosition()
+        if (f != null && mealsMap[fragmentPosition] != null) {
+            f!!.update(mealsMap[fragmentPosition]!!.toTypedArray())
+        }
+        return super.getItemPosition(fragmentObject)
     }
 
 
