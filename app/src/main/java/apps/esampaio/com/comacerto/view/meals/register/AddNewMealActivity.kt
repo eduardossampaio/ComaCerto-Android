@@ -169,7 +169,6 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
         meal.satiety = Level.satiety( hunger_level_seek_bar.progress)
         meal.whatDoing = what_doing_text_view.text.toString()
         mealInteractor.onSavePressed(meal)
-        finish()
     }
 
     private fun setupMealsList(){

@@ -17,7 +17,6 @@ class MealService : MealIteractor {
     }
 
     override fun dateSelected(date: Date) {
-        Log.d("MealService","selected date ${date}")
         mealPersistence.getMeals(date, {
             mealPresenter.updateMealList(it)
         })
@@ -26,15 +25,14 @@ class MealService : MealIteractor {
 
     override fun onUpdatePressed(meal: Meal) {
         mealPersistence.updateMeal(meal)
+        mealPresenter.showAlert("Refeição atualizada com sucesso")
+        mealPresenter.finishScreen()
     }
 
     override fun onSavePressed(meal: Meal) {
         mealPersistence.saveMeal(meal)
-        if (meal.primaryKey == null){
-            mealPresenter.showAlert("Refeição adicionada com sucesso")
-        }else{
-            mealPresenter.showAlert("Refeição atualizada com sucesso")
-        }
+        mealPresenter.showAlert("Refeição adicionada com sucesso")
+        mealPresenter.finishScreen()
     }
 
     override fun onCancelPressed() {
@@ -43,5 +41,7 @@ class MealService : MealIteractor {
 
     override fun onDeletePressed(meal: Meal) {
         mealPersistence.deleteMeal(meal)
+        mealPresenter.showAlert("Refeição removida com sucesso")
+        mealPresenter.finishScreen()
     }
 }

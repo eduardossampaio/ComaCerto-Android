@@ -5,11 +5,12 @@ import android.arch.persistence.room.OnConflictStrategy.REPLACE
 import apps.esampaio.com.comacerto.core.entity.Meal
 import apps.esampaio.com.comacerto.core.persistence.entities.MealAndFoods
 import apps.esampaio.com.comacerto.core.persistence.entities.MealEntity
+import java.util.*
 
 @Dao
 interface MealDAO{
-    @Query("SELECT * from MealEntity")
-    fun getAll(): List<MealAndFoods>
+    @Query("SELECT * from MealEntity where date  BETWEEN :from AND :to ORDER BY mealType asc")
+    fun getAllInDateRange(from: Long,to: Long): List<MealAndFoods>
 
     @Insert
     fun save(entity: MealEntity) : Long

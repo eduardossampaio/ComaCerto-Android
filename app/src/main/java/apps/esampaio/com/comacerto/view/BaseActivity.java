@@ -1,13 +1,14 @@
 package apps.esampaio.com.comacerto.view;
 
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import apps.esampaio.com.comacerto.core.service.ViewPresenter;
 
 public abstract class BaseActivity extends AppCompatActivity implements ViewPresenter{
     @Override
     public void showAlert(String message) {
-
+        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
     }
 
     @Override

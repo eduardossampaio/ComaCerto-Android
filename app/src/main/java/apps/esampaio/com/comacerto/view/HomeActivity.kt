@@ -3,6 +3,7 @@ package apps.esampaio.com.comacerto.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -80,11 +81,16 @@ class HomeActivity : AppCompatActivity() {
         transaction.commit()
         Log.d("HomeActivity","Fragment size:"+ supportFragmentManager.fragments.size)
 
-        if (fragment == listMealFragment){
-            newMealOption?.setVisible(true)
-        }else{
+
+        if (fragment == listMealFragment) {
+            Handler().postDelayed({
+                newMealOption?.setVisible(true)
+            }, 200)
+        } else {
             newMealOption?.setVisible(false)
         }
+
+
     }
 
     override fun onBackPressed() {

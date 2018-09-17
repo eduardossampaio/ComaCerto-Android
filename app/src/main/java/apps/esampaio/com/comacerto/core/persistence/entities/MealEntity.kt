@@ -8,6 +8,7 @@ import apps.esampaio.com.comacerto.core.entity.Level
 import apps.esampaio.com.comacerto.core.entity.Meal
 import apps.esampaio.com.comacerto.core.entity.MealType
 import apps.esampaio.com.comacerto.core.persistence.converters.DateConverter
+import apps.esampaio.com.comacerto.core.persistence.converters.TimestampConverter
 import java.util.*
 
 @Entity

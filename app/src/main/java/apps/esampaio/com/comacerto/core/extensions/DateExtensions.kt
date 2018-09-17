@@ -34,6 +34,15 @@ fun Date.dayOfYear(): Int{
     return calendar.get(Calendar.DAY_OF_YEAR)
 }
 
+fun Date.beginOfDay() : Date{
+    return Calendar.getInstance().appendTime(this,0,0,0);
+}
+
+fun Date.endOfDay() : Date{
+    return Calendar.getInstance().appendTime(this,23,59,59);
+}
+
+
 fun Date.asString(format: DateFormat): String = format.format(this)
 
 fun Date.asString(format: String): String = asString(SimpleDateFormat(format))
@@ -46,10 +55,10 @@ fun Calendar.appendDate(date: Date,day:Int,month:Int,year:Int) : Date{
     return time
 }
 
-fun Calendar.appendTime(date: Date,hour:Int,miute:Int,second:Int = 0) : Date{
+fun Calendar.appendTime(date: Date,hour:Int,minute:Int,second:Int = 0) : Date{
     time = date
     set(Calendar.HOUR_OF_DAY,hour)
-    set(Calendar.MINUTE,miute)
+    set(Calendar.MINUTE,minute)
     set(Calendar.SECOND,second)
     return time
 }
