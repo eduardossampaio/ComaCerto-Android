@@ -24,6 +24,7 @@ class EditMealActivity : AddNewMealActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item!!.itemId == R.id.save_meal_menu_item) {
+            meal.foods = getFoods()
             mealInteractor.onUpdatePressed(this.meal)
             return true
         } else if (item.itemId == R.id.delete_meal_menu_item) {

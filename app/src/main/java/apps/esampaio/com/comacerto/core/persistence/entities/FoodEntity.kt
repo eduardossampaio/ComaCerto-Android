@@ -12,11 +12,11 @@ class FoodEntity {
     var name:String = ""
     var category: String = ""
     var portion : Int = 1
-    var mealPrimaryKey:Long = 0
+    var mealPrimaryKey:Long? = 0
     constructor(){
 
     }
-    constructor(food:Food, mealId: Long){
+    constructor(food:Food, mealId: Long?){
         this.primaryKey = food.primaryKey
         this.name = food.name
         this.category = food.category

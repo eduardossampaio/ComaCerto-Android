@@ -36,9 +36,14 @@ class MealPersistence(val context: Context) {
     fun updateMeal(meal: Meal) {
         doAsync {
             val mealDao = AppDatabase.getInstance(context)?.mealDao()
+            val foodDao = AppDatabase.getInstance(context)?.foodDao()
             if (mealDao != null) {
                 val mealEntity = MealEntity(meal)
                 mealDao.update(mealEntity)
+                for (food in meal.foods) {
+                    val foodEntity = FoodEntity(food, meal.primaryKey)
+                    foodDao?.save(foodEntity)
+                }
             }
         }
     }

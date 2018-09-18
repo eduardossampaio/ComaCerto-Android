@@ -111,7 +111,7 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
         (foods_list_rv.adapter as ListFoodRecyclerViewAdapter).addFood(foodName)
     }
 
-    private fun getFoods(): List<Food> {
+    fun getFoods(): List<Food> {
         return (foods_list_rv.adapter as ListFoodRecyclerViewAdapter).foodsList
     }
 
