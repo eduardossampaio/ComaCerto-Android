@@ -23,6 +23,7 @@ class ListFoodRecyclerViewAdapter(val context: Context) : RecyclerView.Adapter<L
 
             foodNameTextView = view.findViewById(R.id.foodNameTextView)
             portionButton = view.findViewById(R.id.foodPortion)
+
         }
     }
 
@@ -30,7 +31,9 @@ class ListFoodRecyclerViewAdapter(val context: Context) : RecyclerView.Adapter<L
         val food = foodsList.get(index)
         viewHolder.foodNameTextView.text = food.name
         viewHolder.portionButton.number = "${food.portion}"
-
+        viewHolder.portionButton.setOnValueChangeListener { view, oldValue, newValue ->
+            food.portion = newValue
+        }
     }
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ListFoodRecyclerViewHolder {
@@ -42,7 +45,12 @@ class ListFoodRecyclerViewAdapter(val context: Context) : RecyclerView.Adapter<L
     }
 
     fun addFood(foodName: String){
-        foodsList.add(Food(foodName,"Meus Alimentos"))
+        val food = Food(foodName,"Meus Alimentos")
+        if ( foodsList.isEmpty()){
+            foodsList.add(food)
+        }else {
+            foodsList.add(0, food)
+        }
         notifyDataSetChanged()
     }
 

@@ -5,13 +5,13 @@ import java.util.*
 
 class Meal : Serializable  {
     var primaryKey : Long? = null
-    var mealType: MealType = MealType.None
+    var mealType: MealType = MealType.Breakfast
     var whatDoing = ""
     var date = Date()
     var foods : List<Food> = emptyList()
     var hunger:Level = Level.hunger()
     var satiety:Level = Level.satiety()
-    var feeling = Feeling.None
+    var feeling = Feeling.Natural
     constructor(){
 
     }

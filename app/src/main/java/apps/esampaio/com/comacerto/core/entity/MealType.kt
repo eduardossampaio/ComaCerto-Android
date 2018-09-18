@@ -7,7 +7,7 @@ import apps.esampaio.com.comacerto.MyApplication
 import apps.esampaio.com.comacerto.R
 
 enum class MealType {
-    None(R.string.blank,0),
+    None(R.string.blank,R.mipmap.ic_launcher),
     Breakfast(R.string.meal_breakfast,R.drawable.meal_breakfast),
     Lunch(R.string.meal_lunch,R.drawable.meal_lunch),
     Snack(R.string.meal_snack,R.drawable.meal_snack),

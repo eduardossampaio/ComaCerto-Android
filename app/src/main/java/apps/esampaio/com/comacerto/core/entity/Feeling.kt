@@ -8,7 +8,7 @@ import apps.esampaio.com.comacerto.MyApplication
 import apps.esampaio.com.comacerto.R
 
 enum class Feeling {
-    None(0,0),
+    None(R.string.blank,R.mipmap.ic_launcher),
     Natural(R.string.feeling_natural,R.drawable.feeling_normal),
     Anxiety(R.string.feeling_anxiety,R.drawable.feeling_anxiety),
     Frustration(R.string.feeling_frustration,R.drawable.feeling_frustration),

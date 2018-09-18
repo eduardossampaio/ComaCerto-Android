@@ -1,15 +1,22 @@
 package apps.esampaio.com.comacerto.view.meals.edit
 
+import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.view.meals.register.AddNewMealActivity
+import apps.esampaio.com.comacerto.view.meals.register.adapter.ListFoodRecyclerViewAdapter
+import kotlinx.android.synthetic.main.activity_add_new_meal_2.*
 
 class EditMealActivity : AddNewMealActivity() {
     companion object {
         val MEAL_INTENT_PARAM = "PARAM_MEAL"
     }
 
+    override fun onResume() {
+        super.onResume()
+        (foods_list_rv.adapter as ListFoodRecyclerViewAdapter).foodsList = meal.foods.toMutableList()
+    }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.edit_meal_menu, menu)
         return true

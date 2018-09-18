@@ -18,7 +18,6 @@ import java.util.*
 
 class MealPersistence(val context: Context) {
 
-
     fun saveMeal(meal: Meal) {
         doAsync {
             val mealDao = AppDatabase.getInstance(context)?.mealDao()
@@ -78,10 +77,8 @@ class MealPersistence(val context: Context) {
                     result(selectedMeals)
                 }
             }
-
         }
     }
-
 
     fun deleteMeal(meal: Meal) {
         doAsync {
