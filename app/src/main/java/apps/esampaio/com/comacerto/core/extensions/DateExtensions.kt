@@ -20,6 +20,13 @@ fun Date.getFirsDayOfWeek() : Date {
     return calendar.time
 }
 
+fun Date.getLastDayOfWeek() : Date {
+    val calendar = Calendar.getInstance()
+    calendar.time = getFirsDayOfWeek()
+    calendar.add(Calendar.DAY_OF_WEEK,6)
+    return calendar.time
+}
+
 fun Date.sameDay(other: Date): Boolean{
     val calendar1 = Calendar.getInstance()
     val calendar2 = Calendar.getInstance()
@@ -42,16 +49,36 @@ fun Date.endOfDay() : Date{
     return Calendar.getInstance().appendTime(this,23,59,59);
 }
 
+fun Date.beginOfMonth(): Date{
+    val calendar = Calendar.getInstance()
+    calendar.time = this
+    calendar.set(Calendar.DAY_OF_MONTH,1)
+    return calendar.time
+}
+
+fun Date.endOfMonth(): Date{
+    val calendar = Calendar.getInstance()
+    val latDayOfMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+    calendar.time = this
+    calendar.set(Calendar.DAY_OF_MONTH,latDayOfMonth)
+    return calendar.time
+}
 
 fun Date.asString(format: DateFormat): String = format.format(this)
 
 fun Date.asString(format: String): String = asString(SimpleDateFormat(format))
 
-fun Calendar.appendDate(date: Date,day:Int,month:Int,year:Int) : Date{
+fun Calendar.appendDate(date: Date,day:Int =-1 ,month:Int =-1 ,year:Int =-1 ) : Date{
     time = date
-    set(Calendar.DAY_OF_MONTH,day)
-    set(Calendar.MONTH,month)
-    set(Calendar.YEAR,year)
+    if ( day!= -1) {
+        set(Calendar.DAY_OF_MONTH, day)
+    }
+    if(month != -1) {
+        set(Calendar.MONTH, month)
+    }
+    if(year != -1) {
+        set(Calendar.YEAR, year)
+    }
     return time
 }
 

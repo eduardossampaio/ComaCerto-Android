@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    android:orientation="vertical"
+    android:minHeight="?attr/listPreferredItemHeight"
+    android:gravity="center"
+    android:paddingLeft="15dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/period_name"
+        android:textColor="@drawable/period_color_selector"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="marquee"
+        android:textSize="16sp"
+        android:singleLine="true"
+        android:textAlignment="inherit"
+        android:text="item name" />
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:textColor="@drawable/period_color_selector"
+        android:id="@+id/period_range"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="marquee"
+        android:visibility="visible"
+        android:singleLine="true"
+        android:textAlignment="inherit"
+        android:text="period" />
+
+</LinearLayout>

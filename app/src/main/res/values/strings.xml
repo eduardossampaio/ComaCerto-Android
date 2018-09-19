@@ -45,5 +45,16 @@
     <string name="meal">Refeição</string>
     <string name="feeling">Sentimento</string>
     <string name="delete_meal">Deletar Refeição</string>
+    <string name="initial_date">Data inicial</string>
+    <string name="final_date">Final date</string>
+    <string name="add_reminders">Adicionar Lembretes</string>
 
+    <!-- Report -->
+
+    <string name="period_weekly">Semanal</string>
+    <string name="period_biweekly_1">Primeira quinzena</string>
+    <string name="period_biweekly_2">Segunda quinzena</string>
+    <string name="period_monthly">Mensal</string>
+    <string name="period_select">Escolher período</string>
+    <string name="period_custom">Período personalizado</string>
 </resources>
