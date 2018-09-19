@@ -6,9 +6,11 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import apps.esampaio.com.comacerto.R
 import kotlinx.android.synthetic.main.fragment_generate_reports.*
 import org.jetbrains.anko.runOnUiThread
+import java.util.*
 
 
 class GenerateReportFragment : Fragment() {
@@ -20,6 +22,16 @@ class GenerateReportFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         period_spinner.adapter = PeriodSpinnerAdapter(context!!)
+
+        period_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+
+            }
+
+        }
+
     }
     companion object {
         @JvmStatic
@@ -39,7 +51,6 @@ class GenerateReportFragment : Fragment() {
                }
             }
         },200)
-        //
     }
 
     override fun onPause() {
@@ -47,3 +58,4 @@ class GenerateReportFragment : Fragment() {
         //period_expandable_layout.collapse()
     }
 }
+

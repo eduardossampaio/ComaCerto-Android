@@ -9,7 +9,7 @@
 
     </style>
 
-    <style name="AppTheme_NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="ComaCertoAppTheme_NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>

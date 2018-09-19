@@ -43,10 +43,10 @@ class PeriodSpinnerAdapter(context: Context) : ArrayAdapter<Period>(context, 0, 
         if ( isSelectedView ){
             periodName.setTextColor(Color.WHITE)
             periodRange.setTextColor(Color.WHITE)
-
-            if ( position == count-1 ){
-                periodName.text = context.getString(R.string.period_custom)
-            }
+//  TODO descomentar quando tiver implementado o calendário com multipla escolha
+//            if ( position == count-1 ){
+//                periodName.text = context.getString(R.string.period_custom)
+//            }
         }
         return view
     }
@@ -62,8 +62,9 @@ class PeriodSpinnerAdapter(context: Context) : ArrayAdapter<Period>(context, 0, 
                     Period(context.getString(R.string.period_weekly),firstDayOWeek,lastDayOfWeek),
                     Period(context.getString(R.string.period_biweekly_1),firstDayOfMonth,middleOfMonth),
                     Period(context.getString(R.string.period_biweekly_2),middleOfMonth,lastDayOfMonth),
-                    Period(context.getString(R.string.period_monthly),firstDayOfMonth,lastDayOfMonth),
-                    Period(context.getString(R.string.period_select)))
+                    Period(context.getString(R.string.period_monthly),firstDayOfMonth,lastDayOfMonth)
+//                    Period(context.getString(R.string.period_select))
+            )
         }
     }
 }

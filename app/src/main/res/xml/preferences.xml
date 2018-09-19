@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:icon="@drawable/pref_icon_reminder"
+        android:key="PREFERENCE_ENABLE_REMINDER"
+        android:title="@string/preferences_enable_reminder"
+        android:summary="@string/preferences_enable_reminder_summary" />
+
+    <Preference
+        android:key="PREFERENCE_BREAKFAST_REMINDER_TIME"
+        android:title="@string/preferences_reminder_breakfast"
+        android:summary="@string/preferences_reminder_breakfast_summary" />
+
+    <Preference
+        android:key="PREFERENCE_LUNCH_REMINDER_TIME"
+        android:title="@string/preferences_reminder_lunch"
+        android:summary="@string/preferences_reminder_lunch_summary" />
+
+    <Preference
+        android:key="PREFERENCE_SNACK_REMINDER_TIME"
+        android:title="@string/preferences_reminder_snack"
+        android:summary="@string/preferences_reminder_snack_summary" />
+
+    <Preference
+        android:key="PREFERENCE_DINNER_REMINDER_TIME"
+        android:title="@string/preferences_reminder_dinner"
+        android:summary="@string/preferences_reminder_dinner_summary" />
+
+</PreferenceScreen>

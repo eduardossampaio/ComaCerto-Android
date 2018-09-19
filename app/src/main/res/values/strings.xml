@@ -50,11 +50,29 @@
     <string name="add_reminders">Adicionar Lembretes</string>
 
     <!-- Report -->
-
+    <string name="select_report_period">Selecione um período para gerar o seu relatório</string>
     <string name="period_weekly">Semanal</string>
     <string name="period_biweekly_1">Primeira quinzena</string>
     <string name="period_biweekly_2">Segunda quinzena</string>
     <string name="period_monthly">Mensal</string>
     <string name="period_select">Escolher período</string>
     <string name="period_custom">Período personalizado</string>
+
+
+    <!-- Preferences -->
+    <string name="preferences_enable_reminder">Habilitar lembretes</string>
+    <string name="preferences_enable_reminder_summary">Para lembrar-lo de fazer suas refeições no horário correto</string>
+
+    <string name="preferences_reminder_breakfast">Horário do café da manhã</string>
+    <string name="preferences_reminder_breakfast_summary">08:00</string>
+
+    <string name="preferences_reminder_lunch">Horário do almoço</string>
+    <string name="preferences_reminder_lunch_summary">12:00</string>
+
+    <string name="preferences_reminder_snack">Horário do lanche</string>
+    <string name="preferences_reminder_snack_summary">16:00</string>
+
+    <string name="preferences_reminder_dinner">Horário da janta</string>
+    <string name="preferences_reminder_dinner_summary">20:00</string>
+
 </resources>

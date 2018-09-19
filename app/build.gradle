@@ -18,6 +18,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+//    compileOptions {
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//        targetCompatibility JavaVersion.VERSION_1_8
+//    }
 }
 
 dependencies {
@@ -25,8 +29,9 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation "com.android.support:appcompat-v7:$suport_design_version"
     implementation "com.code-troopers.betterpickers:library:3.0.0"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation "com.android.support:support-v4:$suport_design_version"
+    implementation "com.android.support:preference-v7:$suport_design_version"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
@@ -37,5 +42,10 @@ dependencies {
     kapt "android.arch.persistence.room:compiler:1.0.0"
     implementation "org.jetbrains.anko:anko-coroutines:$anko_version"
     implementation "org.jetbrains.anko:anko-common:$anko_version"
+//    implementation 'com.github.MOLO17:CustomizableCalendar:v0.1.4'
+//    implementation "io.reactivex.rxjava2:rxjava:2.2.2"
+//    implementation 'joda-time:joda-time:2.10'
+    implementation 'com.github.BlackBoxVision:material-calendar-view:v1.5.7'
+    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
 
 }
