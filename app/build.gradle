@@ -42,10 +42,8 @@ dependencies {
     kapt "android.arch.persistence.room:compiler:1.0.0"
     implementation "org.jetbrains.anko:anko-coroutines:$anko_version"
     implementation "org.jetbrains.anko:anko-common:$anko_version"
-//    implementation 'com.github.MOLO17:CustomizableCalendar:v0.1.4'
-//    implementation "io.reactivex.rxjava2:rxjava:2.2.2"
-//    implementation 'joda-time:joda-time:2.10'
     implementation 'com.github.BlackBoxVision:material-calendar-view:v1.5.7'
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+    implementation 'com.github.GrenderG:MarkdownView:0.1.2'
 
 }

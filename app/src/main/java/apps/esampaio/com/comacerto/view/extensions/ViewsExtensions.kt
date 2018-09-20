@@ -1,4 +1,4 @@
-package apps.esampaio.com.comacerto.view
+package apps.esampaio.com.comacerto.view.extensions
 
 import com.codetroopers.betterpickers.radialtimepicker.RadialTimePickerDialogFragment
 import java.util.*

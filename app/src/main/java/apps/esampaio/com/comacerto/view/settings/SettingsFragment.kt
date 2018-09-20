@@ -5,7 +5,6 @@ import android.support.v14.preference.SwitchPreference
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.preference.Preference
 import android.support.v7.preference.PreferenceFragmentCompat
-import android.support.v7.preference.PreferenceManager
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.core.extensions.appendTime
 import apps.esampaio.com.comacerto.core.extensions.asString
@@ -13,7 +12,7 @@ import apps.esampaio.com.comacerto.core.extensions.fromFormat
 import apps.esampaio.com.comacerto.core.service.preferences.PreferencesService
 import apps.esampaio.com.comacerto.core.service.preferences.update
 import apps.esampaio.com.comacerto.view.meals.register.AddNewMealActivity
-import apps.esampaio.com.comacerto.view.setStartTime
+import apps.esampaio.com.comacerto.view.extensions.setStartTime
 import com.codetroopers.betterpickers.radialtimepicker.RadialTimePickerDialogFragment
 import java.util.*
 
@@ -78,7 +77,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun openTimeDialog(targetPreference: Preference) {
-        
+
         val supportFragmentManager = (context as AppCompatActivity).supportFragmentManager
         val rtpd = RadialTimePickerDialogFragment()
                 .setOnTimeSetListener(object : RadialTimePickerDialogFragment.OnTimeSetListener {

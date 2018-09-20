@@ -1,12 +1,13 @@
 <resources>
+
+    <!-- Fragments -->
     <string name="app_name">Coma Certo</string>
     <string name="navigation_bar_list_meal">Refeições</string>
     <string name="navigation_bar_generate_report">Relatórios</string>
     <string name="navigation_bar_settings">Configurações</string>
     <string name="navigation_bar_help">Ajuda</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Add new meal-->
     <string name="no_meals_registered">Sem refeições cadastradas</string>
     <string name="how_i_feel_title">Como me senti</string>
     <string name="what_meal_i_doing_title">Que refeição estou fazendo?</string>
@@ -17,6 +18,7 @@
     <string name="what_i_ate">O que comi</string>
     <string name="what_was_doing">O que estava fazendo</string>
     <string name="blank"></string>
+
     <!-- Feelings-->
     <string name="feeling_natural">Normal</string>
     <string name="feeling_anxiety">Ansioso</string>
@@ -63,17 +65,28 @@
     <string name="preference_category_reminders">Lembretes</string>
     <string name="preferences_enable_reminder">Habilitar lembretes</string>
     <string name="preferences_enable_reminder_summary">Para lembrar-lo de fazer suas refeições no horário correto</string>
-
     <string name="preferences_reminder_breakfast">Horário do café da manhã</string>
     <string name="preferences_reminder_breakfast_summary">08:00</string>
-
     <string name="preferences_reminder_lunch">Horário do almoço</string>
     <string name="preferences_reminder_lunch_summary">12:00</string>
-
     <string name="preferences_reminder_snack">Horário do lanche</string>
     <string name="preferences_reminder_snack_summary">16:00</string>
-
     <string name="preferences_reminder_dinner">Horário da janta</string>
     <string name="preferences_reminder_dinner_summary">20:00</string>
+
+    <!-- Help -->
+    <array name="help_topics">
+        <item>Sobre o aplicativo</item>
+        <item>Regras gerais</item>
+        <item>Como preencher os dados</item>
+        <item>Créditos</item>
+    </array>
+
+    <array name="help_topics_urls">
+        <item>https://raw.githubusercontent.com/eduardossampaio/ComaCerto-IOS/master/Coma%20Certo/about-app.md</item>
+        <item>https://raw.githubusercontent.com/eduardossampaio/ComaCerto-IOS/master/Coma%20Certo/general-rules.md</item>
+        <item>https://raw.githubusercontent.com/eduardossampaio/ComaCerto-IOS/master/Coma%20Certo/how-to-input.md</item>
+        <item>https://raw.githubusercontent.com/eduardossampaio/ComaCerto-IOS/master/Coma%20Certo/credits.md</item>
+    </array>
 
 </resources>
