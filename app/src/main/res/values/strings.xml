@@ -60,6 +60,7 @@
 
 
     <!-- Preferences -->
+    <string name="preference_category_reminders">Lembretes</string>
     <string name="preferences_enable_reminder">Habilitar lembretes</string>
     <string name="preferences_enable_reminder_summary">Para lembrar-lo de fazer suas refeições no horário correto</string>
 

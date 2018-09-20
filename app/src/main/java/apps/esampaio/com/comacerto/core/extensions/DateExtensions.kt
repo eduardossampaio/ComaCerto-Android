@@ -68,6 +68,11 @@ fun Date.asString(format: DateFormat): String = format.format(this)
 
 fun Date.asString(format: String): String = asString(SimpleDateFormat(format))
 
+fun Date.fromFormat(format: String,value:String): Date {
+    val dateFormat = SimpleDateFormat(format)
+    this.time = dateFormat.parse(value).time
+    return this
+}
 fun Calendar.appendDate(date: Date,day:Int =-1 ,month:Int =-1 ,year:Int =-1 ) : Date{
     time = date
     if ( day!= -1) {
