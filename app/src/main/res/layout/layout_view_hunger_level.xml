@@ -18,8 +18,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/hungry"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/hunger_level_text"
@@ -43,8 +42,7 @@
         android:max="4"
         android:progress="3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/satiety_level_seekbar"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        app:layout_constraintStart_toStartOf="@+id/satiety_level_seekbar" />
 
     <!-- Saciedade -->
     <TextView

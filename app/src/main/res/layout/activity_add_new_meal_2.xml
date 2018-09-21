@@ -59,6 +59,7 @@
 
 
         <android.support.constraint.ConstraintLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="?android:attr/listPreferredItemHeight"
@@ -114,37 +115,16 @@
             android:layout_height="1px" />
 
 
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:minHeight="?android:attr/listPreferredItemHeight"
-            android:orientation="horizontal">
-
-            <AutoCompleteTextView
-                android:maxLines="1"
-                android:inputType="text"
-                android:imeOptions="actionDone"
-                android:id="@+id/add_foods_edit_text"
-                android:layout_width="0dp"
+            <TextView
+                android:layout_marginLeft="40dp"
+                android:gravity="center_vertical"
+                android:minHeight="?android:attr/listPreferredItemHeight"
+                android:id="@+id/add_foods_text_view"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
                 android:background="@android:color/transparent"
                 android:hint="@string/add_foods"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </android.support.constraint.ConstraintLayout>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/foods_list_rv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                android:textSize="16sp" />
 
         <View
             style="@style/divider"

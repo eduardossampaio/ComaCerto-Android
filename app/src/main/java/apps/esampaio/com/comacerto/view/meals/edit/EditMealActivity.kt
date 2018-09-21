@@ -13,10 +13,6 @@ class EditMealActivity : AddNewMealActivity() {
         val MEAL_INTENT_PARAM = "PARAM_MEAL"
     }
 
-    override fun onResume() {
-        super.onResume()
-        (foods_list_rv.adapter as ListFoodRecyclerViewAdapter).foodsList = meal.foods.toMutableList()
-    }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.edit_meal_menu, menu)
         return true
@@ -24,7 +20,6 @@ class EditMealActivity : AddNewMealActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item!!.itemId == R.id.save_meal_menu_item) {
-            meal.foods = getFoods()
             mealInteractor.onUpdatePressed(this.meal)
             return true
         } else if (item.itemId == R.id.delete_meal_menu_item) {

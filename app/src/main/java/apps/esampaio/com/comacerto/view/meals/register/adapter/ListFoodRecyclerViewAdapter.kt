@@ -20,10 +20,8 @@ class ListFoodRecyclerViewAdapter(val context: Context) : RecyclerView.Adapter<L
         val portionButton:ElegantNumberButton
 
         constructor(view: View) : super(view) {
-
             foodNameTextView = view.findViewById(R.id.foodNameTextView)
             portionButton = view.findViewById(R.id.foodPortion)
-
         }
     }
 
@@ -36,7 +34,7 @@ class ListFoodRecyclerViewAdapter(val context: Context) : RecyclerView.Adapter<L
         }
     }
 
-    override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ListFoodRecyclerViewHolder {
+    override fun onCreateViewHolder(viewGroupd: ViewGroup, type: Int): ListFoodRecyclerViewHolder {
         return ListFoodRecyclerViewHolder(LayoutInflater.from(context).inflate(R.layout.list_foods_recycler_view_item, null, false));
     }
 

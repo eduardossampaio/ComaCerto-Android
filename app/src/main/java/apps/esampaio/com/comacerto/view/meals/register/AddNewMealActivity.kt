@@ -1,36 +1,58 @@
 package apps.esampaio.com.comacerto.view.meals.register
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
-import android.view.inputmethod.EditorInfo
-import android.widget.ArrayAdapter
 import android.widget.SeekBar
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.core.entity.*
 import apps.esampaio.com.comacerto.core.extensions.appendDate
 import apps.esampaio.com.comacerto.core.extensions.appendTime
 import apps.esampaio.com.comacerto.core.extensions.asString
-
 import apps.esampaio.com.comacerto.core.service.meal.MealPresenter
+import apps.esampaio.com.comacerto.core.service.meal.MealService
 import apps.esampaio.com.comacerto.view.BaseActivity
 import apps.esampaio.com.comacerto.view.meals.register.adapter.FeelingsListRecyclerViewAdapter
-import apps.esampaio.com.comacerto.view.meals.register.adapter.ListFoodRecyclerViewAdapter
+import apps.esampaio.com.comacerto.view.meals.register.adapter.ImageRecyclerViewAdapter
 import apps.esampaio.com.comacerto.view.meals.register.adapter.MealListRecyclerViewAdapter
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment
 import com.codetroopers.betterpickers.radialtimepicker.RadialTimePickerDialogFragment
 import kotlinx.android.synthetic.main.activity_add_new_meal_2.*
 import kotlinx.android.synthetic.main.layout_view_hunger_level.*
 import java.text.DateFormat
-import apps.esampaio.com.comacerto.core.service.meal.MealService
-import apps.esampaio.com.comacerto.view.meals.register.adapter.ImageRecyclerViewAdapter
 import java.util.*
 
 
 open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment.OnDateSetListener, RadialTimePickerDialogFragment.OnTimeSetListener, SeekBar.OnSeekBarChangeListener, MealPresenter {
+    companion object {
+        val FRAG_TAG_DATE_PICKER = "FRAG_TAG_DATE_PICKER"
+        val FRAG_TAG_TIME_PICKER = "FRAG_TAG_TIME_PICKER"
+        val MEAL_INTENT_PARAM = "PARAM_MEAL"
+        val ADD_FOODS_REQUEST_CODE = 123;
+    }
+
+    var meal = Meal()
+    val mealInteractor = MealService(this)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_add_new_meal_2)
+
+        val receivedMeal = intent?.extras?.getSerializable(MEAL_INTENT_PARAM) as Meal?
+        if (receivedMeal != null) {
+            this.meal = receivedMeal
+        }
+        setupDateTimeDialogs()
+        setupMealsList()
+        setupFeelingsList()
+        setupAutocompleteFoods()
+        setupHungerAndSatietySliders()
+    }
+
     override fun updateMealList(meals: List<Meal>) {
 
     }
@@ -59,39 +81,23 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
         updateDateTextView(meal.date)
     }
 
-    companion object {
-        val FRAG_TAG_DATE_PICKER = "FRAG_TAG_DATE_PICKER"
-        val FRAG_TAG_TIME_PICKER = "FRAG_TAG_TIME_PICKER"
-        val MEAL_INTENT_PARAM = "PARAM_MEAL"
-    }
-
-    var meal = Meal()
-    val mealInteractor = MealService(this)
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_new_meal_2)
-
-        val receivedMeal = intent?.extras?.getSerializable(MEAL_INTENT_PARAM) as Meal?
-        if (receivedMeal != null) {
-            this.meal = receivedMeal
-        }
-
-        setupFoodsList()
-        setupDateTimeDialogs()
-        setupMealsList()
-        setupFeelingsList()
-        setupAutocompleteFoods()
-        setupHungerAndSatietySliders()
-    }
-
     override fun onResume() {
         super.onResume()
         updateDateTextView(meal.date)
         updateTimeTextView(meal.date)
+        updateFoodsLabel()
         setSelectedFeeling(meal.feeling)
         setSelectedMealType(meal.mealType)
         setHungerAndSatietyLevels(meal.hunger,meal.satiety)
+
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if ( requestCode == ADD_FOODS_REQUEST_CODE && resultCode == Activity.RESULT_OK){
+            val foodsArray = data?.extras?.getSerializable(SelectFoodsActivity.FOODS_LIST_RESULT) as Array<Food>
+            meal.foods = foodsArray.asList()
+        }
     }
 
     private fun updateDateTextView(date: Date) {
@@ -102,17 +108,12 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
         hour_text_view.text = "${hour.asString("HH:mm")}"
     }
 
-    private fun setupFoodsList() {
-        foods_list_rv.adapter = ListFoodRecyclerViewAdapter(this)
-        foods_list_rv.layoutManager = LinearLayoutManager(this)
-    }
-
-    private fun addFoodToList(foodName: String) {
-        (foods_list_rv.adapter as ListFoodRecyclerViewAdapter).addFood(foodName)
-    }
-
-    fun getFoods(): List<Food> {
-        return (foods_list_rv.adapter as ListFoodRecyclerViewAdapter).foodsList
+    private fun updateFoodsLabel(){
+        if(meal.foods.isEmpty() ) {
+            add_foods_text_view.text = null
+        }else{
+            add_foods_text_view.text = "${meal.foods.size} ${getString(R.string.foods_added)}"
+        }
     }
 
     private fun setupHungerAndSatietySliders() {
@@ -132,20 +133,14 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
     }
 
     private fun setupAutocompleteFoods() {
-        val foods = listOf("Arroz", "ArrFeijão", "ArrCarne", "ArrBatata", "ArrOvo")
-        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, foods)
-        add_foods_edit_text.setAdapter(adapter)
-
-        add_foods_edit_text.setOnEditorActionListener { textView, actionId, keyEvent ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                addFoodToList(add_foods_edit_text.text.toString())
-                add_foods_edit_text.setText("")
-            }
-            true
+        add_foods_text_view.setOnClickListener {
+            val intent = Intent(this,SelectFoodsActivity::class.java)
+            intent.putExtra(SelectFoodsActivity.FOODS_LIST_PARAM,meal.foods.toTypedArray())
+            startActivityForResult(intent,ADD_FOODS_REQUEST_CODE)
         }
 
     }
-
+    
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.add_new_meal_menu, menu)
         return true
@@ -184,7 +179,6 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
     }
 
     private fun saveMeal() {
-        meal.foods = getFoods()
         meal.hunger = Level.hunger(hunger_level_seek_bar.progress)
         meal.satiety = Level.satiety(hunger_level_seek_bar.progress)
         meal.whatDoing = what_doing_text_view.text.toString()
