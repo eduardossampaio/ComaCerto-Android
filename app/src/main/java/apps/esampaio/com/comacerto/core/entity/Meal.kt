@@ -1,12 +1,16 @@
 package apps.esampaio.com.comacerto.core.entity
 
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 import java.util.*
 
 class Meal : Serializable  {
+    @Expose
     var primaryKey : Long? = null
     var mealType: MealType = MealType.Breakfast
     var whatDoing = ""
+    @SerializedName("dateAndTime")
     var date = Date()
     var foods : List<Food> = emptyList()
     var hunger:Level = Level.hunger()

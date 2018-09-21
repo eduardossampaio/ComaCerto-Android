@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "192942342355",
+    "firebase_url": "https://coma-certo.firebaseio.com",
+    "project_id": "coma-certo",
+    "storage_bucket": "coma-certo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:192942342355:android:d4b3f97efc4775ef",
+        "android_client_info": {
+          "package_name": "apps.esampaio.com.comacerto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "192942342355-qop26dkvd8tnlp9gobmb7b0hef772cst.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "apps.esampaio.com.comacerto",
+            "certificate_hash": "01a4fc44b937d5ed2a0e12517b98bae8dc4e6638"
+          }
+        },
+        {
+          "client_id": "192942342355-hopmf7vvoiridvnattq060qpobpj5lhh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAA442BYd-JFLb7tL_1N4pSPpXIyegM-CY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "192942342355-hopmf7vvoiridvnattq060qpobpj5lhh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
