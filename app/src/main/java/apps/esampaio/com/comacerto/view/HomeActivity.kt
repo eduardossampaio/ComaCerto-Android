@@ -26,7 +26,6 @@ class HomeActivity : AppCompatActivity() {
     val generateReportFragment = GenerateReportFragment.newInstance()
     val settingsFragment = SettingsFragment.newInstance()
     val helpFragment = HelpFragment.newInstance()
-    private var newMealOption: MenuItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,19 +51,7 @@ class HomeActivity : AppCompatActivity() {
         openFragment(listMealFragment)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.meals_main_menu,menu)
-        newMealOption = menu?.findItem(R.id.add_new_meal_menu_item)
-        return super.onCreateOptionsMenu(menu)
-    }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if(item?.itemId == R.id.add_new_meal_menu_item){
-            val intent = Intent(this,AddNewMealActivity::class.java)
-            startActivity(intent)
-        }
-        return super.onOptionsItemSelected(item)
-    }
 
 
     private fun openFragment(fragment: Fragment) {
@@ -81,15 +68,15 @@ class HomeActivity : AppCompatActivity() {
         transaction.commit()
         Log.d("HomeActivity","Fragment size:"+ supportFragmentManager.fragments.size)
 
-
-        if (fragment == listMealFragment) {
-            Handler().postDelayed({
-                newMealOption?.setVisible(true)
-            }, 200)
-        } else {
-            newMealOption?.setVisible(false)
-        }
-
+//
+//        if (fragment == listMealFragment) {
+//            Handler().postDelayed({
+//                newMealOption?.setVisible(true)
+//            }, 200)
+//        } else {
+//            newMealOption?.setVisible(false)
+//        }
+//
 
     }
 

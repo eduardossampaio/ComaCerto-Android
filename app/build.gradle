@@ -45,5 +45,7 @@ dependencies {
     implementation 'com.github.BlackBoxVision:material-calendar-view:v1.5.7'
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
     implementation 'com.github.GrenderG:MarkdownView:0.1.2'
-
+    implementation 'com.github.Shashank02051997:FancyAlertDialog-Android:0.1'
+    implementation 'com.github.droidbyme:DroidDialog:c6decc7167'
+    implementation 'com.github.andyxialm:ColorDialog:1.0.0'
 }

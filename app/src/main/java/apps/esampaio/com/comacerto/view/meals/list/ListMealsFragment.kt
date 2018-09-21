@@ -1,12 +1,10 @@
 package apps.esampaio.com.comacerto.view.meals.list
 
+import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.core.entity.Meal
 import apps.esampaio.com.comacerto.core.extensions.dayOfYear
@@ -15,10 +13,9 @@ import apps.esampaio.com.comacerto.core.service.meal.MealService
 import apps.esampaio.com.comacerto.view.BaseFragment
 import apps.esampaio.com.comacerto.view.custom.DateListView
 import apps.esampaio.com.comacerto.view.meals.list.adapter.DailyMealViewPager
-import kotlinx.android.synthetic.main.date_list_view.view.*
+import apps.esampaio.com.comacerto.view.meals.register.AddNewMealActivity
 import kotlinx.android.synthetic.main.fragment_list_meals.*
 import java.util.*
-import kotlin.math.log
 
 
 class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener, DateListView.DayItemSelectedListener,MealPresenter {
@@ -26,6 +23,24 @@ class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener, DateLi
     var currentItemPosition = 0
     var mealIterator = MealService(this)
     var adapter : DailyMealViewPager? = null
+
+    init {
+        setHasOptionsMenu(true)
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater?.inflate(R.menu.list_meals_menu,menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if(item?.itemId == R.id.add_new_meal_menu_item){
+            val intent = Intent(context, AddNewMealActivity::class.java)
+            startActivity(intent)
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
     override fun updateMealList(meals: List<Meal>) {
         adapter?.updateFragment(currentItemPosition,meals)

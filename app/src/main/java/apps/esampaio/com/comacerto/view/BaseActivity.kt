@@ -1,20 +1,18 @@
 package apps.esampaio.com.comacerto.view
 
-import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 
 import apps.esampaio.com.comacerto.core.service.ViewPresenter
 import apps.esampaio.com.comacerto.view.dialogs.Dialogs
 
-abstract class BaseFragment : Fragment(), ViewPresenter {
-
+abstract class BaseActivity : AppCompatActivity(), ViewPresenter {
     override fun showAlert(message: String, onOkPressed: (() -> Unit)?) {
-        Dialogs.openAlertDialog(context!!,message,onOkPressed)
+        Dialogs.openAlertDialog(this, message,onOkPressed)
     }
 
     override fun showAskDialog(message: String, onYesPressed: (() -> Unit)?, onNoPressed: (() -> Unit)?) {
-        Dialogs.openAskDialog(context!!,message,onYesPressed,onNoPressed);
+        Dialogs.openAskDialog(this, message,onYesPressed,onNoPressed)
     }
-
     override fun showError(message: String) {
 
     }
@@ -28,6 +26,6 @@ abstract class BaseFragment : Fragment(), ViewPresenter {
     }
 
     override fun finishScreen() {
-
+        finish()
     }
 }

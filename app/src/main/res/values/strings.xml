@@ -73,6 +73,18 @@
     <string name="preferences_reminder_snack_summary">16:00</string>
     <string name="preferences_reminder_dinner">Horário da janta</string>
     <string name="preferences_reminder_dinner_summary">20:00</string>
+    <string name="generate_report">Gerar relatório</string>
+    <string name="share_report">Compartilhar relatório</string>
+
+    <!-- Dialogs -->
+    <string name="dialog_ok_text">Ok</string>
+    <string name="dialog_cancel_text">Cancelar</string>
+    <string name="dialog_yes_text">Sim</string>
+    <string name="dialog_no_text">Não</string>
+    <string name="meal_successful_added_message">Refeição adicionada com sucesso</string>
+    <string name="meal_successful_edited_message">Refeição atualizada com sucesso</string>
+    <string name="meal_delete_ask_message">Deseja remover esta refeição</string>
+    <string name="meal_successful_deleted_message">Refeição deletada com sucesso</string>
 
     <!-- Help -->
     <array name="help_topics">
