@@ -3,6 +3,7 @@ package apps.esampaio.com.comacerto
 import android.app.Application
 import apps.esampaio.com.comacerto.core.entity.Feeling
 import apps.esampaio.com.comacerto.core.entity.MealType
+import apps.esampaio.com.comacerto.core.firebase.RemoteConfig
 
 class MyApplication : Application() {
     companion object {
@@ -15,5 +16,8 @@ class MyApplication : Application() {
         //to load images
         Feeling.values()
         MealType.values()
+
+        //fetch remote config
+        RemoteConfig.getInstance()
     }
 }

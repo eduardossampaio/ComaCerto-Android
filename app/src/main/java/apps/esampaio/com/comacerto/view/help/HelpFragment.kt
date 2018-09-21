@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import apps.esampaio.com.comacerto.R
+import apps.esampaio.com.comacerto.core.entity.HelpTopic
+import apps.esampaio.com.comacerto.core.firebase.RemoteConfig
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_help.*
 
 
@@ -21,15 +24,17 @@ class HelpFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val helpTopicsJson = RemoteConfig.getInstance().helpTopics
+        val helpTopics = Gson().fromJson<Array<HelpTopic>>(helpTopicsJson, Array<HelpTopic>::class.java)
 
-        val topicsNames = context!!.resources.getStringArray(R.array.help_topics)
-        val topicsUrls = context!!.resources.getStringArray(R.array.help_topics_urls)
-        val adapter = ArrayAdapter<String>(context,android.R.layout.simple_list_item_1,topicsNames)
+
+
+        val adapter = ArrayAdapter<HelpTopic>(context,android.R.layout.simple_list_item_1,helpTopics)
         help_topics.adapter  = adapter
 
         help_topics.setOnItemClickListener { adapterView, view, position, id ->
             val intent = Intent(context,ShowHelpTopicActivity::class.java)
-            val topicUrl = topicsUrls[position]
+            val topicUrl = helpTopics[position]
             intent.putExtra(ShowHelpTopicActivity.INTENT_PARAM_TOPIC_URL, topicUrl)
             startActivity(intent)
         }

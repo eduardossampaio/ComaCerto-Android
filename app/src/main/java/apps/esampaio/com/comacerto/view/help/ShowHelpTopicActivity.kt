@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import apps.esampaio.com.comacerto.R
+import apps.esampaio.com.comacerto.core.entity.HelpTopic
+import apps.esampaio.com.comacerto.core.firebase.RemoteConfig
 import kotlinx.android.synthetic.main.activity_show_help_topic.*
+import kotlinx.android.synthetic.main.fragment_help.*
 import java.io.IOException
 import java.io.InputStream
 
@@ -17,8 +20,10 @@ class ShowHelpTopicActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_help_topic)
-        val topicUrl = intent.getStringExtra(INTENT_PARAM_TOPIC_URL)
-        markdown_view.loadFromUrl(topicUrl)
+        val helpTopic = intent.getSerializableExtra(INTENT_PARAM_TOPIC_URL) as HelpTopic
+        markdown_view.loadFromUrl(helpTopic.contentUrl)
+
+
     }
 
 //

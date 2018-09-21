@@ -87,19 +87,6 @@
     <string name="meal_successful_deleted_message">Refeição deletada com sucesso</string>
     <string name="error_no_meal_in_period">Não há refeições registradas no periodo informado. Por favor selecione um período diferente</string>
     <string name="generating_meals_report">Gerando relátorio das suas refeições. Por favor, aguarde</string>
-    <!-- Help -->
-    <array name="help_topics">
-        <item>Sobre o aplicativo</item>
-        <item>Regras gerais</item>
-        <item>Como preencher os dados</item>
-        <item>Créditos</item>
-    </array>
 
-    <array name="help_topics_urls">
-        <item>https://raw.githubusercontent.com/eduardossampaio/ComaCerto-IOS/master/Coma%20Certo/about-app.md</item>
-        <item>https://raw.githubusercontent.com/eduardossampaio/ComaCerto-IOS/master/Coma%20Certo/general-rules.md</item>
-        <item>https://raw.githubusercontent.com/eduardossampaio/ComaCerto-IOS/master/Coma%20Certo/how-to-input.md</item>
-        <item>https://raw.githubusercontent.com/eduardossampaio/ComaCerto-IOS/master/Coma%20Certo/credits.md</item>
-    </array>
 
 </resources>
