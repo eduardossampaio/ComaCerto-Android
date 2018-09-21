@@ -13,7 +13,8 @@
     <color name="item_selected_color">#d7d4d4</color>
     <color name="item_deselected_color">#FFF</color>
 
-    <color name="date_disabled">#BDBDBD</color>
+    <color name="date_disabled">#bdbdbd</color>
 
-    <color name="dialog_alert_color">#FFEB3B</color>
+    <color name="dialog_alert_color">#f88e00</color>
+    <color name="dialog_loading_color">#3067f1</color>
 </resources>

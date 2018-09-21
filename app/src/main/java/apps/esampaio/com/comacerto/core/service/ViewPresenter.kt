@@ -6,9 +6,9 @@ interface ViewPresenter {
 
     fun showAskDialog(message: String,  onYesPressed: (() -> Unit)? = null,onNoPressed: (() -> Unit)? = null)
 
-    fun showError(message: String)
+    fun showError(message: String,onOkPressed: (() -> Unit)? = null)
 
-    fun showLoading()
+    fun showLoading(message: String)
 
     fun hideLoading()
 

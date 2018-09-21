@@ -85,7 +85,8 @@
     <string name="meal_successful_edited_message">Refeição atualizada com sucesso</string>
     <string name="meal_delete_ask_message">Deseja remover esta refeição</string>
     <string name="meal_successful_deleted_message">Refeição deletada com sucesso</string>
-
+    <string name="error_no_meal_in_period">Não há refeições registradas no periodo informado. Por favor selecione um período diferente</string>
+    <string name="generating_meals_report">Gerando relátorio das suas refeições. Por favor, aguarde</string>
     <!-- Help -->
     <array name="help_topics">
         <item>Sobre o aplicativo</item>

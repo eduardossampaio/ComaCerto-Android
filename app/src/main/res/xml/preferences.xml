@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory
-        android:title="@string/preference_category_reminders">
+
         <SwitchPreference
             android:icon="@drawable/pref_icon_reminder"
             android:key="PREFERENCE_ENABLE_REMINDER"
@@ -28,6 +27,5 @@
             android:key="PREFERENCE_DINNER_REMINDER_TIME"
             android:summary="@string/preferences_reminder_dinner_summary"
             android:title="@string/preferences_reminder_dinner" />
-    </PreferenceCategory>
 
 </PreferenceScreen>

@@ -47,4 +47,7 @@
         <item name="android:background">@color/primary</item>
         <item name="titleTextColor">@color/white</item>
     </style>
+
+    <style name="Theme_Dialog" parent="Base.Theme.AppCompat.Dialog">
+    </style>
 </resources>

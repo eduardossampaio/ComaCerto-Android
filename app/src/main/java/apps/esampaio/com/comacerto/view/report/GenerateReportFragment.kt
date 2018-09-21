@@ -14,6 +14,7 @@ import apps.esampaio.com.comacerto.core.service.report.ReportService
 import apps.esampaio.com.comacerto.core.service.report.http.ReportHttpService
 import apps.esampaio.com.comacerto.view.BaseFragment
 import apps.esampaio.com.comacerto.view.meals.register.AddNewMealActivity
+import com.github.barteksc.pdfviewer.listener.OnErrorListener
 import kotlinx.android.synthetic.main.fragment_generate_reports.*
 import org.jetbrains.anko.runOnUiThread
 import java.util.*
@@ -26,7 +27,14 @@ class GenerateReportFragment : BaseFragment(),ReportPresenter {
     var reportIteractor : ReportIteractor
 
     override fun displayGeneratedReport(report:ByteArray) {
-
+        generate_report_message.visibility = View.GONE
+        pdfView.visibility = View.VISIBLE
+        pdfView.fromBytes(report)
+                .enableSwipe(true)
+                .spacing(0)
+                .onError(OnErrorListener {
+                    Toast.makeText(context,it.message,Toast.LENGTH_LONG).show()
+                }).load()
     }
 
     companion object {

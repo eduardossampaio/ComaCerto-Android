@@ -1,6 +1,13 @@
 package apps.esampaio.com.comacerto.core.service.http
 
+import apps.esampaio.com.comacerto.MyApplication
+import apps.esampaio.com.comacerto.core.entity.Feeling
 import apps.esampaio.com.comacerto.core.entity.Level
+import apps.esampaio.com.comacerto.core.entity.Meal
+import apps.esampaio.com.comacerto.core.entity.MealType
+import apps.esampaio.com.comacerto.core.service.http.converters.FeelingAdapter
+import apps.esampaio.com.comacerto.core.service.http.converters.LevelAdapter
+import apps.esampaio.com.comacerto.core.service.http.converters.MealTypeAdapter
 import apps.esampaio.com.comacerto.core.service.report.http.ReportHttpService
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonElement
@@ -29,19 +36,11 @@ class RetrofitService {
 
         val gson = GsonBuilder()
                 .setDateFormat("dd/MM/yyyy HH:mm")
-                .registerTypeAdapter(Level::class.java,object : JsonSerializer<Level>{
-                    override fun serialize(src: Level?, typeOfSrc: Type?, context: JsonSerializationContext): JsonElement {
-                        var levelValue = ""
-                        if ( src != null){
-                            val level = src as Level
-                            levelValue = level.levelNames[level.level]
-                        }
-                        return  context.serialize(levelValue, String::class.java)
-                    }
-
-
-                })
+                .registerTypeAdapter(Level::class.java,LevelAdapter())
+                .registerTypeAdapter(Feeling::class.java,FeelingAdapter())
+                .registerTypeAdapter(MealType::class.java,MealTypeAdapter())
                 .create()
+
         this.retrofit = Retrofit.Builder()
                 .baseUrl(baseURL)
                 .client(client)
