@@ -1,11 +1,16 @@
 package apps.esampaio.com.comacerto.core.persistence.entities
 
 import android.arch.persistence.room.Entity
+import android.arch.persistence.room.ForeignKey
+import android.arch.persistence.room.ForeignKey.CASCADE
 import android.arch.persistence.room.PrimaryKey
 import apps.esampaio.com.comacerto.core.entity.Food
 
 
-@Entity
+@Entity(foreignKeys = arrayOf(ForeignKey(entity = MealEntity::class,
+        parentColumns = arrayOf("primaryKey"),
+        childColumns = arrayOf("mealPrimaryKey"),
+        onDelete = CASCADE)))
 class FoodEntity {
     @PrimaryKey(autoGenerate = true)
     var primaryKey : Long? = 0

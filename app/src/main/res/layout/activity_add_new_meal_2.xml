@@ -116,6 +116,7 @@
 
 
             <TextView
+                android:textStyle="bold"
                 android:layout_marginLeft="40dp"
                 android:gravity="center_vertical"
                 android:minHeight="?android:attr/listPreferredItemHeight"

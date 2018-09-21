@@ -15,7 +15,7 @@ interface MealDAO{
     @Insert
     fun save(entity: MealEntity) : Long
 
-    @Update
+    @Update(onConflict = REPLACE)
     fun update(entity: MealEntity)
 
     @Delete

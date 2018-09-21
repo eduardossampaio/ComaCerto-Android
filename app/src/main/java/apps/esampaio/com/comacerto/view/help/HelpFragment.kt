@@ -25,10 +25,10 @@ class HelpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val helpTopicsJson = RemoteConfig.getInstance().helpTopics
-        val helpTopics = Gson().fromJson<Array<HelpTopic>>(helpTopicsJson, Array<HelpTopic>::class.java)
-
-
-
+        var helpTopics = Gson().fromJson<Array<HelpTopic>>(helpTopicsJson, Array<HelpTopic>::class.java)
+        if ( helpTopics == null){
+            helpTopics = emptyArray();
+        }
         val adapter = ArrayAdapter<HelpTopic>(context,android.R.layout.simple_list_item_1,helpTopics)
         help_topics.adapter  = adapter
 

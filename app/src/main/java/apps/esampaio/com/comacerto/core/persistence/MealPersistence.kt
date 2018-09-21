@@ -39,6 +39,8 @@ class MealPersistence(val context: Context) {
             val foodDao = AppDatabase.getInstance(context)?.foodDao()
             if (mealDao != null) {
                 val mealEntity = MealEntity(meal)
+                //delete previous foods
+                foodDao?.deleteFoodFromMeal(mealEntity.primaryKey!!)
                 mealDao.update(mealEntity)
                 for (food in meal.foods) {
                     val foodEntity = FoodEntity(food, meal.primaryKey)

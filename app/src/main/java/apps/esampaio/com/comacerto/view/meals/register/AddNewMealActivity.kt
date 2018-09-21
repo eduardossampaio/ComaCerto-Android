@@ -138,9 +138,8 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
             intent.putExtra(SelectFoodsActivity.FOODS_LIST_PARAM,meal.foods.toTypedArray())
             startActivityForResult(intent,ADD_FOODS_REQUEST_CODE)
         }
-
     }
-    
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.add_new_meal_menu, menu)
         return true

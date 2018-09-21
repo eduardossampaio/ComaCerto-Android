@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.core.entity.Food
@@ -18,10 +19,12 @@ class ListFoodRecyclerViewAdapter(val context: Context) : RecyclerView.Adapter<L
     class ListFoodRecyclerViewHolder : RecyclerView.ViewHolder {
         val foodNameTextView:TextView
         val portionButton:ElegantNumberButton
+        val removeButton:ImageView
 
         constructor(view: View) : super(view) {
             foodNameTextView = view.findViewById(R.id.foodNameTextView)
             portionButton = view.findViewById(R.id.foodPortion)
+            removeButton = view.findViewById(R.id.icon_remove)
         }
     }
 
@@ -32,10 +35,15 @@ class ListFoodRecyclerViewAdapter(val context: Context) : RecyclerView.Adapter<L
         viewHolder.portionButton.setOnValueChangeListener { view, oldValue, newValue ->
             food.portion = newValue
         }
+        viewHolder.removeButton.setOnClickListener {
+            //notifyItemRemoved(index)
+            foodsList.removeAt(index)
+            notifyDataSetChanged()
+        }
     }
 
-    override fun onCreateViewHolder(viewGroupd: ViewGroup, type: Int): ListFoodRecyclerViewHolder {
-        return ListFoodRecyclerViewHolder(LayoutInflater.from(context).inflate(R.layout.list_foods_recycler_view_item, null, false));
+    override fun onCreateViewHolder(parent: ViewGroup, type: Int): ListFoodRecyclerViewHolder {
+        return ListFoodRecyclerViewHolder(LayoutInflater.from(context).inflate(R.layout.list_foods_recycler_view_item, parent, false));
     }
 
     override fun getItemCount(): Int {
@@ -49,7 +57,7 @@ class ListFoodRecyclerViewAdapter(val context: Context) : RecyclerView.Adapter<L
         }else {
             foodsList.add(0, food)
         }
-        notifyDataSetChanged()
+        notifyItemInserted(0)
     }
 
 
