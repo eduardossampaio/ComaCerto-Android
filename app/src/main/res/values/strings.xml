@@ -88,6 +88,7 @@
     <string name="error_no_meal_in_period">Não há refeições registradas no periodo informado. Por favor selecione um período diferente</string>
     <string name="generating_meals_report">Gerando relátorio das suas refeições. Por favor, aguarde</string>
     <string name="foods_added">Alimentos adicionados</string>
+    <string name="food_name">Alimento</string>
 
 
 </resources>

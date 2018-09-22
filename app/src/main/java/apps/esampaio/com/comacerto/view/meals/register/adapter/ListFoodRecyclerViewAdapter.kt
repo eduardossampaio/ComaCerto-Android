@@ -15,7 +15,7 @@ import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
 class ListFoodRecyclerViewAdapter(val context: Context) : RecyclerView.Adapter<ListFoodRecyclerViewAdapter.ListFoodRecyclerViewHolder>() {
 
     var foodsList = mutableListOf<Food>()
-
+    lateinit var recyclerView: RecyclerView
     class ListFoodRecyclerViewHolder : RecyclerView.ViewHolder {
         val foodNameTextView:TextView
         val portionButton:ElegantNumberButton
@@ -28,6 +28,12 @@ class ListFoodRecyclerViewAdapter(val context: Context) : RecyclerView.Adapter<L
         }
     }
 
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        super.onAttachedToRecyclerView(recyclerView)
+        this.recyclerView = recyclerView
+    }
+
+
     override fun onBindViewHolder(viewHolder: ListFoodRecyclerViewHolder, index: Int) {
         val food = foodsList.get(index)
         viewHolder.foodNameTextView.text = food.name
@@ -36,9 +42,9 @@ class ListFoodRecyclerViewAdapter(val context: Context) : RecyclerView.Adapter<L
             food.portion = newValue
         }
         viewHolder.removeButton.setOnClickListener {
-            //notifyItemRemoved(index)
             foodsList.removeAt(index)
-            notifyDataSetChanged()
+            notifyItemRemoved(index);
+            notifyItemRangeChanged(index, getItemCount());
         }
     }
 
@@ -58,6 +64,8 @@ class ListFoodRecyclerViewAdapter(val context: Context) : RecyclerView.Adapter<L
             foodsList.add(0, food)
         }
         notifyItemInserted(0)
+        recyclerView.scrollToPosition(0)
+
     }
 
 
