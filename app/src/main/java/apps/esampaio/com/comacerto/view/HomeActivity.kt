@@ -1,26 +1,18 @@
 
 package apps.esampaio.com.comacerto.view
 
-import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.view.help.HelpFragment
 import apps.esampaio.com.comacerto.view.meals.list.ListMealsFragment
-import apps.esampaio.com.comacerto.view.meals.register.AddNewMealActivity
 import apps.esampaio.com.comacerto.view.report.GenerateReportFragment
 import apps.esampaio.com.comacerto.view.settings.SettingsFragment
 import kotlinx.android.synthetic.main.activity_home.*
 
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : BaseActivity() {
     var lastFragment : Fragment? = null
     val listMealFragment = ListMealsFragment.newInstance()
     val generateReportFragment = GenerateReportFragment.newInstance()

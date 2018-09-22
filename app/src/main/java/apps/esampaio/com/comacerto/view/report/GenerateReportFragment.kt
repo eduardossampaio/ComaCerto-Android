@@ -1,9 +1,7 @@
 package apps.esampaio.com.comacerto.view.report
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.app.Fragment
 import android.view.*
 import android.widget.AdapterView
 import android.widget.Toast
@@ -11,13 +9,10 @@ import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.core.service.report.ReportIteractor
 import apps.esampaio.com.comacerto.core.service.report.ReportPresenter
 import apps.esampaio.com.comacerto.core.service.report.ReportService
-import apps.esampaio.com.comacerto.core.service.report.http.ReportHttpService
 import apps.esampaio.com.comacerto.view.BaseFragment
-import apps.esampaio.com.comacerto.view.meals.register.AddNewMealActivity
 import com.github.barteksc.pdfviewer.listener.OnErrorListener
 import kotlinx.android.synthetic.main.fragment_generate_reports.*
 import org.jetbrains.anko.runOnUiThread
-import java.util.*
 
 
 class GenerateReportFragment : BaseFragment(),ReportPresenter {
@@ -49,8 +44,6 @@ class GenerateReportFragment : BaseFragment(),ReportPresenter {
         reportIteractor= ReportService(this)
     }
 
-
-
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         inflater?.inflate(R.menu.generate_report_menu,menu)
         shareMenuItem = menu?.findItem(R.id.share_report_menu_item)!!
@@ -62,10 +55,15 @@ class GenerateReportFragment : BaseFragment(),ReportPresenter {
             generateReport()
             shareMenuItem.setEnabled(true)
         }else if(item?.itemId == R.id.share_report_menu_item){
-            Toast.makeText(context,"Compartilhar relatório",Toast.LENGTH_SHORT).show()
+            shareGeneratedReport()
         }
         return super.onOptionsItemSelected(item)
     }
+
+    private fun shareGeneratedReport() {
+        showError("Essa funcionalidade está em desenvolvimento e estará dispoível em breve")
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_generate_reports, container, false)
     }

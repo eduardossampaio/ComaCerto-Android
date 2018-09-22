@@ -11,6 +11,7 @@ import apps.esampaio.com.comacerto.core.extensions.asString
 import apps.esampaio.com.comacerto.core.extensions.fromFormat
 import apps.esampaio.com.comacerto.core.service.preferences.PreferencesService
 import apps.esampaio.com.comacerto.core.service.preferences.update
+import apps.esampaio.com.comacerto.view.BaseActivity
 import apps.esampaio.com.comacerto.view.meals.register.AddNewMealActivity
 import apps.esampaio.com.comacerto.view.extensions.setStartTime
 import com.codetroopers.betterpickers.radialtimepicker.RadialTimePickerDialogFragment
@@ -39,6 +40,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         enableReminders.setOnPreferenceChangeListener { preference, any ->
             enableMealRemindersIfChecked(any as Boolean)
+            (context as BaseActivity).showError("Essa funcionalidade está em desenvolvimento e estará dispoível em breve")
             true
         }
         breakfastReminder.setOnPreferenceClickListener {
