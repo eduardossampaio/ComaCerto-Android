@@ -1,7 +1,10 @@
 package apps.esampaio.com.comacerto.view.report
 
+import android.graphics.Bitmap
+import android.graphics.pdf.PdfRenderer
 import android.os.Bundle
 import android.os.Handler
+import android.os.ParcelFileDescriptor
 import android.view.*
 import android.widget.AdapterView
 import android.widget.Toast
@@ -10,27 +13,38 @@ import apps.esampaio.com.comacerto.core.service.report.ReportIteractor
 import apps.esampaio.com.comacerto.core.service.report.ReportPresenter
 import apps.esampaio.com.comacerto.core.service.report.ReportService
 import apps.esampaio.com.comacerto.view.BaseFragment
-import com.github.barteksc.pdfviewer.listener.OnErrorListener
+import apps.esampaio.com.comacerto.view.custom.pdfviewpager.PDFViewPagerAdapter
 import kotlinx.android.synthetic.main.fragment_generate_reports.*
 import org.jetbrains.anko.runOnUiThread
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 
 
-class GenerateReportFragment : BaseFragment(),ReportPresenter {
+class GenerateReportFragment : BaseFragment(), ReportPresenter {
 
-    lateinit var shareMenuItem : MenuItem
+    lateinit var shareMenuItem: MenuItem
     var selectedPeriod: Period? = null
-    var reportIteractor : ReportIteractor
+    var reportIteractor: ReportIteractor
 
-    override fun displayGeneratedReport(report:ByteArray) {
+    override fun displayGeneratedReport(report: ByteArray) {
         generate_report_message.visibility = View.GONE
+
+        var file = File.createTempFile("report-pdf", ".pdf")
+        writeToFile(report, file.absolutePath)
         pdfView.visibility = View.VISIBLE
-        pdfView.fromBytes(report)
-                .enableSwipe(true)
-                .spacing(0)
-                .onError(OnErrorListener {
-                    Toast.makeText(context,it.message,Toast.LENGTH_LONG).show()
-                }).load()
+        pdfView.adapter = PDFViewPagerAdapter(fragmentManager!!,file);
+//        (pdfView.adapter as PDFViewPagerAdapter).notifyDataSetChanged()
     }
+
+
+    @Throws(IOException::class)
+    fun writeToFile(data: ByteArray, fileName: String) {
+        val out = FileOutputStream(fileName)
+        out.write(data)
+        out.close()
+    }
+
 
     companion object {
         @JvmStatic
@@ -39,22 +53,22 @@ class GenerateReportFragment : BaseFragment(),ReportPresenter {
         }
     }
 
-    init{
+    init {
         setHasOptionsMenu(true)
-        reportIteractor= ReportService(this)
+        reportIteractor = ReportService(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.generate_report_menu,menu)
+        inflater?.inflate(R.menu.generate_report_menu, menu)
         shareMenuItem = menu?.findItem(R.id.share_report_menu_item)!!
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if(item?.itemId == R.id.generate_report_menu_item){
+        if (item?.itemId == R.id.generate_report_menu_item) {
             generateReport()
             shareMenuItem.setEnabled(true)
-        }else if(item?.itemId == R.id.share_report_menu_item){
+        } else if (item?.itemId == R.id.share_report_menu_item) {
             shareGeneratedReport()
         }
         return super.onOptionsItemSelected(item)
@@ -72,7 +86,7 @@ class GenerateReportFragment : BaseFragment(),ReportPresenter {
         super.onViewCreated(view, savedInstanceState)
         period_spinner.adapter = PeriodSpinnerAdapter(context!!)
 
-        period_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        period_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {}
 
             override fun onItemSelected(adapter: AdapterView<*>?, view: View?, position: Int, p3: Long) {
@@ -84,10 +98,10 @@ class GenerateReportFragment : BaseFragment(),ReportPresenter {
 
     }
 
-    private fun generateReport(){
-        if (selectedPeriod != null){
+    private fun generateReport() {
+        if (selectedPeriod != null) {
             val selectedPeriod = selectedPeriod as Period
-            reportIteractor.onGenerateReportClicked(selectedPeriod.initialDate!!,selectedPeriod.finalDate!!)
+            reportIteractor.onGenerateReportClicked(selectedPeriod.initialDate!!, selectedPeriod.finalDate!!)
         }
     }
 
@@ -95,13 +109,13 @@ class GenerateReportFragment : BaseFragment(),ReportPresenter {
         super.onResume()
         Handler().postDelayed({
             context?.runOnUiThread {
-               try {
-                   period_expandable_layout.expand(true)
-               }catch (e: Exception){
+                try {
+                    period_expandable_layout.expand(true)
+                } catch (e: Exception) {
 
-               }
+                }
             }
-        },200)
+        }, 200)
     }
 }
 
