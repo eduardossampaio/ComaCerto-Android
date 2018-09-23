@@ -30,7 +30,7 @@ class Dialogs {
 
         fun openAskDialog(context: Context, message: String, onYesPressed: (() -> Unit)? = null, onNoPressed: (() -> Unit)? = null) {
             DroidDialog.Builder(context)
-                    .icon(R.drawable.ic_icon_question)
+                    .icon(R.drawable.ic_dialog_question)
                     .title(context.getString(R.string.app_name))
                     .content(message)
                     .cancelable(false, false)
@@ -49,7 +49,7 @@ class Dialogs {
 
         fun openErrorDialog(context: Context, message: String, onOkPressed: (() -> Unit)? = null) {
             DroidDialog.Builder(context)
-                    .icon(R.drawable.ic_dialog_error)
+                    .icon(R.drawable.ic_error_icon)
                     .title(context.getString(R.string.app_name))
                     .content(message)
                     .cancelable(true, true)
