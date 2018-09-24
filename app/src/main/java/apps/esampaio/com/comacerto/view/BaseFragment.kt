@@ -10,6 +10,8 @@ import apps.esampaio.com.comacerto.view.dialogs.Dialogs
 abstract class BaseFragment : Fragment(), ViewPresenter {
     var loadingDialog : Dialog? = null
 
+
+
     override fun showAlert(message: String, onOkPressed: (() -> Unit)?) {
         Dialogs.openAlertDialog(context!!,message,onOkPressed)
     }

@@ -1,72 +1,49 @@
 package apps.esampaio.com.comacerto.view.report
 
-import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.pdf.PdfRenderer
-import android.net.Uri
+
+import android.Manifest
+import android.app.Activity
+import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.Environment
 import android.os.Handler
-import android.os.ParcelFileDescriptor
-import android.support.v4.content.FileProvider
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.view.*
 import android.widget.AdapterView
-import android.widget.Toast
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.core.service.report.ReportIteractor
 import apps.esampaio.com.comacerto.core.service.report.ReportPresenter
 import apps.esampaio.com.comacerto.core.service.report.ReportService
+import apps.esampaio.com.comacerto.core.utils.FileUtils
 import apps.esampaio.com.comacerto.view.BaseFragment
 import apps.esampaio.com.comacerto.view.custom.pdfviewpager.PDFViewPagerAdapter
 import kotlinx.android.synthetic.main.fragment_generate_reports.*
 import org.jetbrains.anko.runOnUiThread
 import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-import android.os.Environment.getExternalStorageDirectory
-import android.support.v4.content.ContextCompat.startActivity
-import android.content.ActivityNotFoundException
-import android.support.v4.content.ContextCompat.startActivity
-import android.webkit.MimeTypeMap
-import apps.esampaio.com.comacerto.BuildConfig
 
 
 class GenerateReportFragment : BaseFragment(), ReportPresenter {
 
-    lateinit var shareMenuItem: MenuItem
-    var selectedPeriod: Period? = null
-    var reportIteractor: ReportIteractor
-    lateinit var generatedReportFile: File
-    override fun displayGeneratedReport(report: ByteArray) {
-        generate_report_message.visibility = View.GONE
-
-        generatedReportFile = createFile("report-pdf.pdf")
-        writeToFile(report, generatedReportFile.absolutePath)
-        pdfView.visibility = View.VISIBLE
-        pdfView.adapter = PDFViewPagerAdapter(fragmentManager!!,generatedReportFile);
-//        (pdfView.adapter as PDFViewPagerAdapter).notifyDataSetChanged()
-    }
-
-
-    @Throws(IOException::class)
-    fun writeToFile(data: ByteArray, fileName: String) {
-        val out = FileOutputStream(fileName)
-        out.write(data)
-        out.close()
-    }
-
-    fun createFile(fileName: String) : File{
-        val root = Environment.getExternalStorageDirectory().toString()
-        val myDir = File(root)
-        myDir.mkdirs()
-        return File(myDir, fileName)
-    }
-
     companion object {
+        val REQUEST_PERMISSIONS_FOR_GENERATE_REPORT =  123
         @JvmStatic
         fun newInstance() = GenerateReportFragment().apply {
 
         }
+    }
+
+    lateinit var shareMenuItem: MenuItem
+    var selectedPeriod: Period? = null
+    var reportIteractor: ReportIteractor
+
+    lateinit var generatedReportFile: File
+
+    override fun displayGeneratedReport(report: ByteArray) {
+        generate_report_message.visibility = View.GONE
+        generatedReportFile = FileUtils.saveDataToFile("report.pdf",report)
+        pdfView.visibility = View.VISIBLE
+        pdfView.adapter = PDFViewPagerAdapter(fragmentManager!!,generatedReportFile);
+
     }
 
     init {
@@ -91,49 +68,10 @@ class GenerateReportFragment : BaseFragment(), ReportPresenter {
     }
 
     private fun shareGeneratedReport() {
-        //showError("Essa funcionalidade está em desenvolvimento e estará dispoível em breve")
-//        val uri = FileProvider.getUriForFile(context!!, context!!.getPackageName() + ".provider", generatedReportFile)
-////        val  uri = Uri.fromFile(generatedReportFile)
-//
-//        val intent = Intent(Intent.ACTION_VIEW)
-//                intent.data = uri
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        val j = Intent.createChooser(intent, "Choose an application to open with:")
-//        startActivity(j)
-//        val sendIntent = Intent(Intent.ACTION_VIEW)
-//        val uri = Uri.fromFile(generatedReportFile)
-//        sendIntent.putExtra(Intent.EXTRA_STREAM, uri)
-//        sendIntent.setType("application/pdf")
-//        startActivity(sendIntent)
-
-//        ).setDataAndType(uri, "application/pdf")
-//        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//        startActivity(intent)
-        showFile(generatedReportFile,"pdf")
+        FileUtils.shareFile(context!!,generatedReportFile,"pdf")
     }
 
-    private fun showFile(file: File, filetype: String) {
-        val myMime = MimeTypeMap.getSingleton()
-        val intent = Intent(Intent.ACTION_VIEW)
-        val mimeType = myMime.getMimeTypeFromExtension(filetype)
-        if (android.os.Build.VERSION.SDK_INT >= 24) {
-            val fileURI = FileProvider.getUriForFile(context!!,
-                    BuildConfig.APPLICATION_ID + ".provider",
-                    file)
-            intent.setDataAndType(fileURI, mimeType)
 
-        } else {
-            intent.setDataAndType(Uri.fromFile(file), mimeType)
-        }
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_GRANT_READ_URI_PERMISSION
-        try {
-            startActivity(intent)
-        } catch (e: ActivityNotFoundException) {
-            Toast.makeText(context, "No Application found to open this type of file.", Toast.LENGTH_LONG).show()
-
-        }
-
-    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_generate_reports, container, false)
     }
@@ -156,8 +94,20 @@ class GenerateReportFragment : BaseFragment(), ReportPresenter {
 
     private fun generateReport() {
         if (selectedPeriod != null) {
-            val selectedPeriod = selectedPeriod as Period
-            reportIteractor.onGenerateReportClicked(selectedPeriod.initialDate!!, selectedPeriod.finalDate!!)
+
+            if (ContextCompat.checkSelfPermission(context!!, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                val selectedPeriod = selectedPeriod as Period
+                reportIteractor.onGenerateReportClicked(selectedPeriod.initialDate!!, selectedPeriod.finalDate!!)
+            }else{
+                requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),REQUEST_PERMISSIONS_FOR_GENERATE_REPORT)
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if ( requestCode == REQUEST_PERMISSIONS_FOR_GENERATE_REPORT && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            generateReport()
         }
     }
 

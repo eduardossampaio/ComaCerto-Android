@@ -16,6 +16,7 @@ class ListFoodRecyclerViewAdapter(val context: Context) : RecyclerView.Adapter<L
 
     var foodsList = mutableListOf<Food>()
     lateinit var recyclerView: RecyclerView
+
     class ListFoodRecyclerViewHolder : RecyclerView.ViewHolder {
         val foodNameTextView:TextView
         val portionButton:ElegantNumberButton
@@ -58,15 +59,9 @@ class ListFoodRecyclerViewAdapter(val context: Context) : RecyclerView.Adapter<L
 
     fun addFood(foodName: String){
         val food = Food(foodName,"Meus Alimentos")
-        if ( foodsList.isEmpty()){
-            foodsList.add(food)
-        }else {
-            foodsList.add(0, food)
-        }
+        foodsList.add(0, food)
         notifyItemInserted(0)
+        notifyItemRangeChanged(0, getItemCount());
         recyclerView.scrollToPosition(0)
-
     }
-
-
 }

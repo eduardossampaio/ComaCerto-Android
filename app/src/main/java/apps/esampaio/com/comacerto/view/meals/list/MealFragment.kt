@@ -48,7 +48,6 @@ class MealFragment : BaseFragment() {
         if (mealList.isEmpty()) {
             dailyMealsRecyclerView?.visibility = View.GONE
             noMealsRegisteredTextView?.visibility = View.VISIBLE
-            noMealsRegisteredTextView?.append(".")
         } else {
             dailyMealsRecyclerView?.visibility = View.VISIBLE
             noMealsRegisteredTextView?.visibility = View.GONE
