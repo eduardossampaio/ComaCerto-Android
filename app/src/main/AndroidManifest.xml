@@ -4,6 +4,7 @@
     package="apps.esampaio.com.comacerto">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".MyApplication"
@@ -29,7 +30,18 @@
         <activity android:name=".view.meals.register.AddNewMealActivity" />
         <activity android:name=".view.meals.edit.EditMealActivity" />
         <activity android:name=".view.help.ShowHelpTopicActivity" />
-        <activity android:name=".view.meals.register.SelectFoodsActivity"></activity>
+        <activity android:name=".view.meals.register.SelectFoodsActivity"/>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+
     </application>
 
 </manifest>
