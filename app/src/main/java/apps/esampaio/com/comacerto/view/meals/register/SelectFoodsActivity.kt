@@ -3,17 +3,28 @@ package apps.esampaio.com.comacerto.view.meals.register
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.core.entity.Food
 import apps.esampaio.com.comacerto.view.BaseActivity
 import apps.esampaio.com.comacerto.view.meals.register.adapter.ListFoodRecyclerViewAdapter
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_select_foods.*
+import uk.co.deanwild.materialshowcaseview.ShowcaseConfig
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence
+
+
+
+
+
+
 
 
 class SelectFoodsActivity : BaseActivity() {
@@ -29,14 +40,62 @@ class SelectFoodsActivity : BaseActivity() {
         val foodsList = intent.getSerializableExtra(FOODS_LIST_PARAM)  as Array<Food>
         setupFoodsList(foodsList.toMutableList())
         setupAutocompleteFoods()
+
+//
+//        MaterialShowcaseView.Builder(this)
+//                .setTarget(add_foods_edit_text)
+//                .setDismissText("GOT IT")
+//                .setContentText("This is some amazing feature you should know about")
+//                //.setDelay(300) // optional but starting animations immediately in onCreate can make them choppy
+//                //.singleUse("agdgd") // provide a unique ID used to ensure it is only shown once
+//                .show()
+
+
+
+
+//        sequence.addSequenceItem(mButtonThree,
+//                "This is button three", "GOT IT")
+
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.add_foods_menu,menu)
-        return super.onCreateOptionsMenu(menu)
+        val result =  super.onCreateOptionsMenu(menu)
+        Handler().postDelayed({
+            runOnUiThread {
+                displayShowCase()
+            }
+        },500)
+        return result
     }
 
+    fun displayShowCase(){
+        val config = ShowcaseConfig()
+        config.delay = 0 // half second between each showcase view
+        val SHOWCASE_ID = "SHOWCASE_ID_FOODS_LIST_kll"
+        val sequence = MaterialShowcaseSequence(this, SHOWCASE_ID)
+
+        sequence.setConfig(config)
+
+        sequence.addSequenceItem(add_foods_edit_text,
+                "Escreva o nome dos alimentos aqui, em sequida aperte o botão v do teclado", "Entendi")
+
+        sequence.addSequenceItem(findViewById(R.id.save_foods_menu_item),
+                "Após escolher seus alimentos, clique aqui pra confirmar", "Entendi")
+        sequence.start()
+
+    }
+
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
         if (item?.itemId == R.id.save_foods_menu_item){
             finishFoodsSelect()
         }

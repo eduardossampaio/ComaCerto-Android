@@ -59,17 +59,7 @@ class HomeActivity : BaseActivity() {
         transaction.addToBackStack(null)
         transaction.commit()
         Log.d("HomeActivity","Fragment size:"+ supportFragmentManager.fragments.size)
-
-//
-//        if (fragment == listMealFragment) {
-//            Handler().postDelayed({
-//                newMealOption?.setVisible(true)
-//            }, 200)
-//        } else {
-//            newMealOption?.setVisible(false)
-//        }
-//
-
+        bottom_navigation_view.getMenu().findItem(bottom_navigation_view.getSelectedItemId())
     }
 
     override fun onBackPressed() {

@@ -6,14 +6,15 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.preference.Preference
 import android.support.v7.preference.PreferenceFragmentCompat
 import apps.esampaio.com.comacerto.R
+import apps.esampaio.com.comacerto.core.entity.MealType
 import apps.esampaio.com.comacerto.core.extensions.appendTime
 import apps.esampaio.com.comacerto.core.extensions.asString
 import apps.esampaio.com.comacerto.core.extensions.fromFormat
 import apps.esampaio.com.comacerto.core.service.preferences.PreferencesService
 import apps.esampaio.com.comacerto.core.service.preferences.update
-import apps.esampaio.com.comacerto.view.BaseActivity
-import apps.esampaio.com.comacerto.view.meals.register.AddNewMealActivity
+import apps.esampaio.com.comacerto.core.service.reminder.ReminderService
 import apps.esampaio.com.comacerto.view.extensions.setStartTime
+import apps.esampaio.com.comacerto.view.meals.register.AddNewMealActivity
 import com.codetroopers.betterpickers.radialtimepicker.RadialTimePickerDialogFragment
 import java.util.*
 
@@ -26,6 +27,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
     lateinit var dinnerReminder: Preference
 
     lateinit var preferenceService: PreferencesService
+
+    val reminderService = ReminderService()
+
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey);
@@ -40,23 +44,22 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         enableReminders.setOnPreferenceChangeListener { preference, any ->
             enableMealRemindersIfChecked(any as Boolean)
-            (context as BaseActivity).showError("Essa funcionalidade está em desenvolvimento e estará dispoível em breve")
             true
         }
         breakfastReminder.setOnPreferenceClickListener {
-            openTimeDialog(breakfastReminder)
+            openTimeDialog(breakfastReminder,MealType.Breakfast)
             true
         }
         lunchReminder.setOnPreferenceClickListener {
-            openTimeDialog(lunchReminder)
+            openTimeDialog(lunchReminder,MealType.Lunch)
             true
         }
         snackReminder.setOnPreferenceClickListener {
-            openTimeDialog(snackReminder)
+            openTimeDialog(snackReminder,MealType.Snack)
             true
         }
         dinnerReminder.setOnPreferenceClickListener {
-            openTimeDialog(dinnerReminder)
+            openTimeDialog(dinnerReminder,MealType.Dinner)
             true
         }
 
@@ -72,13 +75,29 @@ class SettingsFragment : PreferenceFragmentCompat() {
         lunchReminder.isEnabled = enable
         snackReminder.isEnabled = enable
         dinnerReminder.isEnabled = enable
+
+        if ( enable){
+            scheduleAllAlarms()
+        }else{
+            reminderService.cancelAllMealReminders(context!!)
+        }
     }
 
     private fun setSummaryForTimesPref(preference: Preference){
         preference.summary = preferenceService.getPreferenceString(preference.key,preference.summary.toString())
     }
+    private fun scheduleAllAlarms(){
+        reminderService.scheduleReminder(context!!,MealType.Breakfast,preferenceValueAsDate(breakfastReminder))
+        reminderService.scheduleReminder(context!!,MealType.Lunch,preferenceValueAsDate(lunchReminder))
+        reminderService.scheduleReminder(context!!,MealType.Snack,preferenceValueAsDate(snackReminder))
+        reminderService.scheduleReminder(context!!,MealType.Dinner,preferenceValueAsDate(dinnerReminder))
+    }
 
-    private fun openTimeDialog(targetPreference: Preference) {
+
+    private fun preferenceValueAsDate(preference: Preference) : Date{
+        return Date().fromFormat("HH:mm",preference.summary.toString())
+    }
+    private fun openTimeDialog(targetPreference: Preference,mealType: MealType) {
 
         val supportFragmentManager = (context as AppCompatActivity).supportFragmentManager
         val rtpd = RadialTimePickerDialogFragment()
@@ -88,6 +107,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         val dateText = newDate.asString("HH:mm")
                         targetPreference.summary = dateText
                         targetPreference.update(dateText)
+                        reminderService.scheduleReminder(context!!,mealType,newDate)
                     }
                 })
         try{
