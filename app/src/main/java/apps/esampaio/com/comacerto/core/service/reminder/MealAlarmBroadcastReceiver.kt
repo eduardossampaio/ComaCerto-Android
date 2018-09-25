@@ -19,7 +19,7 @@ class MealAlarmBroadcastReceiver : BroadcastReceiver() {
             val mealType = MealType.getByOrdinal(mealOrdinal)
             val mealTypeReminderTime = PreferencesService(context).getMealTimeReminder(mealType)
             val currentTime = Date()
-            if(currentTime.sameHour(mealTypeReminderTime)){
+            if(mealTypeReminderTime!= null && currentTime.sameHour(mealTypeReminderTime)){
                 NotificationService.displayMealReminderNotification(context, mealType, message)
             }
         }

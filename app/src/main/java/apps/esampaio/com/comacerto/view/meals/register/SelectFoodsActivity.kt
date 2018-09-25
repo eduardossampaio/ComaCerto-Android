@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
@@ -19,12 +20,7 @@ import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_select_foods.*
 import uk.co.deanwild.materialshowcaseview.ShowcaseConfig
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence
-
-
-
-
-
-
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView
 
 
 class SelectFoodsActivity : BaseActivity() {
@@ -40,24 +36,6 @@ class SelectFoodsActivity : BaseActivity() {
         val foodsList = intent.getSerializableExtra(FOODS_LIST_PARAM)  as Array<Food>
         setupFoodsList(foodsList.toMutableList())
         setupAutocompleteFoods()
-
-//
-//        MaterialShowcaseView.Builder(this)
-//                .setTarget(add_foods_edit_text)
-//                .setDismissText("GOT IT")
-//                .setContentText("This is some amazing feature you should know about")
-//                //.setDelay(300) // optional but starting animations immediately in onCreate can make them choppy
-//                //.singleUse("agdgd") // provide a unique ID used to ensure it is only shown once
-//                .show()
-
-
-
-
-//        sequence.addSequenceItem(mButtonThree,
-//                "This is button three", "GOT IT")
-
-
-
     }
 
     override fun onResume() {
@@ -77,19 +55,32 @@ class SelectFoodsActivity : BaseActivity() {
     }
 
     fun displayShowCase(){
-        val config = ShowcaseConfig()
-        config.delay = 0 // half second between each showcase view
-        val SHOWCASE_ID = "SHOWCASE_ID_FOODS_LIST_kll"
-        val sequence = MaterialShowcaseSequence(this, SHOWCASE_ID)
-
-        sequence.setConfig(config)
-
-        sequence.addSequenceItem(add_foods_edit_text,
-                "Escreva o nome dos alimentos aqui, em sequida aperte o botão v do teclado", "Entendi")
-
-        sequence.addSequenceItem(findViewById(R.id.save_foods_menu_item),
-                "Após escolher seus alimentos, clique aqui pra confirmar", "Entendi")
-        sequence.start()
+//        val config = ShowcaseConfig()
+//        config.delay = 0 // half second between each showcase view
+//        config.maskColor = ContextCompat.getColor(this,R.color.showcase_background)
+//        val SHOWCASE_ID = "SHOWCASE_ID_FOODS_LIST_kksdsfsf"
+//        val sequence = MaterialShowcaseSequence(this, SHOWCASE_ID)
+//        sequence.setConfig(config)
+//        add_foods_edit_text.clearFocus()
+//        sequence.addSequenceItem(add_foods_edit_text,
+//                "Escreva o nome dos alimentos aqui, em sequida aperte Enter para adicioná-lo", "Entendi")
+//
+//        sequence.addSequenceItem(add_foods_edit_text,
+//                "Os Alimentos apareceram aqui", "Entendi")
+//
+//        sequence.addSequenceItem(findViewById(R.id.save_foods_menu_item),
+//                "Após escolher todos seus alimentos, clique aqui pra confirmar", "Entendi")
+//
+//        sequence.start()
+//        sequence.setOnItemDismissedListener({ itenView, position ->
+//            if(position == 0) {
+//                addFoodToList("Arroz")
+//                addFoodToList("Feijão")
+//                addFoodToList("Carne")
+//            }else if (position == 1){
+//                foodsListAdapter.removeAll()
+//            }
+//        })
 
     }
 

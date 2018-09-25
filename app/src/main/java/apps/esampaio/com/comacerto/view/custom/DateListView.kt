@@ -3,9 +3,12 @@ package apps.esampaio.com.comacerto.view.custom
 import android.content.Context
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
+import android.view.Gravity
 import android.view.View
 import android.widget.RelativeLayout
+import android.widget.TextSwitcher
 import android.widget.TextView
+import android.widget.ViewSwitcher
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.core.extensions.getFirsDayOfWeek
 import apps.esampaio.com.comacerto.core.extensions.getWeek
@@ -13,6 +16,10 @@ import apps.esampaio.com.comacerto.core.extensions.sameDay
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import android.view.animation.AnimationUtils.loadAnimation
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+
 
 class DateListView : RelativeLayout {
     companion object {
@@ -27,13 +34,14 @@ class DateListView : RelativeLayout {
     var onDayItemSelectedListener : DayItemSelectedListener? = null
     //views
     var dayViews = mutableListOf<DayViewHolder>()
-    var selectedDayTextView: TextView? = null
+    lateinit var selectedDayTextView: TextSwitcher
 
     //fields
     var currentWeek = 0
     var selectedDay:Date = Date(System.currentTimeMillis())
         set(value) {
             field = value
+            selectedDayTextView!!.setText( completeDayFormatter.format(value) )
             refreshViews()
         }
     var currentDay = Date(System.currentTimeMillis())
@@ -52,8 +60,7 @@ class DateListView : RelativeLayout {
 
     fun initView() {
         inflate(getContext(), R.layout.date_list_view, this);
-        selectedDayTextView = findViewById(R.id.selected_day);
-
+        setupSelectedDayTextView()
         dayViews.add(0, DayViewHolder(findViewById(R.id.sunday_view),0))
         dayViews.add(1, DayViewHolder(findViewById(R.id.monday_view),1))
         dayViews.add(2, DayViewHolder(findViewById(R.id.tuesday_view),2))
@@ -63,6 +70,24 @@ class DateListView : RelativeLayout {
         dayViews.add(6, DayViewHolder(findViewById(R.id.saturday_view),6))
 
         refreshViews()
+    }
+
+    private fun setupSelectedDayTextView(){
+        selectedDayTextView = findViewById(R.id.selected_day);
+        selectedDayTextView.setFactory(object : ViewSwitcher.ViewFactory{
+            override fun makeView(): View {
+                val t = TextView(context)
+                t.gravity = Gravity.CENTER
+                return t
+            }
+        })
+        val aninIn = AnimationUtils.loadAnimation(context, android.R.anim.fade_in)
+        val aninOut = AnimationUtils.loadAnimation(context, android.R.anim.fade_out)
+        aninIn.duration = 200
+        aninOut.duration = 200
+        selectedDayTextView.inAnimation = aninIn
+        selectedDayTextView.outAnimation = aninOut
+        selectedDayTextView.setText( completeDayFormatter.format(Date()) )
     }
 
     fun refreshViews(){
@@ -152,7 +177,7 @@ class DateListView : RelativeLayout {
                 subview.background = ContextCompat.getDrawable(view.context,R.drawable.circle_drawable)
                 dayItem.setTextColor(ContextCompat.getColor(view.context,R.color.white))
                 weekDayItem.setTextColor(ContextCompat.getColor(view.context,R.color.white))
-                selectedDayTextView!!.text = completeDayFormatter.format(selectedDay)
+
             }else{
                 subview.background = ContextCompat.getDrawable(view.context,android.R.color.transparent)
                 dayItem.setTextColor(ContextCompat.getColor(view.context,R.color.primary))

@@ -64,4 +64,9 @@ class ListFoodRecyclerViewAdapter(val context: Context) : RecyclerView.Adapter<L
         notifyItemRangeChanged(0, getItemCount());
         recyclerView.scrollToPosition(0)
     }
+
+    fun removeAll(){
+        foodsList.clear()
+        notifyDataSetChanged()
+    }
 }

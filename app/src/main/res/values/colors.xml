@@ -17,4 +17,6 @@
 
     <color name="dialog_alert_color">#f88e00</color>
     <color name="dialog_loading_color">#3067f1</color>
+
+    <color name="showcase_background">#ae009688</color>
 </resources>

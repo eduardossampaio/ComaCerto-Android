@@ -59,7 +59,7 @@
             android:layout_weight="1" />
     </LinearLayout>
 
-    <TextView
+    <TextSwitcher
         android:id="@+id/selected_day"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
