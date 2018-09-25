@@ -22,7 +22,7 @@ class ReminderService {
         bundle.putString("MESSAGE","Está quase na hora do seu ${mealName}")
         bundle.putInt("MEAL_TYPE_ORDINAL",mealType.ordinal)
         intent.putExtras(bundle)
-        val alarmIntent = PendingIntent.getBroadcast(context, idForMealType(mealType), intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val alarmIntent = PendingIntent.getBroadcast(context, idForMealType(mealType), intent, 0)
 
         alarmMgr?.setRepeating(
                 AlarmManager.RTC_WAKEUP,

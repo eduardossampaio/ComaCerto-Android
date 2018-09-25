@@ -35,6 +35,15 @@ fun Date.sameDay(other: Date): Boolean{
     return calendar1.get(Calendar.DAY_OF_YEAR) == calendar2.get(Calendar.DAY_OF_YEAR)
 }
 
+fun Date.sameHour(other: Date): Boolean{
+    val calendar1 = Calendar.getInstance()
+    val calendar2 = Calendar.getInstance()
+    calendar1.time = this
+    calendar2.time = other
+    return calendar1.get(Calendar.HOUR_OF_DAY) == calendar2.get(Calendar.HOUR_OF_DAY) &&
+            calendar1.get(Calendar.MINUTE) == calendar2.get(Calendar.MINUTE)
+}
+
 fun Date.dayOfYear(): Int{
     val calendar = Calendar.getInstance()
     calendar.time = this
