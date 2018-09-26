@@ -20,7 +20,7 @@ import java.util.*
 
 
 class SettingsFragment : PreferenceFragmentCompat() {
-    lateinit var enableReminders: SwitchPreference
+
     lateinit var breakfastReminder: Preference
     lateinit var lunchReminder: Preference
     lateinit var snackReminder: Preference
@@ -33,19 +33,36 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey);
+        breakfastReminder = findPreference(PreferencesService.PREFERENCE_BREAKFAST_REMINDER_TIME_KEY) as SwitchPreference
+        lunchReminder = findPreference(PreferencesService.PREFERENCE_LUNCH_REMINDER_TIME_KEY) as SwitchPreference
+        snackReminder = findPreference(PreferencesService.PREFERENCE_SNACK_REMINDER_TIME_KEY) as SwitchPreference
+        dinnerReminder = findPreference(PreferencesService.PREFERENCE_DINNER_REMINDER_TIME_KEY) as SwitchPreference
+
+        breakfastReminder.setOnPreferenceChangeListener {  preference, value ->
+            val checked = value as Boolean
+            if (checked){
+                openTimeDialog(breakfastReminder,MealType.Breakfast)
+            }else{
+
+            }
+            true
+        }
+
+
+/*
         preferenceService = PreferencesService(context!!)
 
-        enableReminders = findPreference(PreferencesService.PREFERENCE_ENABLE_REMINDERS_KEY) as SwitchPreference
+//        enableReminders = findPreference(PreferencesService.PREFERENCE_ENABLE_REMINDERS_KEY) as SwitchPreference
 
         breakfastReminder = findPreference(PreferencesService.PREFERENCE_BREAKFAST_REMINDER_TIME_KEY)
         lunchReminder = findPreference(PreferencesService.PREFERENCE_LUNCH_REMINDER_TIME_KEY)
         snackReminder = findPreference(PreferencesService.PREFERENCE_SNACK_REMINDER_TIME_KEY)
         dinnerReminder = findPreference(PreferencesService.PREFERENCE_DINNER_REMINDER_TIME_KEY)
 
-        enableReminders.setOnPreferenceChangeListener { preference, any ->
-            enableMealRemindersIfChecked(any as Boolean)
-            true
-        }
+//        enableReminders.setOnPreferenceChangeListener { preference, any ->
+//            enableMealRemindersIfChecked(any as Boolean)
+//            true
+//        }
         breakfastReminder.setOnPreferenceClickListener {
             openTimeDialog(breakfastReminder,MealType.Breakfast)
             true
@@ -63,11 +80,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
             true
         }
 
-        enableMealRemindersIfChecked(enableReminders.isChecked)
+        //enableMealRemindersIfChecked(enableReminders.isChecked)
         setSummaryForTimesPref(breakfastReminder)
         setSummaryForTimesPref(lunchReminder)
         setSummaryForTimesPref(snackReminder)
         setSummaryForTimesPref(dinnerReminder)
+*/
     }
 
     private fun enableMealRemindersIfChecked(enable: Boolean) {
@@ -84,7 +102,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun setSummaryForTimesPref(preference: Preference){
-        preference.summary = preferenceService.getPreferenceString(preference.key,preference.summary.toString())
+        //preference.summary = preferenceService.getPreferenceString(preference.key,preference.summary.toString())
     }
     private fun scheduleAllAlarms(){
         reminderService.scheduleReminder(context!!,MealType.Breakfast,preferenceValueAsDate(breakfastReminder))
@@ -106,8 +124,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         val newDate = Calendar.getInstance().appendTime(Date(),hourOfDay,minute)
                         val dateText = newDate.asString("HH:mm")
                         targetPreference.summary = dateText
-                        targetPreference.update(dateText)
-                        reminderService.scheduleReminder(context!!,mealType,newDate)
+//                        targetPreference.update(dateText)
+//                        reminderService.scheduleReminder(context!!,mealType,newDate)
                     }
                 })
         try{

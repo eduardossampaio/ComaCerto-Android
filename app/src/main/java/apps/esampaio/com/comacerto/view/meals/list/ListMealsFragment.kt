@@ -29,17 +29,9 @@ class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener, DateLi
     }
 
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.list_meals_menu,menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if(item?.itemId == R.id.add_new_meal_menu_item){
-            val intent = Intent(context, AddNewMealActivity::class.java)
+    fun onNewMealClicked(){
+        val intent = Intent(context, AddNewMealActivity::class.java)
             startActivity(intent)
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     override fun updateMealList(meals: List<Meal>) {
@@ -91,6 +83,7 @@ class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener, DateLi
         daily_meal_view_pager.addOnPageChangeListener(this)
         currentItemPosition = daily_meal_view_pager.currentItem
         navigation_header.onDayItemSelectedListener = this
+        add_new_meal_button.setOnClickListener { onNewMealClicked() }
 
     }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,113 +7,23 @@
     android:orientation="vertical"
     tools:context=".view.meals.register.AddNewMealActivity">
 
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:context=".view.meals.register.AddNewMealActivity">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
 
-
-        <LinearLayout
-            android:id="@+id/cell_meal"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:minHeight="?android:attr/listPreferredItemHeight"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:scaleType="center"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/icon_meal" />
-
-            <TextView
-                android:id="@+id/meal_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="@string/meal"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-
-        <com.github.chuross.library.ExpandableLayout
-            android:id="@+id/list_meal_expandable_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/meal_list_rv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="?android:attr/listPreferredItemHeight">
-
-            </android.support.v7.widget.RecyclerView>
-        </com.github.chuross.library.ExpandableLayout>
-
-        <View
-            style="@style/divider"
-            android:layout_width="match_parent"
-            android:layout_height="1px" />
-
-
-        <android.support.constraint.ConstraintLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="?android:attr/listPreferredItemHeight"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:scaleType="center"
-                android:id="@+id/imageView"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
-                android:src="@drawable/icon_clock"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/complete_date_text_view"
-                android:layout_width="0dp"
-                android:gravity="center_vertical"
-                android:layout_height="0dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="Ter,4 de set de 2018"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/hour_text_view"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/hour_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="8dp"
-                android:text="14:30"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </android.support.constraint.ConstraintLayout>
-
-        <View
-            style="@style/divider"
-            android:layout_width="match_parent"
-            android:layout_height="1px" />
-
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
                 android:textStyle="bold"
@@ -124,89 +34,210 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:hint="@string/add_foods"
+                android:hint="@string/foods"
                 android:textSize="16sp" />
+            <View
+                style="@style/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
 
-        <View
-            style="@style/divider"
-            android:layout_width="match_parent"
-            android:layout_height="1px" />
-
-        <include
-
-            layout="@layout/layout_view_hunger_level"/>
-        <View
-            style="@style/divider"
-            android:layout_width="match_parent"
-            android:layout_height="1px" />
-
-
-        <LinearLayout
-            android:id="@+id/cell_feeling"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:minHeight="?android:attr/listPreferredItemHeight"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:scaleType="center"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/icon_feeling" />
-
-            <TextView
-                android:id="@+id/feeling_name"
+            <LinearLayout
+                android:id="@+id/cell_meal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="@string/feeling"
-                android:textSize="16sp" />
+                android:gravity="center_vertical"
+                android:minHeight="?android:attr/listPreferredItemHeight"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:scaleType="center"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/icon_meal" />
+
+                <TextView
+                    android:id="@+id/meal_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/meal"
+                    android:textSize="16sp" />
+
+
+
+            </LinearLayout>
+
+
+            <com.github.chuross.library.ExpandableLayout
+                android:id="@+id/list_meal_expandable_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/meal_list_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="?android:attr/listPreferredItemHeight">
+
+                </android.support.v7.widget.RecyclerView>
+            </com.github.chuross.library.ExpandableLayout>
+
+            <View
+                style="@style/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+
+            <android.support.constraint.ConstraintLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="?android:attr/listPreferredItemHeight"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:scaleType="center"
+                    android:id="@+id/imageView"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/icon_clock"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/complete_date_text_view"
+                    android:layout_width="0dp"
+                    android:gravity="center_vertical"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Ter,4 de set de 2018"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/hour_text_view"
+                    app:layout_constraintStart_toEndOf="@+id/imageView"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/hour_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="14:30"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+            <View
+                style="@style/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <include
+
+                layout="@layout/layout_view_hunger_level"/>
+            <View
+                style="@style/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+
+            <LinearLayout
+                android:id="@+id/cell_feeling"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minHeight="?android:attr/listPreferredItemHeight"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:scaleType="center"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/icon_feeling" />
+
+                <TextView
+                    android:id="@+id/feeling_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/feeling"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <com.github.chuross.library.ExpandableLayout
+                android:id="@+id/list_feelings_expandable_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/feeling_list_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="?android:attr/listPreferredItemHeight">
+
+                </android.support.v7.widget.RecyclerView>
+            </com.github.chuross.library.ExpandableLayout>
+
+
+            <View
+                style="@style/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:gravity="center_vertical"
+                android:minHeight="?android:attr/listPreferredItemHeight"
+                android:orientation="horizontal">
+
+                <android.support.design.widget.TextInputLayout
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <EditText
+                        android:id="@+id/what_doing_text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:background="@android:color/transparent"
+                        android:hint="@string/what_was_doing" />
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+            <View
+                style="@style/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
 
         </LinearLayout>
 
-        <com.github.chuross.library.ExpandableLayout
-            android:id="@+id/list_feelings_expandable_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    </ScrollView>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/feeling_list_rv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="?android:attr/listPreferredItemHeight">
-
-            </android.support.v7.widget.RecyclerView>
-        </com.github.chuross.library.ExpandableLayout>
-
-
-        <View
-            style="@style/divider"
-            android:layout_width="match_parent"
-            android:layout_height="1px" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:gravity="center_vertical"
-            android:minHeight="?android:attr/listPreferredItemHeight"
-            android:orientation="horizontal">
-
-
-            <EditText
-                android:id="@+id/what_doing_text_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:background="@android:color/transparent"
-                android:hint="@string/what_was_doing" />
-
-        </LinearLayout>
-        <View
-            style="@style/divider"
-            android:layout_width="match_parent"
-            android:layout_height="1px" />
-
-    </LinearLayout>
-</ScrollView>
+    <Button
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/primary"
+        android:onClick="onSaveClick"
+        android:text="@string/save"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent" />
+</android.support.constraint.ConstraintLayout>

@@ -9,6 +9,7 @@ class Meal : Serializable  {
     @Expose
     var primaryKey : Long? = null
     var mealType: MealType = MealType.Breakfast
+    @SerializedName("whatWasDoing")
     var whatDoing = ""
     @SerializedName("dateAndTime")
     var date = Date()

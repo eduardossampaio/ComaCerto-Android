@@ -5,8 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.widget.GridLayoutManager
-import android.view.Menu
-import android.view.MenuItem
+import android.view.View
 import android.widget.SeekBar
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.core.entity.*
@@ -51,6 +50,7 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
         setupFeelingsList()
         setupAutocompleteFoods()
         setupHungerAndSatietySliders()
+
     }
 
     override fun updateMealList(meals: List<Meal>) {
@@ -65,6 +65,10 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
             satiety_level_text.text = Level.satietyStatusNames[progress]
             meal.satiety.level = progress
         }
+    }
+
+    open fun onSaveClick(view:View){
+        saveMeal()
     }
 
     override fun onStartTrackingTouch(p0: SeekBar?) {}
@@ -89,9 +93,8 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
         setSelectedFeeling(meal.feeling)
         setSelectedMealType(meal.mealType)
         setHungerAndSatietyLevels(meal.hunger,meal.satiety)
-
+        what_doing_text_view.setText(meal.whatDoing)
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if ( requestCode == ADD_FOODS_REQUEST_CODE && resultCode == Activity.RESULT_OK){
@@ -138,18 +141,6 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
             intent.putExtra(SelectFoodsActivity.FOODS_LIST_PARAM,meal.foods.toTypedArray())
             startActivityForResult(intent,ADD_FOODS_REQUEST_CODE)
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.add_new_meal_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item?.itemId == R.id.save_meal_menu_item) {
-            saveMeal()
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     private fun setSelectedMealType(mealType: MealType) {

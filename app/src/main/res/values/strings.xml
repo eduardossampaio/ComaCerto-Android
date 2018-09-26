@@ -93,5 +93,6 @@
     <!-- Notification chanels-->
     <string name="meal_reminder_chanel_name">Lembretes de refeições</string>
     <string name="meal_reminder_chanel_description">Notificações que irão lembrá-lo(a) de realizar suas refeições sempre no mesmo horário</string>
+    <string name="save">Salvar</string>
 
 </resources>
