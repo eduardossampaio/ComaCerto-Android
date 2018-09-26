@@ -21,10 +21,10 @@ import java.util.*
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
-    lateinit var breakfastReminder: Preference
-    lateinit var lunchReminder: Preference
-    lateinit var snackReminder: Preference
-    lateinit var dinnerReminder: Preference
+    lateinit var breakfastReminder: SwitchPreference
+    lateinit var lunchReminder: SwitchPreference
+    lateinit var snackReminder: SwitchPreference
+    lateinit var dinnerReminder: SwitchPreference
 
     lateinit var preferenceService: PreferencesService
 
@@ -38,84 +38,38 @@ class SettingsFragment : PreferenceFragmentCompat() {
         snackReminder = findPreference(PreferencesService.PREFERENCE_SNACK_REMINDER_TIME_KEY) as SwitchPreference
         dinnerReminder = findPreference(PreferencesService.PREFERENCE_DINNER_REMINDER_TIME_KEY) as SwitchPreference
 
-        breakfastReminder.setOnPreferenceChangeListener {  preference, value ->
-            val checked = value as Boolean
-            if (checked){
-                openTimeDialog(breakfastReminder,MealType.Breakfast)
-            }else{
+        breakfastReminder.onPreferenceChangeListener = OnMealPreferenceChanceListener(MealType.Breakfast)
+        lunchReminder.onPreferenceChangeListener = OnMealPreferenceChanceListener(MealType.Lunch)
+        snackReminder.onPreferenceChangeListener = OnMealPreferenceChanceListener(MealType.Snack)
+        dinnerReminder.onPreferenceChangeListener = OnMealPreferenceChanceListener(MealType.Dinner)
 
+
+
+    }
+
+    inner class OnMealPreferenceChanceListener(val mealType: MealType) : Preference.OnPreferenceChangeListener {
+        override fun onPreferenceChange(preference: Preference?, value: Any?): Boolean {
+
+            if ( preference is SwitchPreference && value is Boolean){
+                if (value){
+                    openTimeDialog(preference,mealType)
+                }else{
+
+                }
             }
-            true
+            return true;
         }
 
 
-/*
-        preferenceService = PreferencesService(context!!)
-
-//        enableReminders = findPreference(PreferencesService.PREFERENCE_ENABLE_REMINDERS_KEY) as SwitchPreference
-
-        breakfastReminder = findPreference(PreferencesService.PREFERENCE_BREAKFAST_REMINDER_TIME_KEY)
-        lunchReminder = findPreference(PreferencesService.PREFERENCE_LUNCH_REMINDER_TIME_KEY)
-        snackReminder = findPreference(PreferencesService.PREFERENCE_SNACK_REMINDER_TIME_KEY)
-        dinnerReminder = findPreference(PreferencesService.PREFERENCE_DINNER_REMINDER_TIME_KEY)
-
-//        enableReminders.setOnPreferenceChangeListener { preference, any ->
-//            enableMealRemindersIfChecked(any as Boolean)
-//            true
-//        }
-        breakfastReminder.setOnPreferenceClickListener {
-            openTimeDialog(breakfastReminder,MealType.Breakfast)
-            true
-        }
-        lunchReminder.setOnPreferenceClickListener {
-            openTimeDialog(lunchReminder,MealType.Lunch)
-            true
-        }
-        snackReminder.setOnPreferenceClickListener {
-            openTimeDialog(snackReminder,MealType.Snack)
-            true
-        }
-        dinnerReminder.setOnPreferenceClickListener {
-            openTimeDialog(dinnerReminder,MealType.Dinner)
-            true
-        }
-
-        //enableMealRemindersIfChecked(enableReminders.isChecked)
-        setSummaryForTimesPref(breakfastReminder)
-        setSummaryForTimesPref(lunchReminder)
-        setSummaryForTimesPref(snackReminder)
-        setSummaryForTimesPref(dinnerReminder)
-*/
     }
 
-    private fun enableMealRemindersIfChecked(enable: Boolean) {
-        breakfastReminder.isEnabled = enable
-        lunchReminder.isEnabled = enable
-        snackReminder.isEnabled = enable
-        dinnerReminder.isEnabled = enable
 
-        if ( enable){
-            scheduleAllAlarms()
-        }else{
-            reminderService.cancelAllMealReminders(context!!)
-        }
-    }
-
-    private fun setSummaryForTimesPref(preference: Preference){
-        //preference.summary = preferenceService.getPreferenceString(preference.key,preference.summary.toString())
-    }
-    private fun scheduleAllAlarms(){
-        reminderService.scheduleReminder(context!!,MealType.Breakfast,preferenceValueAsDate(breakfastReminder))
-        reminderService.scheduleReminder(context!!,MealType.Lunch,preferenceValueAsDate(lunchReminder))
-        reminderService.scheduleReminder(context!!,MealType.Snack,preferenceValueAsDate(snackReminder))
-        reminderService.scheduleReminder(context!!,MealType.Dinner,preferenceValueAsDate(dinnerReminder))
-    }
 
 
     private fun preferenceValueAsDate(preference: Preference) : Date{
         return Date().fromFormat("HH:mm",preference.summary.toString())
     }
-    private fun openTimeDialog(targetPreference: Preference,mealType: MealType) {
+    private fun openTimeDialog(targetPreference: SwitchPreference,mealType: MealType) {
 
         val supportFragmentManager = (context as AppCompatActivity).supportFragmentManager
         val rtpd = RadialTimePickerDialogFragment()
@@ -127,13 +81,18 @@ class SettingsFragment : PreferenceFragmentCompat() {
 //                        targetPreference.update(dateText)
 //                        reminderService.scheduleReminder(context!!,mealType,newDate)
                     }
-                })
+                }).setOnDismissListener {
+
+//                    targetPreference.isChecked = false
+                }
+
         try{
             val dateFormat = preferenceService.getPreferenceString(targetPreference.key, targetPreference.summary.toString())
             rtpd.setStartTime(Date().fromFormat("HH:mm",dateFormat))
         }catch (e:Exception){
 
         }
+
         rtpd.show(supportFragmentManager, AddNewMealActivity.FRAG_TAG_TIME_PICKER)
     }
 

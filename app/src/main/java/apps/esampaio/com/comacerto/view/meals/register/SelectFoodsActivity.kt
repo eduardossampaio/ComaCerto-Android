@@ -33,6 +33,8 @@ class SelectFoodsActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_foods)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true);
+        supportActionBar?.setDisplayShowHomeEnabled(true);
         val foodsList = intent.getSerializableExtra(FOODS_LIST_PARAM)  as Array<Food>
         setupFoodsList(foodsList.toMutableList())
         setupAutocompleteFoods()
@@ -84,6 +86,10 @@ class SelectFoodsActivity : BaseActivity() {
 
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 

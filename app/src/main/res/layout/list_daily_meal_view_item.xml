@@ -20,8 +20,8 @@
             android:layout_height="50dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:scaleType="center"
-            android:src="@drawable/meal_lunch" />
+            android:padding="3dp"
+            android:src="@drawable/meal_breakfast_flat" />
 
         <LinearLayout
             android:layout_width="match_parent"

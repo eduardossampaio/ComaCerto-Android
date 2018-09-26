@@ -8,10 +8,10 @@ import apps.esampaio.com.comacerto.R
 
 enum class MealType {
     None(R.string.blank,R.mipmap.ic_launcher),
-    Breakfast(R.string.meal_breakfast,R.drawable.meal_breakfast),
-    Lunch(R.string.meal_lunch,R.drawable.meal_lunch),
-    Snack(R.string.meal_snack,R.drawable.meal_snack),
-    Dinner(R.string.meal_dinner,R.drawable.meal_dinner);
+    Breakfast(R.string.meal_breakfast,R.drawable.meal_breakfast_flat),
+    Lunch(R.string.meal_lunch,R.drawable.meal_lunch_flat),
+    Snack(R.string.meal_snack,R.drawable.meal_snack_flat),
+    Dinner(R.string.meal_dinner,R.drawable.meal_dinner_flat);
 
     val nameId:Int
     val imageId:Int

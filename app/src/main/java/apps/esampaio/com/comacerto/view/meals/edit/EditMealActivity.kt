@@ -28,6 +28,7 @@ class EditMealActivity : AddNewMealActivity() {
     }
 
     override fun onSaveClick(view: View){
+        meal.whatDoing = what_doing_text_view.text.toString()
         mealInteractor.onUpdatePressed(this.meal)
     }
 
