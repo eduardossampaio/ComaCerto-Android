@@ -14,8 +14,8 @@ abstract class ImageRecyclerViewAdapter(val context:Context): RecyclerView.Adapt
 
     var selectedItem = 0
 
-    override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ImageRecyclerViewAdapterViewHolder {
-        val baseView = LayoutInflater.from(context).inflate(R.layout.image_collection_recycler_view_item,null,false)
+    override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ImageRecyclerViewAdapterViewHolder {
+        val baseView = LayoutInflater.from(context).inflate(R.layout.image_collection_recycler_view_item,parent,false)
         return ImageRecyclerViewAdapterViewHolder(baseView)
     }
 

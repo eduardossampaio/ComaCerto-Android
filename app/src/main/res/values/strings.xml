@@ -17,6 +17,13 @@
     <string name="hour">Hora</string>
     <string name="what_i_ate">O que comi</string>
     <string name="what_was_doing">O que estava fazendo</string>
+
+    <!-- Foods-->
+    <string name="no_foods_registered">Nenhum alimento adicionado</string>
+    <plurals name="foods_registered">
+        <item quantity="one">Alimento registrado</item>
+        <item quantity="other">Alimentos registrados</item>
+    </plurals>
     <string name="blank"></string>
 
     <!-- Feelings-->

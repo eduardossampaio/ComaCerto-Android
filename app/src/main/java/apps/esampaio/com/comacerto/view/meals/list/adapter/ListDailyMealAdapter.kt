@@ -2,6 +2,7 @@ package apps.esampaio.com.comacerto.view.meals.list.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -27,7 +28,8 @@ class ListDailyMealAdapter(val context: Context,var mealList:List<Meal>) : Recyc
         val meal = mealList.get(index)
         viewHolder.mealName.text = meal.mealType.getName(context)
         setMealIcon(viewHolder,meal)
-        viewHolder.foodCount.text = "${meal.foods.size} Alimentos"
+        setFoodsQuantityText(viewHolder,meal)
+
         viewHolder.mealHour.text = meal.date.asString("HH:mm")
         viewHolder.view.setOnClickListener{
             val intent = Intent(context, EditMealActivity::class.java)
@@ -43,7 +45,18 @@ class ListDailyMealAdapter(val context: Context,var mealList:List<Meal>) : Recyc
         }else{
             viewHolder.iconImage.tag = meal.mealType.ordinal
             viewHolder.iconImage.setImageDrawable(meal.mealType.getImage(context))
-//            Picasso
+        }
+    }
+
+    private fun setFoodsQuantityText(viewHolder: ListDailyMealAdapterViewHolder, meal: Meal){
+        val foodsCount = meal.foods.size
+
+        if(foodsCount == 0){
+            viewHolder.foodCount.text = context.getString(R.string.no_foods_registered)
+            viewHolder.foodCount.setTextColor(ContextCompat.getColor(context,R.color.text_error))
+        }else {
+            viewHolder.foodCount.text = "${foodsCount} ${context.resources.getQuantityString(R.plurals.foods_registered,foodsCount)}"
+            viewHolder.foodCount.setTextColor(ContextCompat.getColor(context,R.color.primary))
         }
     }
 
