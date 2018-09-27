@@ -11,7 +11,6 @@ import apps.esampaio.com.comacerto.core.extensions.appendTime
 import apps.esampaio.com.comacerto.core.extensions.asString
 import apps.esampaio.com.comacerto.core.extensions.fromFormat
 import apps.esampaio.com.comacerto.core.service.preferences.PreferencesService
-import apps.esampaio.com.comacerto.core.service.preferences.update
 import apps.esampaio.com.comacerto.core.service.reminder.ReminderService
 import apps.esampaio.com.comacerto.view.extensions.setStartTime
 import apps.esampaio.com.comacerto.view.meals.register.AddNewMealActivity
@@ -33,18 +32,28 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey);
-        breakfastReminder = findPreference(PreferencesService.PREFERENCE_BREAKFAST_REMINDER_TIME_KEY) as SwitchPreference
-        lunchReminder = findPreference(PreferencesService.PREFERENCE_LUNCH_REMINDER_TIME_KEY) as SwitchPreference
-        snackReminder = findPreference(PreferencesService.PREFERENCE_SNACK_REMINDER_TIME_KEY) as SwitchPreference
-        dinnerReminder = findPreference(PreferencesService.PREFERENCE_DINNER_REMINDER_TIME_KEY) as SwitchPreference
+        preferenceService = PreferencesService(context!!)
+        breakfastReminder = findPreference(PreferencesService.PREFERENCE_BREAKFAST_REMINDER_ENABLED_KEY) as SwitchPreference
+        lunchReminder = findPreference(PreferencesService.PREFERENCE_LUNCH_REMINDER_ENABLED_KEY) as SwitchPreference
+        snackReminder = findPreference(PreferencesService.PREFERENCE_SNACK_REMINDER_ENABLED_KEY) as SwitchPreference
+        dinnerReminder = findPreference(PreferencesService.PREFERENCE_DINNER_REMINDER_ENABLED_KEY) as SwitchPreference
 
         breakfastReminder.onPreferenceChangeListener = OnMealPreferenceChanceListener(MealType.Breakfast)
         lunchReminder.onPreferenceChangeListener = OnMealPreferenceChanceListener(MealType.Lunch)
         snackReminder.onPreferenceChangeListener = OnMealPreferenceChanceListener(MealType.Snack)
         dinnerReminder.onPreferenceChangeListener = OnMealPreferenceChanceListener(MealType.Dinner)
 
+        setInitialSummary(breakfastReminder,MealType.Breakfast)
+        setInitialSummary(lunchReminder,MealType.Lunch)
+        setInitialSummary(snackReminder,MealType.Snack)
+        setInitialSummary(dinnerReminder,MealType.Dinner)
+    }
 
-
+    private fun setInitialSummary(preference: Preference,mealType: MealType){
+        val reminderTime = preferenceService.getMealTimeReminder(mealType)
+        if (reminderTime != null) {
+            preference.summary = reminderTime.asString("HH:mm")
+        }
     }
 
     inner class OnMealPreferenceChanceListener(val mealType: MealType) : Preference.OnPreferenceChangeListener {
@@ -54,36 +63,31 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 if (value){
                     openTimeDialog(preference,mealType)
                 }else{
-
+                    reminderService.cancelReminder(context!!,mealType)
                 }
             }
             return true;
         }
-
-
     }
 
-
-
-
-    private fun preferenceValueAsDate(preference: Preference) : Date{
-        return Date().fromFormat("HH:mm",preference.summary.toString())
-    }
     private fun openTimeDialog(targetPreference: SwitchPreference,mealType: MealType) {
 
         val supportFragmentManager = (context as AppCompatActivity).supportFragmentManager
+        var timeSet = false
         val rtpd = RadialTimePickerDialogFragment()
                 .setOnTimeSetListener(object : RadialTimePickerDialogFragment.OnTimeSetListener {
                     override fun onTimeSet(dialog: RadialTimePickerDialogFragment?, hourOfDay: Int, minute: Int) {
                         val newDate = Calendar.getInstance().appendTime(Date(),hourOfDay,minute)
                         val dateText = newDate.asString("HH:mm")
                         targetPreference.summary = dateText
-//                        targetPreference.update(dateText)
-//                        reminderService.scheduleReminder(context!!,mealType,newDate)
+                        preferenceService.updateMealTimeValue(mealType,newDate)
+                        timeSet = true
+                        reminderService.scheduleReminder(context!!,mealType,newDate)
                     }
                 }).setOnDismissListener {
-
-//                    targetPreference.isChecked = false
+                    if ( ! timeSet) {
+                        targetPreference.isChecked = false
+                    }
                 }
 
         try{

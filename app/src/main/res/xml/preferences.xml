@@ -6,22 +6,22 @@
         android:title="@string/preference_category_reminders">
 
         <SwitchPreference
-            android:key="PREFERENCE_BREAKFAST_REMINDER_TIME"
+            android:key="PREFERENCE_BREAKFAST_REMINDER_ENABLED"
             android:summary="@string/preferences_reminder_breakfast_summary"
             android:title="@string/preferences_reminder_breakfast" />
 
         <SwitchPreference
-            android:key="PREFERENCE_LUNCH_REMINDER_TIME"
+            android:key="PREFERENCE_LUNCH_REMINDER_ENABLED"
             android:summary="@string/preferences_reminder_lunch_summary"
             android:title="@string/preferences_reminder_lunch" />
 
         <SwitchPreference
-            android:key="PREFERENCE_SNACK_REMINDER_TIME"
+            android:key="PREFERENCE_SNACK_REMINDER_ENABLED"
             android:summary="@string/preferences_reminder_snack_summary"
             android:title="@string/preferences_reminder_snack" />
 
         <SwitchPreference
-            android:key="PREFERENCE_DINNER_REMINDER_TIME"
+            android:key="PREFERENCE_DINNER_REMINDER_ENABLED"
             android:summary="@string/preferences_reminder_dinner_summary"
             android:title="@string/preferences_reminder_dinner" />
 

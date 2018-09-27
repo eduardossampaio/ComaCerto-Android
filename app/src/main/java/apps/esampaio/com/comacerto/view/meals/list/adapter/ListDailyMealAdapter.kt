@@ -26,13 +26,24 @@ class ListDailyMealAdapter(val context: Context,var mealList:List<Meal>) : Recyc
     override fun onBindViewHolder(viewHolder: ListDailyMealAdapterViewHolder, index: Int) {
         val meal = mealList.get(index)
         viewHolder.mealName.text = meal.mealType.getName(context)
-        viewHolder.iconImage.setImageDrawable(meal.mealType.getImage(context))
+        setMealIcon(viewHolder,meal)
         viewHolder.foodCount.text = "${meal.foods.size} Alimentos"
         viewHolder.mealHour.text = meal.date.asString("HH:mm")
         viewHolder.view.setOnClickListener{
             val intent = Intent(context, EditMealActivity::class.java)
             intent.putExtra(EditMealActivity.MEAL_INTENT_PARAM,meal);
             context.startActivity(intent)
+        }
+    }
+
+    private fun setMealIcon(viewHolder: ListDailyMealAdapterViewHolder, meal: Meal){
+        val previousIconSettedId = viewHolder.iconImage.tag as Int?
+        if (previousIconSettedId != null && previousIconSettedId == meal.mealType.ordinal){
+
+        }else{
+            viewHolder.iconImage.tag = meal.mealType.ordinal
+            viewHolder.iconImage.setImageDrawable(meal.mealType.getImage(context))
+//            Picasso
         }
     }
 

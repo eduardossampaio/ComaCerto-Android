@@ -22,7 +22,7 @@ class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener, DateLi
 
     var currentItemPosition = 0
     var mealIterator = MealService(this)
-    var adapter : DailyMealViewPager? = null
+    lateinit var adapter : DailyMealViewPager
 
     init {
         setHasOptionsMenu(true)
@@ -35,7 +35,7 @@ class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener, DateLi
     }
 
     override fun updateMealList(meals: List<Meal>) {
-        adapter?.updateFragment(currentItemPosition,meals)
+        adapter.updateFragment(currentItemPosition,meals)
     }
 
     override fun daySelected(day: Date) {
@@ -79,7 +79,7 @@ class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener, DateLi
         super.onViewCreated(view, savedInstanceState)
         this.adapter =  DailyMealViewPager(childFragmentManager)
         daily_meal_view_pager.adapter = adapter
-        daily_meal_view_pager.currentItem = adapter!!.count -1
+        daily_meal_view_pager.currentItem = adapter.count -1
         daily_meal_view_pager.addOnPageChangeListener(this)
         currentItemPosition = daily_meal_view_pager.currentItem
         navigation_header.onDayItemSelectedListener = this

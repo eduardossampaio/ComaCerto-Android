@@ -31,16 +31,13 @@ class ReminderService {
                 alarmIntent
         )
     }
-
-    fun cancelAllMealReminders(context: Context){
-        for (mealType in MealType.values()) {
-            val intent = Intent(context, MealAlarmBroadcastReceiver::class.java)
-            val alarmIntent = PendingIntent.getBroadcast(context, idForMealType(mealType), intent, 0)
-
-            val am = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-            am.cancel(alarmIntent)
-        }
+    fun cancelReminder(context: Context,mealType: MealType){
+        val intent = Intent(context, MealAlarmBroadcastReceiver::class.java)
+        val alarmIntent = PendingIntent.getBroadcast(context, idForMealType(mealType), intent, 0)
+        val am = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        am.cancel(alarmIntent)
     }
+
     private fun idForMealType(mealType: MealType) : Int{
         return mealType.ordinal + 100
     }

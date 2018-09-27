@@ -17,8 +17,8 @@ import kotlinx.android.synthetic.main.fragment_daily_meals.*
 class MealFragment : BaseFragment() {
     var mealList: Array<Meal> = emptyArray()
     var fragmentPosition : Int? = 0;
-    var dailyMealsRecyclerView: RecyclerView? = null
-    var noMealsRegisteredTextView: TextView? = null
+    lateinit var dailyMealsRecyclerView: RecyclerView
+    lateinit var noMealsRegisteredTextView: TextView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_daily_meals, container, false)
@@ -28,6 +28,8 @@ class MealFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         dailyMealsRecyclerView = daily_meals_recycler_view
         noMealsRegisteredTextView = no_meals_registered_text_view
+        dailyMealsRecyclerView.layoutManager = LinearLayoutManager(activity)
+        dailyMealsRecyclerView.adapter = ListDailyMealAdapter(activity!!, mealList.asList())
         updateViews()
     }
 
@@ -43,16 +45,15 @@ class MealFragment : BaseFragment() {
     }
 
     fun update(mealList: Array<Meal>) {
-        Log.d("MealFragment", "updateViews")
         this.mealList = mealList
         if (mealList.isEmpty()) {
-            dailyMealsRecyclerView?.visibility = View.GONE
-            noMealsRegisteredTextView?.visibility = View.VISIBLE
+            dailyMealsRecyclerView.visibility = View.GONE
+            noMealsRegisteredTextView.visibility = View.VISIBLE
         } else {
-            dailyMealsRecyclerView?.visibility = View.VISIBLE
-            noMealsRegisteredTextView?.visibility = View.GONE
-            dailyMealsRecyclerView?.layoutManager = LinearLayoutManager(activity)
-            dailyMealsRecyclerView?.adapter = ListDailyMealAdapter(activity!!, mealList.asList())
+            dailyMealsRecyclerView.visibility = View.VISIBLE
+            noMealsRegisteredTextView.visibility = View.GONE
+            (dailyMealsRecyclerView.adapter as ListDailyMealAdapter).mealList = mealList.asList()
+            (dailyMealsRecyclerView.adapter as ListDailyMealAdapter).notifyDataSetChanged()
         }
     }
 
