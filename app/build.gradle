@@ -8,8 +8,8 @@ android {
         applicationId "apps.esampaio.com.comacerto"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 3
-        versionName "0.0.3"
+        versionCode 4
+        versionName "0.0.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -49,6 +49,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.github.deano2390:MaterialShowcaseView:1.2.0@aar'
     implementation 'com.github.chrisbanes:PhotoView:2.1.4'
+    implementation 'com.asksira.android:loopingviewpager:1.1.2'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
