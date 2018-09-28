@@ -17,7 +17,7 @@ class FileUtils {
 
     companion object {
         @Throws(IOException::class)
-        fun saveDataToFile(fileName:String, data: ByteArray) : File{
+        fun saveDataToFile(fileName: String, data: ByteArray): File {
             val file = createFile(fileName)
             val out = FileOutputStream(file)
             out.write(data)
@@ -25,35 +25,37 @@ class FileUtils {
             return file
         }
 
-        fun createFile(fileName: String) : File {
-            val root = Environment.getExternalStorageDirectory().toString()
+        fun createFile(fileName: String): File {
+            //val root = Environment.getExternalStorageDirectory().toString()
+            val root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath
             val myDir = File(root)
             myDir.mkdirs()
             return File(myDir, fileName)
         }
 
-        fun shareFile(context:Context, file: File, filetype: String) {
+        fun shareFile(context: Context, file: File, filetype: String) {
             val myMime = MimeTypeMap.getSingleton()
             val intent = Intent(Intent.ACTION_SEND)
             val mimeType = myMime.getMimeTypeFromExtension(filetype)
+
             if (android.os.Build.VERSION.SDK_INT >= 24) {
                 val fileURI = FileProvider.getUriForFile(context!!,
                         BuildConfig.APPLICATION_ID + ".provider",
                         file)
                 intent.setDataAndType(fileURI, mimeType)
-
+                intent.putExtra(Intent.EXTRA_STREAM, fileURI)
             } else {
-                intent.setDataAndType(Uri.fromFile(file), mimeType)
+                val uriFromFile = Uri.fromFile(file)
+                intent.putExtra(Intent.EXTRA_STREAM, uriFromFile)
+                intent.setDataAndType(uriFromFile, mimeType)
             }
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_GRANT_READ_URI_PERMISSION
+
             try {
                 context.startActivity(intent)
             } catch (e: ActivityNotFoundException) {
                 Toast.makeText(context, "No Application found to open this type of file.", Toast.LENGTH_LONG).show()
 
             }
-
         }
-
     }
 }

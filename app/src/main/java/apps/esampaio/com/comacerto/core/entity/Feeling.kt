@@ -22,7 +22,6 @@ enum class Feeling {
     private val imageId:Int
     val imageDrawable : Drawable?
 
-
     constructor(nameId:Int,imageId:Int){
         this.nameId = nameId
         this.imageId = imageId

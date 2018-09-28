@@ -3,7 +3,6 @@ package apps.esampaio.com.comacerto.view.meals.list
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,7 @@ import android.widget.TextView
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.core.entity.Meal
 import apps.esampaio.com.comacerto.view.BaseFragment
-import apps.esampaio.com.comacerto.view.meals.list.adapter.ListDailyMealAdapter
+import apps.esampaio.com.comacerto.view.meals.list.adapter.ListDailyMealRecyclerViewAdapter
 import kotlinx.android.synthetic.main.fragment_daily_meals.*
 
 class MealFragment : BaseFragment() {
@@ -29,7 +28,7 @@ class MealFragment : BaseFragment() {
         dailyMealsRecyclerView = daily_meals_recycler_view
         noMealsRegisteredTextView = no_meals_registered_text_view
         dailyMealsRecyclerView.layoutManager = LinearLayoutManager(activity)
-        dailyMealsRecyclerView.adapter = ListDailyMealAdapter(activity!!, mealList.asList())
+        dailyMealsRecyclerView.adapter = ListDailyMealRecyclerViewAdapter(activity!!, mealList.asList())
         updateViews()
     }
 
@@ -52,8 +51,8 @@ class MealFragment : BaseFragment() {
         } else {
             dailyMealsRecyclerView.visibility = View.VISIBLE
             noMealsRegisteredTextView.visibility = View.GONE
-            (dailyMealsRecyclerView.adapter as ListDailyMealAdapter).mealList = mealList.asList()
-            (dailyMealsRecyclerView.adapter as ListDailyMealAdapter).notifyDataSetChanged()
+            (dailyMealsRecyclerView.adapter as ListDailyMealRecyclerViewAdapter).mealList = mealList.asList()
+            (dailyMealsRecyclerView.adapter as ListDailyMealRecyclerViewAdapter).notifyDataSetChanged()
         }
     }
 

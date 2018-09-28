@@ -43,7 +43,6 @@ class GenerateReportFragment : BaseFragment(), ReportPresenter {
         generatedReportFile = FileUtils.saveDataToFile("report.pdf",report)
         pdfView.visibility = View.VISIBLE
         pdfView.adapter = PDFViewPagerAdapter(fragmentManager!!,generatedReportFile);
-
     }
 
     init {

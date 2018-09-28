@@ -23,7 +23,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/Applications/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/social/ic_share_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/Applications/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_clear_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -33,11 +33,10 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="assetType" value="IMAGE" />
                                       <entry key="imageAsset" value="$USER_HOME$/Desktop/dinner flat/meal_snack_flat.png" />
-                                      <entry key="outputName" value="meal_snack_flat" />
+                                      <entry key="outputName" value="ic_delete" />
                                       <entry key="theme" value="CUSTOM" />
-                                      <entry key="themeColor" value="000000" />
+                                      <entry key="themeColor" value="ff0600" />
                                     </map>
                                   </option>
                                 </PersistentState>

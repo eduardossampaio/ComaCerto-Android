@@ -5,6 +5,7 @@ import apps.esampaio.com.comacerto.core.entity.Feeling
 import apps.esampaio.com.comacerto.core.entity.Level
 import apps.esampaio.com.comacerto.core.entity.Meal
 import apps.esampaio.com.comacerto.core.entity.MealType
+import apps.esampaio.com.comacerto.core.service.food.http.FoodHttpService
 import apps.esampaio.com.comacerto.core.service.http.converters.FeelingAdapter
 import apps.esampaio.com.comacerto.core.service.http.converters.LevelAdapter
 import apps.esampaio.com.comacerto.core.service.http.converters.MealTypeAdapter
@@ -50,5 +51,9 @@ class RetrofitService {
 
     fun getReportHttpService(): ReportHttpService {
         return retrofit.create(ReportHttpService::class.java)
+    }
+
+    fun getFoodHttpService(): FoodHttpService{
+        return retrofit.create(FoodHttpService::class.java)
     }
 }

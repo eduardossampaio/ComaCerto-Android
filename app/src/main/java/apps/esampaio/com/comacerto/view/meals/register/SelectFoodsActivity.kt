@@ -4,45 +4,49 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.core.entity.Food
+import apps.esampaio.com.comacerto.core.service.food.FoodInteractor
+import apps.esampaio.com.comacerto.core.service.food.FoodPresenter
+import apps.esampaio.com.comacerto.core.service.food.FoodService
 import apps.esampaio.com.comacerto.view.BaseActivity
-import apps.esampaio.com.comacerto.view.meals.register.adapter.ListFoodRecyclerViewAdapter
-import kotlinx.android.synthetic.main.activity_home.*
+import apps.esampaio.com.comacerto.view.meals.register.adapter.ListFoodRecyclerViewAdapter2
 import kotlinx.android.synthetic.main.activity_select_foods.*
-import uk.co.deanwild.materialshowcaseview.ShowcaseConfig
-import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence
-import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView
 
 
-class SelectFoodsActivity : BaseActivity() {
-    lateinit var foodsListAdapter: ListFoodRecyclerViewAdapter
+class SelectFoodsActivity : BaseActivity(), FoodPresenter {
+
+    override fun updateDefaultFoodsList(list: List<Food>) {
+        setupAutocompleteFoods(list)
+    }
+
+    lateinit var foodsListAdapter: ListFoodRecyclerViewAdapter2
+    lateinit var foodIteractor:FoodInteractor
 
     companion object {
         val FOODS_LIST_PARAM = "FOODS_LIST_PARAM"
         val FOODS_LIST_RESULT = "FOODS_LIST_RESULT"
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        foodIteractor =  FoodService(this,this)
         setContentView(R.layout.activity_select_foods)
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
         supportActionBar?.setDisplayShowHomeEnabled(true);
         val foodsList = intent.getSerializableExtra(FOODS_LIST_PARAM)  as Array<Food>
         setupFoodsList(foodsList.toMutableList())
-        setupAutocompleteFoods()
     }
 
     override fun onResume() {
         super.onResume()
-
+        foodIteractor.screenLoaded()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -107,16 +111,15 @@ class SelectFoodsActivity : BaseActivity() {
     }
 
     private fun setupFoodsList(foodsList:MutableList<Food>) {
-        foodsListAdapter  = ListFoodRecyclerViewAdapter(this)
+        foodsListAdapter  = ListFoodRecyclerViewAdapter2(this)
         foodsListAdapter.foodsList = foodsList;
         foods_list_rv.adapter = foodsListAdapter
         foods_list_rv.layoutManager = LinearLayoutManager(this)
         foods_list_rv.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
     }
 
-    private fun setupAutocompleteFoods() {
-        val foods = listOf("Arroz", "ArrFeijão", "ArrCarne", "ArrBatata", "ArrOvo")
-        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, foods)
+    private fun setupAutocompleteFoods(foods:List<Food>) {
+        val adapter = ArrayAdapter<Food>(this, android.R.layout.simple_dropdown_item_1line, foods)
         add_foods_edit_text.setAdapter(adapter)
 
         add_foods_edit_text.setOnEditorActionListener { textView, actionId, keyEvent ->
