@@ -14,7 +14,7 @@ import apps.esampaio.com.comacerto.core.entity.*
 import apps.esampaio.com.comacerto.core.extensions.asString
 import apps.esampaio.com.comacerto.view.meals.edit.EditMealActivity
 
-class ListDailyMealAdapter(val context: Context,var mealList:List<Meal>) : RecyclerView.Adapter<ListDailyMealAdapter.ListDailyMealAdapterViewHolder>() {
+class ListDailyMealRecyclerViewAdapter(val context: Context, var mealList:List<Meal>) : RecyclerView.Adapter<ListDailyMealRecyclerViewAdapter.ListDailyMealAdapterViewHolder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ListDailyMealAdapterViewHolder {
         return ListDailyMealAdapterViewHolder(LayoutInflater.from(context).inflate(R.layout.list_daily_meal_view_item,null,false))
@@ -36,6 +36,28 @@ class ListDailyMealAdapter(val context: Context,var mealList:List<Meal>) : Recyc
             intent.putExtra(EditMealActivity.MEAL_INTENT_PARAM,meal);
             context.startActivity(intent)
         }
+    }
+
+    fun updateItems(newItems:List<Meal>){
+        if(isEquals(newItems)){
+
+        }else{
+            this.mealList = newItems
+            notifyDataSetChanged()
+        }
+    }
+
+    private fun isEquals(newItems:List<Meal>): Boolean{
+        if(newItems.size != mealList.size) {
+            return false
+        }
+
+        for (newMeal in newItems){
+            if (mealList.contains(newMeal) == false){
+                return false
+            }
+        }
+        return true
     }
 
     private fun setMealIcon(viewHolder: ListDailyMealAdapterViewHolder, meal: Meal){

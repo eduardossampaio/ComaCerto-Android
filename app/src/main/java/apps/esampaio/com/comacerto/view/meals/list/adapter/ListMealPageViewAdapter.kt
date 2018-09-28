@@ -1,4 +1,4 @@
-package apps.esampaio.com.comacerto.view.meals.list._2
+package apps.esampaio.com.comacerto.view.meals.list.adapter
 
 import android.content.Context
 import android.support.v4.view.ViewPager
@@ -11,11 +11,10 @@ import android.widget.TextView
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.core.entity.Meal
 import apps.esampaio.com.comacerto.core.extensions.dayOfYear
-import apps.esampaio.com.comacerto.view.meals.list.adapter.ListDailyMealAdapter
 import com.asksira.loopingviewpager.LoopingPagerAdapter
 import java.util.*
 
-class ListMealAdapter(context: Context, val viewPager: ViewPager, itemList: List<Meal>) : LoopingPagerAdapter<Meal>(context, itemList, false) {
+class ListMealPageViewAdapter(context: Context, private val viewPager: ViewPager, itemList: List<Meal>) : LoopingPagerAdapter<Meal>(context, itemList, false) {
     var itemCount = 0
     var allMeals = mutableMapOf<Int,List<Meal>>()
 
@@ -58,13 +57,12 @@ class ListMealAdapter(context: Context, val viewPager: ViewPager, itemList: List
             mealListRecyclerView?.visibility = View.VISIBLE
             noMealTextView?.visibility = View.GONE
 
-            var listAdapter = mealListRecyclerView?.adapter as ListDailyMealAdapter?
+            var listAdapter = mealListRecyclerView?.adapter as ListDailyMealRecyclerViewAdapter?
             if ( listAdapter == null) {
-                mealListRecyclerView?.adapter = ListDailyMealAdapter(context, mealsOfDay)
+                mealListRecyclerView?.adapter = ListDailyMealRecyclerViewAdapter(context, mealsOfDay)
                 mealListRecyclerView?.layoutManager = LinearLayoutManager(context!!)
             }else{
-                listAdapter.mealList = mealsOfDay
-                listAdapter.notifyDataSetChanged()
+                listAdapter.updateItems(mealsOfDay)
             }
 
         }
