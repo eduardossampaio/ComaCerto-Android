@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
+import android.view.animation.LinearInterpolator
+import android.view.animation.RotateAnimation
 import android.widget.SeekBar
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.core.entity.*
@@ -67,7 +69,7 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
         }
     }
 
-    open fun onSaveClick(view:View){
+    open fun onSaveClick(view: View) {
         saveMeal()
     }
 
@@ -92,12 +94,12 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
         updateFoodsLabel()
         setSelectedFeeling(meal.feeling)
         setSelectedMealType(meal.mealType)
-        setHungerAndSatietyLevels(meal.hunger,meal.satiety)
+        setHungerAndSatietyLevels(meal.hunger, meal.satiety)
         what_doing_text_view.setText(meal.whatDoing)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if ( requestCode == ADD_FOODS_REQUEST_CODE && resultCode == Activity.RESULT_OK){
+        if (requestCode == ADD_FOODS_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             val foodsArray = data?.extras?.getSerializable(SelectFoodsActivity.FOODS_LIST_RESULT) as Array<Food>
             meal.foods = foodsArray.asList()
         }
@@ -111,10 +113,10 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
         hour_text_view.text = "${hour.asString("HH:mm")}"
     }
 
-    private fun updateFoodsLabel(){
-        if(meal.foods.isEmpty() ) {
+    private fun updateFoodsLabel() {
+        if (meal.foods.isEmpty()) {
             add_foods_text_view.text = null
-        }else{
+        } else {
             add_foods_text_view.text = "${meal.foods.size} ${getString(R.string.foods_added)}"
         }
     }
@@ -137,9 +139,9 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
 
     private fun setupAutocompleteFoods() {
         add_foods_text_view.setOnClickListener {
-            val intent = Intent(this,SelectFoodsActivity::class.java)
-            intent.putExtra(SelectFoodsActivity.FOODS_LIST_PARAM,meal.foods.toTypedArray())
-            startActivityForResult(intent,ADD_FOODS_REQUEST_CODE)
+            val intent = Intent(this, SelectFoodsActivity::class.java)
+            intent.putExtra(SelectFoodsActivity.FOODS_LIST_PARAM, meal.foods.toTypedArray())
+            startActivityForResult(intent, ADD_FOODS_REQUEST_CODE)
         }
     }
 
@@ -177,14 +179,21 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
 
     private fun setupMealsList() {
         cell_meal.setOnClickListener {
+            var targetAngle = 0f
             list_meal_expandable_layout.apply {
-                if (isExpanded){
+                if (isExpanded) {
                     collapse(true)
-                    meal_expandable_indicator.rotation = 0f;
-                }else{
+                    targetAngle = 0f
+                } else {
                     expand(true)
-                    meal_expandable_indicator.rotation = 90f;
+                    targetAngle = 90f
                 }
+                meal_expandable_indicator
+                        .animate()
+                        .rotation(targetAngle)
+                        .setDuration(500L)
+                        .setInterpolator(LinearInterpolator())
+                        .start()
             }
         }
         val adapter = MealListRecyclerViewAdapter(this)
@@ -197,14 +206,21 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
 
     private fun setupFeelingsList() {
         cell_feeling.setOnClickListener {
+            var targetAngle = 0f
             list_feelings_expandable_layout.apply {
-                if (isExpanded){
+                if (isExpanded) {
                     collapse(true)
-                    feeling_expandable_indicator.rotation = 0f;
-                }else{
+                    targetAngle = 0f
+                } else {
                     expand(true)
-                    feeling_expandable_indicator.rotation = 90f;
+                    targetAngle = 90f
                 }
+                feeling_expandable_indicator
+                        .animate()
+                        .rotation(targetAngle)
+                        .setDuration(500L)
+                        .setInterpolator(LinearInterpolator())
+                        .start()
             }
         }
         val adapter = FeelingsListRecyclerViewAdapter(this)

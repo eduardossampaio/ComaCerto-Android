@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import apps.esampaio.com.comacerto.core.entity.MealType
 import java.util.*
 
@@ -12,14 +13,14 @@ import java.util.*
 class ReminderService {
 
     fun scheduleReminder(context: Context, mealType: MealType,hour:Date){
-
+        Toast.makeText(context,"scheduling alart for: "+mealType+" at :"+hour,Toast.LENGTH_SHORT).show()
         val alarmMgr = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         val intent = Intent(context, MealAlarmBroadcastReceiver::class.java)
         val bundle = Bundle();
 
         val mealName = mealType.getName(context)
-        bundle.putString("MESSAGE","Está quase na hora do seu ${mealName}")
+//        bundle.putString("MESSAGE","Está quase na hora do seu ${mealName}")
         bundle.putInt("MEAL_TYPE_ORDINAL",mealType.ordinal)
         intent.putExtras(bundle)
         val alarmIntent = PendingIntent.getBroadcast(context, idForMealType(mealType), intent, 0)
