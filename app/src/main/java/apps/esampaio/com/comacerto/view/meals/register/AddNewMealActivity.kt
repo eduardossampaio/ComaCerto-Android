@@ -177,9 +177,16 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
 
     private fun setupMealsList() {
         cell_meal.setOnClickListener {
-            list_meal_expandable_layout.toggle(true)
+            list_meal_expandable_layout.apply {
+                if (isExpanded){
+                    collapse(true)
+                    meal_expandable_indicator.rotation = 0f;
+                }else{
+                    expand(true)
+                    meal_expandable_indicator.rotation = 90f;
+                }
+            }
         }
-
         val adapter = MealListRecyclerViewAdapter(this)
         meal_list_rv.adapter = adapter
         meal_list_rv.layoutManager = GridLayoutManager(this, 4)
@@ -190,7 +197,15 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
 
     private fun setupFeelingsList() {
         cell_feeling.setOnClickListener {
-            list_feelings_expandable_layout.toggle()
+            list_feelings_expandable_layout.apply {
+                if (isExpanded){
+                    collapse(true)
+                    feeling_expandable_indicator.rotation = 0f;
+                }else{
+                    expand(true)
+                    feeling_expandable_indicator.rotation = 90f;
+                }
+            }
         }
         val adapter = FeelingsListRecyclerViewAdapter(this)
         feeling_list_rv.adapter = adapter

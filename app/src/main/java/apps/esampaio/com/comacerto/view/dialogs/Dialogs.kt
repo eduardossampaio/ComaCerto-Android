@@ -57,9 +57,9 @@ class Dialogs {
                         droidDialog.dismiss()
                         onOkPressed?.invoke()
                     }
-                    .color(ContextCompat.getColor(context, R.color.accent),
+                    .color(ContextCompat.getColor(context, R.color.text_error),
                             0,
-                            ContextCompat.getColor(context, R.color.accent))
+                            ContextCompat.getColor(context, R.color.text_error))
                     .show()
         }
 

@@ -16,16 +16,22 @@ class FoodService(val context: Context, val foodPresenter: FoodPresenter) : Food
     }
 
 
-
     fun fetchFoodsList(){
         context.doAsync {
-            val firebaseRemoteConfig = RemoteConfig.getInstance()
-            val listJsonUrl = firebaseRemoteConfig.foodsListJson
-            val allFoods = foodHttpService.getAllFoods(listJsonUrl).execute()
-            if (allFoods.isSuccessful && allFoods.body() != null) {
-                context.runOnUiThread {
-                    foodPresenter.updateDefaultFoodsList(allFoods.body()!!)
+            try {
+                val firebaseRemoteConfig = RemoteConfig.getInstance()
+                var listJsonUrl = firebaseRemoteConfig.foodsListJson
+                if (firebaseRemoteConfig.foodsListJson == null || firebaseRemoteConfig.foodsListJson.isEmpty()) {
+                    listJsonUrl = "https://raw.githubusercontent.com/eduardossampaio/ComaCerto-Backend/master/cllient_data/Android/pt/foods_list.json"
                 }
+                val allFoods = foodHttpService.getAllFoods(listJsonUrl).execute()
+                if (allFoods.isSuccessful && allFoods.body() != null) {
+                    context.runOnUiThread {
+                        foodPresenter.updateDefaultFoodsList(allFoods.body()!!)
+                    }
+                }
+            }catch (e: Exception){
+
             }
         }
     }

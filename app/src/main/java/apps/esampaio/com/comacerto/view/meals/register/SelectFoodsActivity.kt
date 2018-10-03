@@ -1,15 +1,17 @@
 package apps.esampaio.com.comacerto.view.meals.register
 
 import android.app.Activity
+import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.SearchView
+import android.text.TextUtils
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.inputmethod.EditorInfo
-import android.widget.ArrayAdapter
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.core.entity.Food
 import apps.esampaio.com.comacerto.core.service.food.FoodInteractor
@@ -22,8 +24,8 @@ import kotlinx.android.synthetic.main.activity_select_foods.*
 
 class SelectFoodsActivity : BaseActivity(), FoodPresenter {
 
-    override fun updateDefaultFoodsList(list: List<Food>) {
-        setupAutocompleteFoods(list)
+    override fun updateDefaultFoodsList(foodsList: List<Food>) {
+        setupFoodsList(foodsList.toMutableList())
     }
 
     lateinit var foodsListAdapter: ListFoodRecyclerViewAdapter2
@@ -38,8 +40,6 @@ class SelectFoodsActivity : BaseActivity(), FoodPresenter {
         super.onCreate(savedInstanceState)
         foodIteractor =  FoodService(this,this)
         setContentView(R.layout.activity_select_foods)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true);
-        supportActionBar?.setDisplayShowHomeEnabled(true);
         val foodsList = intent.getSerializableExtra(FOODS_LIST_PARAM)  as Array<Food>
         setupFoodsList(foodsList.toMutableList())
     }
@@ -49,45 +49,25 @@ class SelectFoodsActivity : BaseActivity(), FoodPresenter {
         foodIteractor.screenLoaded()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.add_foods_menu,menu)
-        val result =  super.onCreateOptionsMenu(menu)
-        Handler().postDelayed({
-            runOnUiThread {
-                displayShowCase()
-            }
-        },500)
-        return result
-    }
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        (menu.findItem(R.id.search).actionView as SearchView).apply {
+            setSearchableInfo(searchManager.getSearchableInfo(componentName))
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(text: String?): Boolean {
+                    //Log.d("search","onQueryTextSubmit: ${text}")
 
-    fun displayShowCase(){
-//        val config = ShowcaseConfig()
-//        config.delay = 0 // half second between each showcase view
-//        config.maskColor = ContextCompat.getColor(this,R.color.showcase_background)
-//        val SHOWCASE_ID = "SHOWCASE_ID_FOODS_LIST_kksdsfsf"
-//        val sequence = MaterialShowcaseSequence(this, SHOWCASE_ID)
-//        sequence.setConfig(config)
-//        add_foods_edit_text.clearFocus()
-//        sequence.addSequenceItem(add_foods_edit_text,
-//                "Escreva o nome dos alimentos aqui, em sequida aperte Enter para adicioná-lo", "Entendi")
-//
-//        sequence.addSequenceItem(add_foods_edit_text,
-//                "Os Alimentos apareceram aqui", "Entendi")
-//
-//        sequence.addSequenceItem(findViewById(R.id.save_foods_menu_item),
-//                "Após escolher todos seus alimentos, clique aqui pra confirmar", "Entendi")
-//
-//        sequence.start()
-//        sequence.setOnItemDismissedListener({ itenView, position ->
-//            if(position == 0) {
-//                addFoodToList("Arroz")
-//                addFoodToList("Feijão")
-//                addFoodToList("Carne")
-//            }else if (position == 1){
-//                foodsListAdapter.removeAll()
-//            }
-//        })
+                    return true
+                }
 
+                override fun onQueryTextChange(text: String?): Boolean {
+                    (foods_list_rv.adapter as ListFoodRecyclerViewAdapter2).filterItems(text)
+                    return true
+                }
+            })
+        }
+        return super.onCreateOptionsMenu(menu)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -95,9 +75,8 @@ class SelectFoodsActivity : BaseActivity(), FoodPresenter {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-
-        if (item?.itemId == R.id.save_foods_menu_item){
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if ( item.itemId == R.id.done){
             finishFoodsSelect()
         }
         return super.onOptionsItemSelected(item)
@@ -105,33 +84,15 @@ class SelectFoodsActivity : BaseActivity(), FoodPresenter {
 
     private fun finishFoodsSelect() {
         val resultIntent = Intent()
-        resultIntent.putExtra(FOODS_LIST_RESULT,foodsListAdapter.foodsList.toTypedArray())
+        resultIntent.putExtra(FOODS_LIST_RESULT,foodsListAdapter.getSelectedFoods().toTypedArray())
         setResult(Activity.RESULT_OK,resultIntent)
         finish()
     }
 
     private fun setupFoodsList(foodsList:MutableList<Food>) {
-        foodsListAdapter  = ListFoodRecyclerViewAdapter2(this)
-        foodsListAdapter.foodsList = foodsList;
+        foodsListAdapter  = ListFoodRecyclerViewAdapter2(this,foodsList)
         foods_list_rv.adapter = foodsListAdapter
         foods_list_rv.layoutManager = LinearLayoutManager(this)
         foods_list_rv.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
-    }
-
-    private fun setupAutocompleteFoods(foods:List<Food>) {
-        val adapter = ArrayAdapter<Food>(this, android.R.layout.simple_dropdown_item_1line, foods)
-        add_foods_edit_text.setAdapter(adapter)
-
-        add_foods_edit_text.setOnEditorActionListener { textView, actionId, keyEvent ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                addFoodToList(add_foods_edit_text.text.toString())
-                add_foods_edit_text.setText("")
-            }
-            true
-        }
-    }
-
-    private fun addFoodToList(foodName: String) {
-        foodsListAdapter.addFood(foodName)
     }
 }

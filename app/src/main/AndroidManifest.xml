@@ -30,7 +30,11 @@
         <activity android:name=".view.meals.register.AddNewMealActivity" />
         <activity android:name=".view.meals.edit.EditMealActivity" />
         <activity android:name=".view.help.ShowHelpTopicActivity" />
-        <activity android:name=".view.meals.register.SelectFoodsActivity"/>
+        <activity android:name=".view.meals.register.SelectFoodsActivity">
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+
+        </activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

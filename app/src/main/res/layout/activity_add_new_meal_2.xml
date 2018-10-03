@@ -34,14 +34,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:hint="@string/foods"
+                android:hint="@string/add_foods"
                 android:textSize="16sp" />
             <View
                 style="@style/divider"
                 android:layout_width="match_parent"
                 android:layout_height="1px" />
 
-            <LinearLayout
+            <android.support.constraint.ConstraintLayout
                 android:id="@+id/cell_meal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -50,22 +50,54 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:scaleType="center"
+                    android:id="@+id/imageView2"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/icon_meal" />
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:scaleType="center"
+                    android:src="@drawable/icon_meal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:textSize="12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/meal"
+                    app:layout_constraintStart_toStartOf="@+id/meal_name" />
 
                 <TextView
                     android:id="@+id/meal_name"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginTop="8dp"
+                    android:hint="@string/meal"
                     android:text="@string/meal"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/meal_expandable_indicator"
+                    app:layout_constraintStart_toStartOf="@+id/imageView2"
+                    app:layout_constraintTop_toTopOf="parent" />
 
+                <ImageView
+                    android:id="@+id/meal_expandable_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="8dp"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_expandable_indicator"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-
-            </LinearLayout>
+            </android.support.constraint.ConstraintLayout>
 
 
             <com.github.chuross.library.ExpandableLayout
@@ -155,7 +187,7 @@
                 android:layout_height="1px" />
 
 
-            <LinearLayout
+            <android.support.constraint.ConstraintLayout
                 android:id="@+id/cell_feeling"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -164,20 +196,54 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:scaleType="center"
+                    android:id="@+id/imageView3"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/icon_feeling" />
+                    android:layout_marginBottom="8dp"
+
+                    android:layout_marginTop="8dp"
+                    android:scaleType="center"
+                    android:src="@drawable/icon_feeling"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/feeling"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@+id/feeling_name"/>
 
                 <TextView
                     android:id="@+id/feeling_name"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginTop="8dp"
                     android:text="@string/feeling"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/feeling_expandable_indicator"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            </LinearLayout>
+                <ImageView
+                    android:id="@+id/feeling_expandable_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="8dp"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_expandable_indicator"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
 
             <com.github.chuross.library.ExpandableLayout
                 android:id="@+id/list_feelings_expandable_layout"

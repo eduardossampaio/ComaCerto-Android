@@ -102,4 +102,8 @@
     <string name="meal_reminder_chanel_description">Notificações que irão lembrá-lo(a) de realizar suas refeições sempre no mesmo horário</string>
     <string name="save">Salvar</string>
 
+    <string name="search_hint">Procurar</string>
+    <string name="search_foods">Pesquisar alimentos</string>
+    <string name="confirm">Confirmar</string>
+    <string name="my_foods">Meus Alimentos</string>
 </resources>
