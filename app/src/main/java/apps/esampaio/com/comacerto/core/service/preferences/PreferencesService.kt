@@ -30,7 +30,7 @@ class PreferencesService(val context: Context){
         val sp = PreferenceManager.getDefaultSharedPreferences(context)
         val editor = sp.edit()
         editor.putString(key,value)
-        editor.commit()
+        editor.apply()
     }
 
     private fun getMealTypePreferenceKey(mealType: MealType): String{

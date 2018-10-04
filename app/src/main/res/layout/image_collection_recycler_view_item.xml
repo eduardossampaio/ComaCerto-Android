@@ -8,10 +8,12 @@
     android:layout_height="wrap_content">
 
     <ImageView
+        android:tint="@color/primary_dark"
         android:id="@+id/item_image"
         android:src="@drawable/meal_breakfast_flat"
         android:layout_width="45dp"
         android:layout_height="45dp" />
+
     <TextView
         android:id="@+id/item_name"
         android:text="@string/meal_breakfast"

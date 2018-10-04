@@ -25,17 +25,32 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:textStyle="bold"
-                android:layout_marginLeft="40dp"
+
+            <LinearLayout
                 android:gravity="center_vertical"
-                android:minHeight="?android:attr/listPreferredItemHeight"
-                android:id="@+id/add_foods_text_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="@string/add_foods"
-                android:textSize="16sp" />
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_fork_spoon" />
+
+
+                <TextView
+                    android:id="@+id/add_foods_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:background="@android:color/transparent"
+                    android:gravity="center_vertical"
+                    android:hint="@string/add_foods"
+                    android:minHeight="?android:attr/listPreferredItemHeight"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
             <View
                 style="@style/divider"
                 android:layout_width="match_parent"
@@ -53,8 +68,8 @@
                     android:id="@+id/imageView2"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:scaleType="center"
                     android:src="@drawable/icon_meal"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -62,20 +77,20 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:textSize="12sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/meal"
+                    android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="@+id/meal_name" />
 
                 <TextView
                     android:id="@+id/meal_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
                     android:layout_marginStart="48dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
                     android:hint="@string/meal"
                     android:text="@string/meal"
                     android:textSize="16sp"
@@ -88,9 +103,9 @@
                     android:id="@+id/meal_expandable_indicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
                     android:scaleType="center"
                     android:src="@drawable/ic_expandable_indicator"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -103,9 +118,9 @@
             <com.github.chuross.library.ExpandableLayout
                 android:id="@+id/list_meal_expandable_layout"
 
-                android:background="@null"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@null">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/meal_list_rv"
@@ -130,12 +145,12 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:scaleType="center"
                     android:id="@+id/imageView"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:scaleType="center"
                     android:src="@drawable/icon_clock"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -143,12 +158,12 @@
                 <TextView
                     android:id="@+id/complete_date_text_view"
                     android:layout_width="0dp"
-                    android:gravity="center_vertical"
                     android:layout_height="0dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center_vertical"
                     android:text="Ter,4 de set de 2018"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -161,13 +176,13 @@
                     android:id="@+id/hour_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center_vertical"
                     android:text="14:30"
-                    android:textStyle="bold"
                     android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -180,7 +195,8 @@
 
             <include
 
-                layout="@layout/layout_view_hunger_level"/>
+                layout="@layout/layout_view_hunger_level" />
+
             <View
                 style="@style/divider"
                 android:layout_width="match_parent"
@@ -199,9 +215,9 @@
                     android:id="@+id/imageView3"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginBottom="8dp"
-
                     android:layout_marginTop="8dp"
+
+                    android:layout_marginBottom="8dp"
                     android:scaleType="center"
                     android:src="@drawable/icon_feeling"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -213,16 +229,16 @@
                     android:layout_height="wrap_content"
                     android:text="@string/feeling"
                     android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="@+id/feeling_name"/>
+                    app:layout_constraintStart_toStartOf="@+id/feeling_name" />
 
                 <TextView
                     android:id="@+id/feeling_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
                     android:layout_marginStart="48dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
                     android:text="@string/feeling"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -234,9 +250,9 @@
                     android:id="@+id/feeling_expandable_indicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
                     android:scaleType="center"
                     android:src="@drawable/ic_expandable_indicator"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -274,9 +290,9 @@
                 android:orientation="horizontal">
 
                 <android.support.design.widget.TextInputLayout
-                    android:gravity="center"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:gravity="center">
 
                     <EditText
                         android:id="@+id/what_doing_text_view"
@@ -288,6 +304,7 @@
                 </android.support.design.widget.TextInputLayout>
 
             </LinearLayout>
+
             <View
                 style="@style/divider"
                 android:layout_width="match_parent"
@@ -298,8 +315,8 @@
     </ScrollView>
 
     <Button
-        style="@style/Widget.AppCompat.Button.Colored"
         android:id="@+id/button2"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"

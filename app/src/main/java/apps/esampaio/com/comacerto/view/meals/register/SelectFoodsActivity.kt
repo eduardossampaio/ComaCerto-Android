@@ -8,8 +8,6 @@ import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
-import android.text.TextUtils
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import apps.esampaio.com.comacerto.R
@@ -18,19 +16,19 @@ import apps.esampaio.com.comacerto.core.service.food.FoodInteractor
 import apps.esampaio.com.comacerto.core.service.food.FoodPresenter
 import apps.esampaio.com.comacerto.core.service.food.FoodService
 import apps.esampaio.com.comacerto.view.BaseActivity
-import apps.esampaio.com.comacerto.view.meals.register.adapter.ListFoodRecyclerViewAdapter2
+import apps.esampaio.com.comacerto.view.meals.register.adapter.ListFoodRecyclerViewAdapter
 import kotlinx.android.synthetic.main.activity_select_foods.*
 
 
 class SelectFoodsActivity : BaseActivity(), FoodPresenter {
 
     override fun updateDefaultFoodsList(foodsList: List<Food>) {
-        setupFoodsList(foodsList.toMutableList())
+        setupFoodsList(foodsList.toMutableList(),presetFoodsList.asList())
     }
 
-    lateinit var foodsListAdapter: ListFoodRecyclerViewAdapter2
+    lateinit var foodsListAdapter: ListFoodRecyclerViewAdapter
     lateinit var foodIteractor:FoodInteractor
-
+    lateinit var presetFoodsList : Array<Food>
     companion object {
         val FOODS_LIST_PARAM = "FOODS_LIST_PARAM"
         val FOODS_LIST_RESULT = "FOODS_LIST_RESULT"
@@ -40,8 +38,8 @@ class SelectFoodsActivity : BaseActivity(), FoodPresenter {
         super.onCreate(savedInstanceState)
         foodIteractor =  FoodService(this,this)
         setContentView(R.layout.activity_select_foods)
-        val foodsList = intent.getSerializableExtra(FOODS_LIST_PARAM)  as Array<Food>
-        setupFoodsList(foodsList.toMutableList())
+        presetFoodsList = intent.getSerializableExtra(FOODS_LIST_PARAM)  as Array<Food>
+
     }
 
     override fun onResume() {
@@ -56,13 +54,11 @@ class SelectFoodsActivity : BaseActivity(), FoodPresenter {
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(text: String?): Boolean {
-                    //Log.d("search","onQueryTextSubmit: ${text}")
-
                     return true
                 }
 
                 override fun onQueryTextChange(text: String?): Boolean {
-                    (foods_list_rv.adapter as ListFoodRecyclerViewAdapter2).filterItems(text)
+                    (foods_list_rv.adapter as ListFoodRecyclerViewAdapter).filterItems(text)
                     return true
                 }
             })
@@ -89,8 +85,9 @@ class SelectFoodsActivity : BaseActivity(), FoodPresenter {
         finish()
     }
 
-    private fun setupFoodsList(foodsList:MutableList<Food>) {
-        foodsListAdapter  = ListFoodRecyclerViewAdapter2(this,foodsList)
+    private fun setupFoodsList(foodsList:MutableList<Food>,presetFoodsList:List<Food>) {
+        foodsListAdapter  = ListFoodRecyclerViewAdapter(this,foodsList)
+        foodsListAdapter.setSelectedFoods(presetFoodsList)
         foods_list_rv.adapter = foodsListAdapter
         foods_list_rv.layoutManager = LinearLayoutManager(this)
         foods_list_rv.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))

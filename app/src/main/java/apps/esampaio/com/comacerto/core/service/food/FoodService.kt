@@ -21,9 +21,6 @@ class FoodService(val context: Context, val foodPresenter: FoodPresenter) : Food
             try {
                 val firebaseRemoteConfig = RemoteConfig.getInstance()
                 var listJsonUrl = firebaseRemoteConfig.foodsListJson
-                if (firebaseRemoteConfig.foodsListJson == null || firebaseRemoteConfig.foodsListJson.isEmpty()) {
-                    listJsonUrl = "https://raw.githubusercontent.com/eduardossampaio/ComaCerto-Backend/master/cllient_data/Android/pt/foods_list.json"
-                }
                 val allFoods = foodHttpService.getAllFoods(listJsonUrl).execute()
                 if (allFoods.isSuccessful && allFoods.body() != null) {
                     context.runOnUiThread {
@@ -31,7 +28,7 @@ class FoodService(val context: Context, val foodPresenter: FoodPresenter) : Food
                     }
                 }
             }catch (e: Exception){
-
+                e.printStackTrace()
             }
         }
     }

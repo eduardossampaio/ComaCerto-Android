@@ -74,12 +74,11 @@ class ListDailyMealRecyclerViewAdapter(val context: Context, var mealList:List<M
         val foodsCount = meal.foods.size
 
         if(foodsCount == 0){
-            viewHolder.foodCount.text = context.getString(R.string.no_foods_registered)
             viewHolder.foodCount.setTextColor(ContextCompat.getColor(context,R.color.text_error))
         }else {
-            viewHolder.foodCount.text = "${foodsCount} ${context.resources.getQuantityString(R.plurals.foods_registered,foodsCount)}"
             viewHolder.foodCount.setTextColor(ContextCompat.getColor(context,R.color.primary))
         }
+        viewHolder.foodCount.text = "${context.resources.getQuantityString(R.plurals.foods_registered,foodsCount,foodsCount)}"
     }
 
     class ListDailyMealAdapterViewHolder(view:View) : RecyclerView.ViewHolder(view){

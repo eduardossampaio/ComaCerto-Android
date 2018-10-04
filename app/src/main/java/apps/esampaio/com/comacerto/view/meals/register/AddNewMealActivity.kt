@@ -116,8 +116,13 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
     private fun updateFoodsLabel() {
         if (meal.foods.isEmpty()) {
             add_foods_text_view.text = null
-        } else {
-            add_foods_text_view.text = "${meal.foods.size} ${getString(R.string.foods_added)}"
+        } else if ( meal.foods.size == 1){
+            add_foods_text_view.text = "${meal.foods.get(0).name}"
+        } else if ( meal.foods.size == 2){
+            add_foods_text_view.text = "${meal.foods.get(0).name},${meal.foods.get(1).name}"
+        }else{
+            val quantity = meal.foods.size - 2
+            add_foods_text_view.text = "${meal.foods.get(0).name},${meal.foods.get(1).name} ${resources.getQuantityString(R.plurals.and_more_foods,quantity,quantity)}"
         }
     }
 
