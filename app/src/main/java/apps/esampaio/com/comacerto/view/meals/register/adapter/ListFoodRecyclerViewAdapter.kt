@@ -14,7 +14,7 @@ import apps.esampaio.com.comacerto.core.entity.Food
 class ListFoodRecyclerViewAdapter(val context: Context, var foodsList:MutableList<Food> = mutableListOf()) : RecyclerView.Adapter<ListFoodRecyclerViewAdapter.ListFoodRecyclerViewHolder>() {
 
     lateinit var recyclerView: RecyclerView
-    val allFoodsList:MutableList<Food>
+    var allFoodsList:MutableList<Food>
 
     init {
         allFoodsList = foodsList
@@ -80,6 +80,11 @@ class ListFoodRecyclerViewAdapter(val context: Context, var foodsList:MutableLis
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
         this.recyclerView = recyclerView
+    }
+
+    fun setFoods(foods: MutableList<Food>){
+        this.foodsList = foods
+        this.allFoodsList = foods
     }
 
 

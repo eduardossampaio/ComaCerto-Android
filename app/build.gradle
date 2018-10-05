@@ -69,6 +69,9 @@ dependencies {
     implementation 'com.github.deano2390:MaterialShowcaseView:1.2.0@aar'
     implementation 'com.github.chrisbanes:PhotoView:2.1.4'
     implementation 'com.asksira.android:loopingviewpager:1.1.2'
+    implementation('com.github.lowlevel-studios:storo:1.2.0') {
+        transitive = true
+    }
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

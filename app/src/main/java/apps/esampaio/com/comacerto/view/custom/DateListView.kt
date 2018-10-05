@@ -168,20 +168,17 @@ class DateListView : RelativeLayout {
 
         fun setSelected(selected:Boolean){
             if (!enabled){
-                subview.background = ContextCompat.getDrawable(view.context,android.R.color.transparent)
+                dayItem.background = ContextCompat.getDrawable(view.context,android.R.color.transparent)
                 dayItem.setTextColor(ContextCompat.getColor(view.context,R.color.date_disabled))
                 weekDayItem.setTextColor(ContextCompat.getColor(view.context,R.color.date_disabled))
                 return
             }
             if ( selected ){
-                subview.background = ContextCompat.getDrawable(view.context,R.drawable.circle_drawable)
+                dayItem.background = ContextCompat.getDrawable(view.context,R.drawable.circle_drawable)
                 dayItem.setTextColor(ContextCompat.getColor(view.context,R.color.white))
-                weekDayItem.setTextColor(ContextCompat.getColor(view.context,R.color.white))
-
             }else{
-                subview.background = ContextCompat.getDrawable(view.context,android.R.color.transparent)
+                dayItem.background = ContextCompat.getDrawable(view.context,android.R.color.transparent)
                 dayItem.setTextColor(ContextCompat.getColor(view.context,R.color.primary))
-                weekDayItem.setTextColor(ContextCompat.getColor(view.context,R.color.primary))
             }
         }
 

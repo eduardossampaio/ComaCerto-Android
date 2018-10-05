@@ -64,5 +64,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="31 de Agosto de 2018" />
+        android:text="31 de Agosto de 2018" >
+
+
+    </TextSwitcher>
+    <View
+        android:layout_marginTop="10dp"
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
+
 </LinearLayout>
