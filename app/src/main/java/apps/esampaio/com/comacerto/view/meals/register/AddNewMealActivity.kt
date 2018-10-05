@@ -7,7 +7,6 @@ import android.os.Handler
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import android.view.animation.LinearInterpolator
-import android.view.animation.RotateAnimation
 import android.widget.SeekBar
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.core.entity.*

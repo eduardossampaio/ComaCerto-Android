@@ -9,13 +9,6 @@
 
     <!-- Add new meal-->
     <string name="no_meals_registered">No meals registered</string>
-    <string name="how_i_feel_title">How I felt</string>
-    <string name="what_meal_i_doing_title">What meal I\'m doing</string>
-    <string name="menu_add_meal">Add meal</string>
-    <string name="when_i_eat">When I ate</string>
-    <string name="date">Date</string>
-    <string name="hour">Hour</string>
-    <string name="what_i_ate">What I ate</string>
     <string name="what_was_doing">What I was doing</string>
 
     <!-- Foods-->
@@ -46,22 +39,14 @@
     <string name="meal_lunch">Lunch</string>
     <string name="meal_snack">Snack</string>
     <string name="meal_dinner">Dinner</string>
-    <string name="hunger_level">Hunger level</string>
     <string name="hungry">Hunger</string>
     <string name="hungry_level">Hunger level</string>
     <string name="satiety">Satiety</string>
     <string name="satiety_level">Satiety level</string>
-    <string name="add_foods_to_meals">Add foods to this meal</string>
-    <string name="save_meal">Save meal</string>
-    <string name="add_new_meal">Add new meal</string>
-    <string name="foods">Foods</string>
     <string name="add_foods">Add foods</string>
     <string name="meal">meal</string>
     <string name="feeling">Feelings</string>
     <string name="delete_meal">Delete meal</string>
-    <string name="initial_date">Initial Date</string>
-    <string name="final_date">Final date</string>
-    <string name="add_reminders">Add reminders</string>
 
     <!-- Report -->
     <string name="select_report_period">Selecione um período para gerar o seu relatório</string>
@@ -69,14 +54,10 @@
     <string name="period_biweekly_1">Primeira quinzena</string>
     <string name="period_biweekly_2">Segunda quinzena</string>
     <string name="period_monthly">Monthly</string>
-    <string name="period_select">Select Period</string>
-    <string name="period_custom">Custom Period</string>
 
 
     <!-- Preferences -->
     <string name="preference_category_reminders">Reminders</string>
-    <string name="preferences_enable_reminder">Enable reminders</string>
-    <string name="preferences_enable_reminder_summary">Para lembrar-lo de fazer suas refeições no horário correto</string>
     <string name="preferences_reminder_breakfast">Breakfast time</string>
     <string name="preferences_reminder_breakfast_summary">08:00</string>
     <string name="preferences_reminder_lunch">Lunch time</string>
@@ -90,17 +71,13 @@
 
     <!-- Dialogs -->
     <string name="dialog_ok_text">OK</string>
-    <string name="dialog_cancel_text">Cancel</string>
     <string name="dialog_yes_text">Yes</string>
     <string name="dialog_no_text">No</string>
     <string name="meal_successful_added_message">meal successfully added</string>
     <string name="meal_successful_edited_message">meal successfully updated</string>
     <string name="meal_delete_ask_message">Do you want to remove this meal?</string>
-    <string name="meal_successful_deleted_message">meal successfully deleted</string>
     <string name="error_no_meal_in_period">There are no meals registered in the selected period. Please select a different date range</string>
     <string name="generating_meals_report">Generating meals report. Please, wait</string>
-    <string name="foods_added">Foods added</string>
-    <string name="food_name">Foods</string>
 
     <!-- Notification chanels-->
     <string name="meal_reminder_chanel_name">Meal reminders</string>

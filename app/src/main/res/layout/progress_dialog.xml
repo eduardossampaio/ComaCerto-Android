@@ -56,7 +56,6 @@
         </ScrollView>
 
         <ProgressBar
-            android:id="@+id/progress"
             android:indeterminateTint="@color/dialog_loading_color"
             style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"

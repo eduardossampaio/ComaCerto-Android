@@ -9,20 +9,12 @@
 
     <!-- Add new meal-->
     <string name="no_meals_registered">Sem refeições cadastradas</string>
-    <string name="how_i_feel_title">Como me senti</string>
-    <string name="what_meal_i_doing_title">Que refeição estou fazendo?</string>
-    <string name="menu_add_meal">Adicionar Refeição</string>
-    <string name="when_i_eat">Quando comi</string>
-    <string name="date">Date</string>
-    <string name="hour">Hora</string>
-    <string name="what_i_ate">O que comi</string>
     <string name="what_was_doing">O que estava fazendo</string>
 
     <!-- Foods-->
 
-    <plurals name="foods_registered" tools:ignore="ImpliedQuantity">
-        <item quantity="zero">Nenhum alimento registrado</item>
-        <item quantity="one">Um alimento registrado</item>
+    <plurals name="foods_registered">
+        <item quantity="one">%d alimento registrado</item>
         <item quantity="other">%d Alimentos registrados</item>
     </plurals>
     <plurals name="and_more_foods">
@@ -46,22 +38,14 @@
     <string name="meal_lunch">Almoço</string>
     <string name="meal_snack">Lanche</string>
     <string name="meal_dinner">Janta</string>
-    <string name="hunger_level">Nível de fome</string>
     <string name="hungry">Fome</string>
     <string name="hungry_level">nível de fome</string>
     <string name="satiety">Saciedade</string>
     <string name="satiety_level">Nível de saciedade</string>
-    <string name="add_foods_to_meals">Adicione os alimentos desta refeição</string>
-    <string name="save_meal">Salvar refeição</string>
-    <string name="add_new_meal">Adicionar uma nova refeição</string>
-    <string name="foods">Alimentos</string>
     <string name="add_foods">Adicionar alimentos</string>
     <string name="meal">Refeição</string>
     <string name="feeling">Sentimento</string>
     <string name="delete_meal">Deletar Refeição</string>
-    <string name="initial_date">Data inicial</string>
-    <string name="final_date">Final date</string>
-    <string name="add_reminders">Adicionar Lembretes</string>
 
     <!-- Report -->
     <string name="select_report_period">Selecione um período para gerar o seu relatório</string>
@@ -69,14 +53,10 @@
     <string name="period_biweekly_1">Primeira quinzena</string>
     <string name="period_biweekly_2">Segunda quinzena</string>
     <string name="period_monthly">Mensal</string>
-    <string name="period_select">Escolher período</string>
-    <string name="period_custom">Período personalizado</string>
 
 
     <!-- Preferences -->
     <string name="preference_category_reminders">Lembretes</string>
-    <string name="preferences_enable_reminder">Habilitar lembretes</string>
-    <string name="preferences_enable_reminder_summary">Para lembrar-lo de fazer suas refeições no horário correto</string>
     <string name="preferences_reminder_breakfast">Horário do café da manhã</string>
     <string name="preferences_reminder_breakfast_summary">08:00</string>
     <string name="preferences_reminder_lunch">Horário do almoço</string>
@@ -90,17 +70,13 @@
 
     <!-- Dialogs -->
     <string name="dialog_ok_text">OK</string>
-    <string name="dialog_cancel_text">Cancelar</string>
     <string name="dialog_yes_text">Sim</string>
     <string name="dialog_no_text">Não</string>
     <string name="meal_successful_added_message">Refeição adicionada com sucesso</string>
     <string name="meal_successful_edited_message">Refeição atualizada com sucesso</string>
     <string name="meal_delete_ask_message">Deseja remover esta refeição</string>
-    <string name="meal_successful_deleted_message">Refeição deletada com sucesso</string>
     <string name="error_no_meal_in_period">Não há refeições registradas no periodo informado. Por favor selecione um período diferente</string>
     <string name="generating_meals_report">Gerando relátorio das suas refeições. Por favor, aguarde</string>
-    <string name="foods_added">Alimentos adicionados</string>
-    <string name="food_name">Alimento</string>
 
     <!-- Notification chanels-->
     <string name="meal_reminder_chanel_name">Lembretes de refeições</string>

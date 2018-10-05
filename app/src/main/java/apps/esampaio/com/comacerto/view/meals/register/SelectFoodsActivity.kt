@@ -39,7 +39,6 @@ class SelectFoodsActivity : BaseActivity(), FoodPresenter {
         foodIteractor =  FoodService(this,this)
         setContentView(R.layout.activity_select_foods)
         presetFoodsList = intent.getSerializableExtra(FOODS_LIST_PARAM)  as Array<Food>
-
     }
 
     override fun onResume() {

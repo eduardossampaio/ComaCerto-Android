@@ -25,19 +25,6 @@
         <item name="itemTextColor">@color/white</item>
     </style>
 
-    <style name="CardViewStyle">
-        <item name="android:layout_marginTop">4dp</item>
-        <item name="android:layout_marginBottom">4dp</item>
-        <item name="android:layout_marginLeft">10dp</item>
-        <item name="android:layout_marginRight">10dp</item>
-    </style>
-    <style name="CardViewTitleStyle" parent="TextAppearance.AppCompat.Medium">
-        <item name="android:textStyle">bold</item>
-        <item name="android:paddingLeft">8dp</item>
-        <item name="android:layout_marginTop">4dp</item>
-        <item name="android:layout_marginBottom">4dp</item>
-    </style>
-
     <style name="divider">
         <item name="android:height">1dp</item>
         <item name="android:background">@color/divider</item>
@@ -50,17 +37,6 @@
 
     <style name="Theme_Dialog" parent="Base.Theme.AppCompat.Dialog">
     </style>
-
-    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
-    <!-- Gets rid of the search icon -->
-    <item name="searchIcon">@drawable/ic_add</item>
-    <!-- Gets rid of the "underline" in the text -->
-    <item name="queryBackground">@null</item>
-    <!-- Gets rid of the search icon when the SearchView is expanded -->
-    <item name="searchHintIcon">@null</item>
-    <!-- The hint text that appears when the user has not typed anything -->
-    <item name="queryHint">@string/search_hint</item>
-</style>
 
 
 </resources>
