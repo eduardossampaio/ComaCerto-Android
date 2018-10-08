@@ -19,8 +19,7 @@ class PDFViewPagerAdapter(fm: FragmentManager,filePath : File) : FragmentPagerAd
     var pdfRenderer : PdfRenderer
     init {
         var fileDescriptor: ParcelFileDescriptor? = null
-        fileDescriptor = ParcelFileDescriptor.open(
-                filePath, ParcelFileDescriptor.MODE_READ_ONLY)
+        fileDescriptor = ParcelFileDescriptor.open(filePath, ParcelFileDescriptor.MODE_READ_ONLY)
 
         pdfRenderer = PdfRenderer(fileDescriptor!!)
     }

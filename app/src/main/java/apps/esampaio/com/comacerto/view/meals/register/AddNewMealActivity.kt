@@ -1,6 +1,7 @@
 package apps.esampaio.com.comacerto.view.meals.register
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -33,6 +34,16 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
         val FRAG_TAG_TIME_PICKER = "FRAG_TAG_TIME_PICKER"
         val MEAL_INTENT_PARAM = "PARAM_MEAL"
         val ADD_FOODS_REQUEST_CODE = 123;
+
+        fun buildIntent(context: Context):Intent{
+            val intent = Intent(context, AddNewMealActivity::class.java)
+            return intent
+        }
+        fun buildIntent(context: Context,meal:Meal):Intent{
+            val intent = Intent(context, AddNewMealActivity::class.java)
+            intent.putExtra(MEAL_INTENT_PARAM,meal)
+            return intent
+        }
     }
 
     var meal = Meal()

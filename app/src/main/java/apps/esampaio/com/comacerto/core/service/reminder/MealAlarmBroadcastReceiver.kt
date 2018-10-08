@@ -15,7 +15,7 @@ class MealAlarmBroadcastReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
         if (context != null) {
-            Toast.makeText(context,"Displaying notification for reminder", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(cont/xt,"Displaying notification for reminder", Toast.LENGTH_SHORT).show()
             var message = intent!!.extras.getString("MESSAGE")
             var mealOrdinal = intent!!.extras.getInt("MEAL_TYPE_ORDINAL")
             val mealType = MealType.getByOrdinal(mealOrdinal)

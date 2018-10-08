@@ -29,8 +29,8 @@ class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener, DateLi
     }
 
     fun onNewMealClicked(){
-        val intent = Intent(context, AddNewMealActivity::class.java)
-            startActivity(intent)
+        val intent = AddNewMealActivity.buildIntent(context!!)
+        startActivity(intent)
     }
 
     override fun updateMealList(meals: List<Meal>) {

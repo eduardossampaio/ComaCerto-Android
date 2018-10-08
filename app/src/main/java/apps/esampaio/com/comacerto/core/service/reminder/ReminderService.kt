@@ -13,17 +13,16 @@ import java.util.*
 class ReminderService {
 
     fun scheduleReminder(context: Context, mealType: MealType,hour:Date){
-        Toast.makeText(context,"scheduling alart for: "+mealType+" at :"+hour,Toast.LENGTH_SHORT).show()
+        //Toast.makeText(context,"scheduling alart for: "+mealType+" at :"+hour,Toast.LENGTH_SHORT).show()
         val alarmMgr = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         val intent = Intent(context, MealAlarmBroadcastReceiver::class.java)
-        val bundle = Bundle();
 
         val mealName = mealType.getName(context)
-//        bundle.putString("MESSAGE","Está quase na hora do seu ${mealName}")
-        bundle.putInt("MEAL_TYPE_ORDINAL",mealType.ordinal)
-        intent.putExtras(bundle)
-        val alarmIntent = PendingIntent.getBroadcast(context, idForMealType(mealType), intent, 0)
+        intent.putExtra("MESSAGE","Está quase na hora do seu ${mealName}")
+        intent.putExtra("MEAL_TYPE_ORDINAL",mealType.ordinal)
+
+        val alarmIntent = PendingIntent.getBroadcast(context, idForMealType(mealType), intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
         alarmMgr?.setRepeating(
                 AlarmManager.RTC_WAKEUP,
