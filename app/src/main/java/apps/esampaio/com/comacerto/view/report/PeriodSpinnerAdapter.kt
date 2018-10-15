@@ -43,12 +43,19 @@ class PeriodSpinnerAdapter(context: Context) : ArrayAdapter<Period>(context, 0, 
         if ( isSelectedView ){
             periodName.setTextColor(Color.WHITE)
             periodRange.setTextColor(Color.WHITE)
-//  TODO descomentar quando tiver implementado o calendário com multipla escolha
-//            if ( position == count-1 ){
-//                periodName.text = context.getString(R.string.period_custom)
-//            }
+            if ( position == count-1 ){
+                periodName.text = context.getString(R.string.period_custom)
+            }
         }
         return view
+    }
+
+    fun updateCustomPeriodDate(initialDate: Date,finalDate: Date){
+        val lastPosition = count - 1
+        val customPeriod = getItem(lastPosition) as Period
+        customPeriod.initialDate = initialDate
+        customPeriod.finalDate = finalDate
+        notifyDataSetChanged()
     }
 
     companion object {
@@ -58,12 +65,17 @@ class PeriodSpinnerAdapter(context: Context) : ArrayAdapter<Period>(context, 0, 
             val lastDayOfWeek = Date().getLastDayOfWeek()
             val middleOfMonth = Calendar.getInstance().appendDate(Date(), day = 15)
             val lastDayOfMonth = Date().endOfMonth()
+
+            val lastMonth =  Calendar.getInstance().lastMonth(Date())
+            val firstDayOfLastMonth = lastMonth.beginOfMonth();
+            val lastDayOfLastMonth = lastMonth.endOfMonth();
             return arrayOf(
                     Period(context.getString(R.string.period_weekly),firstDayOWeek,lastDayOfWeek),
                     Period(context.getString(R.string.period_biweekly_1),firstDayOfMonth,middleOfMonth),
                     Period(context.getString(R.string.period_biweekly_2),middleOfMonth,lastDayOfMonth),
-                    Period(context.getString(R.string.period_monthly),firstDayOfMonth,lastDayOfMonth)
-//                    Period(context.getString(R.string.period_select))
+                    Period(context.getString(R.string.period_monthly),firstDayOfMonth,lastDayOfMonth),
+                    Period(context.getString(R.string.period_last_month),firstDayOfLastMonth,lastDayOfLastMonth),
+                    Period(context.getString(R.string.period_select),isCustomPeriod = true)
             )
         }
     }

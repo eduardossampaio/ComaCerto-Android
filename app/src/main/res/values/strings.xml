@@ -54,7 +54,7 @@
     <string name="period_biweekly_1">Primeira quinzena</string>
     <string name="period_biweekly_2">Segunda quinzena</string>
     <string name="period_monthly">Monthly</string>
-
+    <string name="period_last_month">Last Month</string>
 
     <!-- Preferences -->
     <string name="preference_category_reminders">Reminders</string>
@@ -66,8 +66,10 @@
     <string name="preferences_reminder_snack_summary">16:00</string>
     <string name="preferences_reminder_dinner">Dinner time</string>
     <string name="preferences_reminder_dinner_summary">20:00</string>
+    <string name="preference_user_name_summary">Set your name to appear on Reports</string>
     <string name="generate_report">Generate report</string>
     <string name="share_report">Share report</string>
+
 
     <!-- Dialogs -->
     <string name="dialog_ok_text">OK</string>
@@ -88,4 +90,11 @@
     <string name="search_foods">Search foods</string>
     <string name="confirm">Confirm</string>
     <string name="my_foods">My foods</string>
+    <string name="user_name">User name</string>
+    <string name="period_select">Select Period</string>
+    <string name="period_custom">Custom period</string>
+
+    <string name="dialog_yes">Yes</string>
+    <string name="dialog_no">No</string>
+    <string name="dialog_cancel">Cancel</string>
 </resources>

@@ -33,7 +33,7 @@ class PreferencesService(val context: Context){
         editor.apply()
     }
 
-    private fun getMealTypePreferenceKey(mealType: MealType): String{
+    public fun getMealTypePreferenceKey(mealType: MealType): String{
         var prefKey = when(mealType){
             MealType.Breakfast -> PREFERENCE_BREAKFAST_REMINDER_TIME_KEY
             MealType.Lunch -> PREFERENCE_LUNCH_REMINDER_TIME_KEY

@@ -8,17 +8,13 @@ class Period {
     var displayText: String? = null
     var initialDate: Date? = null
     var finalDate: Date? = null
+    var isCustomPeriod: Boolean = false
 
-    constructor(){
-
-    }
-    constructor(displayText:String){
-        this.displayText = displayText
-    }
-    constructor(displayText:String,initialDate: Date,finalDate: Date){
+    constructor(displayText:String,initialDate: Date? = null,finalDate: Date? = null, isCustomPeriod: Boolean = false){
         this.displayText = displayText
         this.initialDate = initialDate
         this.finalDate = finalDate
+        this.isCustomPeriod = isCustomPeriod
     }
 
     fun getPeriodRangeDisplayText() : String {

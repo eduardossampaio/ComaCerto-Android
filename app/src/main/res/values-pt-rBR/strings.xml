@@ -53,7 +53,7 @@
     <string name="period_biweekly_1">Primeira quinzena</string>
     <string name="period_biweekly_2">Segunda quinzena</string>
     <string name="period_monthly">Mensal</string>
-
+    <string name="period_last_month">Mês passado</string>
 
     <!-- Preferences -->
     <string name="preference_category_reminders">Lembretes</string>
@@ -87,5 +87,12 @@
     <string name="search_foods">Pesquisar alimentos</string>
     <string name="confirm">Confirmar</string>
     <string name="my_foods">Meus Alimentos</string>
+    <string name="user_name">Nome do usuário</string>
+    <string name="preference_user_name_summary">Informe seu nome para que ele possa aparecer no seu relatório</string>
+    <string name="period_select">Selecionar Período</string>
+    <string name="period_custom">Período customizado</string>
 
+    <string name="dialog_yes">Sim</string>
+    <string name="dialog_no">Não</string>
+    <string name="dialog_cancel">Cancelar</string>
 </resources>

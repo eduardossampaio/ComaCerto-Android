@@ -82,20 +82,24 @@ fun Date.fromFormat(format: String,value:String): Date {
     this.time = dateFormat.parse(value).time
     return this
 }
-fun Calendar.appendDate(date: Date,day:Int =-1 ,month:Int =-1 ,year:Int =-1 ) : Date{
+fun Calendar.appendDate(date: Date,day:Int =-99 ,month:Int =-99 ,year:Int =-99 ) : Date{
     time = date
-    if ( day!= -1) {
+    if ( day!= -99) {
         set(Calendar.DAY_OF_MONTH, day)
     }
-    if(month != -1) {
+    if(month != -99) {
         set(Calendar.MONTH, month)
     }
-    if(year != -1) {
+    if(year != -99) {
         set(Calendar.YEAR, year)
     }
     return time
 }
-
+fun Calendar.lastMonth(date: Date) : Date{
+    time = date
+    add(Calendar.MONTH, -1)
+    return time
+}
 fun Calendar.appendTime(date: Date,hour:Int,minute:Int,second:Int = 0) : Date{
     time = date
     set(Calendar.HOUR_OF_DAY,hour)

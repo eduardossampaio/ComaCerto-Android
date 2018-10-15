@@ -17,9 +17,11 @@ import apps.esampaio.com.comacerto.core.service.report.ReportService
 import apps.esampaio.com.comacerto.core.utils.FileUtils
 import apps.esampaio.com.comacerto.view.BaseFragment
 import apps.esampaio.com.comacerto.view.custom.pdfviewpager.PDFViewPagerAdapter
+import apps.esampaio.com.comacerto.view.dialogs.DateRangePickerDialog
 import kotlinx.android.synthetic.main.fragment_generate_reports.*
 import org.jetbrains.anko.runOnUiThread
 import java.io.File
+import java.util.*
 
 
 class GenerateReportFragment : BaseFragment(), ReportPresenter {
@@ -35,6 +37,7 @@ class GenerateReportFragment : BaseFragment(), ReportPresenter {
     lateinit var shareMenuItem: MenuItem
     var selectedPeriod: Period? = null
     var reportIteractor: ReportIteractor
+    lateinit var periodSpinnerAdapter : PeriodSpinnerAdapter;
 
     lateinit var generatedReportFile: File
 
@@ -77,7 +80,8 @@ class GenerateReportFragment : BaseFragment(), ReportPresenter {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        period_spinner.adapter = PeriodSpinnerAdapter(context!!)
+        periodSpinnerAdapter = PeriodSpinnerAdapter(context!!)
+        period_spinner.adapter = periodSpinnerAdapter
 
         period_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {}
@@ -85,6 +89,17 @@ class GenerateReportFragment : BaseFragment(), ReportPresenter {
             override fun onItemSelected(adapter: AdapterView<*>?, view: View?, position: Int, p3: Long) {
                 shareMenuItem.setEnabled(false)
                 selectedPeriod = adapter?.getItemAtPosition(position) as Period
+
+                if (selectedPeriod?.isCustomPeriod!!){
+                    val dateRangePickerDialog = DateRangePickerDialog(context!!)
+                    dateRangePickerDialog.onDateRangeSelectedListener = object : DateRangePickerDialog.OnDateRangeSelectedListener{
+                        override fun onDateRangeSelected(initialDate: Date, finalDate: Date) {
+                            periodSpinnerAdapter.updateCustomPeriodDate(initialDate,finalDate)
+                        }
+
+                    }
+                    dateRangePickerDialog.show()
+                }
             }
 
         }

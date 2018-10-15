@@ -175,9 +175,11 @@ class DateListView : RelativeLayout {
             }
             if ( selected ){
                 dayItem.background = ContextCompat.getDrawable(view.context,R.drawable.circle_drawable)
+                weekDayItem.setTextColor(ContextCompat.getColor(view.context,R.color.primary))
                 dayItem.setTextColor(ContextCompat.getColor(view.context,R.color.white))
             }else{
                 dayItem.background = ContextCompat.getDrawable(view.context,android.R.color.transparent)
+                weekDayItem.setTextColor(ContextCompat.getColor(view.context,R.color.primary))
                 dayItem.setTextColor(ContextCompat.getColor(view.context,R.color.primary))
             }
         }

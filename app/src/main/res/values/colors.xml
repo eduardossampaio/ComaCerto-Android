@@ -15,4 +15,6 @@
     <color name="dialog_alert_color">#f88e00</color>
     <color name="dialog_loading_color">#3067f1</color>
 
+    <color name="picker_dialog_selected_date_color">#924caf50</color>
+
 </resources>

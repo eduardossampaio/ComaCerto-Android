@@ -61,7 +61,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
             if ( preference is SwitchPreference && value is Boolean){
                 if (value){
-                    openTimeDialog(preference,mealType)
+                    openTimeDialog(preference,preferenceService.getMealTypePreferenceKey(mealType),mealType)
                 }else{
                     reminderService.cancelReminder(context!!,mealType)
                 }
@@ -70,7 +70,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
-    private fun openTimeDialog(targetPreference: SwitchPreference,mealType: MealType) {
+    private fun openTimeDialog(targetPreference: SwitchPreference,preferenceValueKey:String,mealType: MealType) {
 
         val supportFragmentManager = (context as AppCompatActivity).supportFragmentManager
         var timeSet = false
@@ -91,7 +91,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 }
 
         try{
-            val dateFormat = preferenceService.getPreferenceString(targetPreference.key, targetPreference.summary.toString())
+            val dateFormat = preferenceService.getPreferenceString(preferenceValueKey, targetPreference.summary.toString())
             rtpd.setStartTime(Date().fromFormat("HH:mm",dateFormat))
         }catch (e:Exception){
 
