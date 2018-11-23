@@ -4,10 +4,13 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import apps.esampaio.com.comacerto.R
+import apps.esampaio.com.comacerto.core.entity.Water
 import apps.esampaio.com.comacerto.core.extensions.appendDate
 import apps.esampaio.com.comacerto.core.extensions.appendTime
 import apps.esampaio.com.comacerto.core.extensions.asString
 import apps.esampaio.com.comacerto.core.extensions.fromFormat
+import apps.esampaio.com.comacerto.core.service.water.WaterIteractor
+import apps.esampaio.com.comacerto.core.service.water.WaterService
 import apps.esampaio.com.comacerto.view.BaseActivity
 import apps.esampaio.com.comacerto.view.meals.register.AddNewMealActivity
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment
@@ -20,7 +23,10 @@ import java.util.*
 class AddWaterActivity : BaseActivity(), CalendarDatePickerDialogFragment.OnDateSetListener, RadialTimePickerDialogFragment.OnTimeSetListener {
     lateinit var currentDate:Date;
 
+    lateinit var waterIteractor:WaterIteractor
+
     var cupsQuantity = 1;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_water)
@@ -47,10 +53,11 @@ class AddWaterActivity : BaseActivity(), CalendarDatePickerDialogFragment.OnDate
         food_category_text_view.text = getString(R.string.cups)
         updateCupsQuantity()
         updateDateAndTime()
-
+        waterIteractor = WaterService(this)
     }
 
     fun onAddWaterClicked(view:View){
+        waterIteractor.onWaterSavedClick(Water(currentDate,cupsQuantity))
         finish()
     }
     override fun onDateSet(dialog: CalendarDatePickerDialogFragment?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
