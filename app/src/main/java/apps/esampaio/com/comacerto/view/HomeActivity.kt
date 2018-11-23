@@ -9,6 +9,7 @@ import apps.esampaio.com.comacerto.view.help.HelpFragment
 import apps.esampaio.com.comacerto.view.meals.list.ListMealsFragment
 import apps.esampaio.com.comacerto.view.report.GenerateReportFragment
 import apps.esampaio.com.comacerto.view.settings.SettingsFragment
+import com.google.android.gms.ads.MobileAds
 import kotlinx.android.synthetic.main.activity_home.*
 
 
@@ -41,6 +42,7 @@ class HomeActivity : BaseActivity() {
             true
         }
         openFragment(listMealFragment)
+        MobileAds.initialize(this, getString(R.string.admob_app_key));
     }
 
 

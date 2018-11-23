@@ -44,6 +44,7 @@
     <string name="satiety">Satiety</string>
     <string name="satiety_level">Satiety level</string>
     <string name="add_foods">Add foods</string>
+    <string name="add_water">Add water</string>
     <string name="meal">meal</string>
     <string name="feeling">Feelings</string>
     <string name="delete_meal">Delete meal</string>
@@ -97,4 +98,7 @@
     <string name="dialog_yes">Yes</string>
     <string name="dialog_no">No</string>
     <string name="dialog_cancel">Cancel</string>
+    <string name="add_meal">Add meal</string>
+    <string name="new_meal">New meal</string>
+
 </resources>

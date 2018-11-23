@@ -5,7 +5,7 @@ import android.view.MenuItem
 import android.view.View
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.view.meals.register.AddNewMealActivity
-import kotlinx.android.synthetic.main.activity_add_new_meal_2.*
+import kotlinx.android.synthetic.main.activity_add_new_meal.*
 
 class EditMealActivity : AddNewMealActivity() {
     companion object {

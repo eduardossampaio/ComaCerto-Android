@@ -22,7 +22,7 @@ import apps.esampaio.com.comacerto.view.meals.register.adapter.ImageRecyclerView
 import apps.esampaio.com.comacerto.view.meals.register.adapter.MealListRecyclerViewAdapter
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment
 import com.codetroopers.betterpickers.radialtimepicker.RadialTimePickerDialogFragment
-import kotlinx.android.synthetic.main.activity_add_new_meal_2.*
+import kotlinx.android.synthetic.main.activity_add_new_meal.*
 import kotlinx.android.synthetic.main.layout_view_hunger_level.*
 import java.text.DateFormat
 import java.util.*
@@ -51,7 +51,7 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_new_meal_2)
+        setContentView(R.layout.activity_add_new_meal)
 
         val receivedMeal = intent?.extras?.getSerializable(MEAL_INTENT_PARAM) as Meal?
         if (receivedMeal != null) {
@@ -62,6 +62,7 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
         setupFeelingsList()
         setupAutocompleteFoods()
         setupHungerAndSatietySliders()
+        setTitle(R.string.new_meal)
 
     }
 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <!-- Options buttons of the Fab menu -->
+    <item
+
+        android:id="@+id/add_new_meal"
+        android:icon="@drawable/ic_add_new_meal"
+        android:title="@string/add_meal" />
+
+    <item
+
+        android:id="@+id/add_water"
+        android:icon="@drawable/ic_add_water"
+        android:title="@string/add_water" />
+
+</menu>

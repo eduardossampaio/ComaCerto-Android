@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.core.entity.Meal
 import apps.esampaio.com.comacerto.core.extensions.dayOfYear
@@ -16,7 +17,8 @@ import apps.esampaio.com.comacerto.view.meals.list.adapter.ListMealPageViewAdapt
 import apps.esampaio.com.comacerto.view.meals.register.AddNewMealActivity
 import kotlinx.android.synthetic.main.fragment_list_meals_2.*
 import java.util.*
-
+import com.leinardi.android.speeddial.SpeedDialActionItem
+import com.leinardi.android.speeddial.SpeedDialView
 
 class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener, DateListView.DayItemSelectedListener,MealPresenter {
 
@@ -82,7 +84,25 @@ class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener, DateLi
         daily_meal_view_pager.addOnPageChangeListener(this)
         currentItemPosition = daily_meal_view_pager.currentItem
         navigation_header.onDayItemSelectedListener = this
-        add_new_meal_button.setOnClickListener { onNewMealClicked() }
+
+        inflateFab()
+    }
+
+    private fun inflateFab(){
+        //inflate fab
+        speedDial.inflate(R.menu.list_food_menu);
+        speedDial.setOnActionSelectedListener { speedDialActionItem ->
+            when (speedDialActionItem.id) {
+                R.id.add_new_meal -> {
+                    onNewMealClicked()
+                    false // true to keep the Speed Dial open
+                }
+                R.id.add_water -> {
+                    false
+                }
+                else -> false
+            }
+        }
     }
 
     override fun onResume() {

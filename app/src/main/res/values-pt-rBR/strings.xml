@@ -95,4 +95,7 @@
     <string name="dialog_yes">Sim</string>
     <string name="dialog_no">Não</string>
     <string name="dialog_cancel">Cancelar</string>
+    <string name="add_water">Adicionar água</string>
+    <string name="add_meal">Adicionar refeição</string>
+    <string name="new_meal">Nova refeição</string>
 </resources>
