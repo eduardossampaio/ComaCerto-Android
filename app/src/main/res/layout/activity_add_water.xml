@@ -9,7 +9,7 @@
 
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/layout_day"
+        android:id="@+id/layout_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?android:attr/listPreferredItemHeight"
@@ -22,7 +22,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:scaleType="center"
-            android:src="@drawable/icon_clock"
+            android:src="@drawable/ic_calendar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,6 +52,7 @@
         android:layout_height="1px" />
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/layout_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?android:attr/listPreferredItemHeight"
@@ -70,7 +71,7 @@
 
 
         <TextView
-            android:id="@+id/hour_text_view2"
+            android:id="@+id/hour_text_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
@@ -92,6 +93,13 @@
         android:layout_width="match_parent"
         android:layout_height="1px" />
 
+    <include layout="@layout/list_foods_recycler_view_item_2"/>
+
+    <View
+        style="@style/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1px" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -104,7 +112,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:backgroundTint="@color/primary"
-            android:onClick="onSaveClick"
+            android:onClick="onAddWaterClicked"
             android:text="@string/save"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent" />

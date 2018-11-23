@@ -98,4 +98,6 @@
     <string name="add_water">Adicionar água</string>
     <string name="add_meal">Adicionar refeição</string>
     <string name="new_meal">Nova refeição</string>
+    <string name="whater_quantity">Quantidade de água</string>
+    <string name="cups">Copos</string>
 </resources>

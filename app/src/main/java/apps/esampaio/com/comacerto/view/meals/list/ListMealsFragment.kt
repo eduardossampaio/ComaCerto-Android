@@ -15,6 +15,7 @@ import apps.esampaio.com.comacerto.view.BaseFragment
 import apps.esampaio.com.comacerto.view.custom.DateListView
 import apps.esampaio.com.comacerto.view.meals.list.adapter.ListMealPageViewAdapter
 import apps.esampaio.com.comacerto.view.meals.register.AddNewMealActivity
+import apps.esampaio.com.comacerto.view.water.AddWaterActivity
 import kotlinx.android.synthetic.main.fragment_list_meals_2.*
 import java.util.*
 import com.leinardi.android.speeddial.SpeedDialActionItem
@@ -32,6 +33,10 @@ class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener, DateLi
 
     fun onNewMealClicked(){
         val intent = AddNewMealActivity.buildIntent(context!!)
+        startActivity(intent)
+    }
+    fun onAddWaterClicked(){
+        val intent = Intent(context,AddWaterActivity::class.java)
         startActivity(intent)
     }
 
@@ -98,6 +103,7 @@ class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener, DateLi
                     false // true to keep the Speed Dial open
                 }
                 R.id.add_water -> {
+                    onAddWaterClicked()
                     false
                 }
                 else -> false
