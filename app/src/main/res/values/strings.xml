@@ -22,6 +22,10 @@
         <item quantity="one">and more one food</item>
         <item quantity="other">and more %d foods</item>
     </plurals>
+    <plurals name="water_cups_consumed">
+        <item quantity="one">%d water cup consumed</item>
+        <item quantity="other">%d water cups consumed</item>
+    </plurals>
     <string name="blank"></string>
 
     <!-- Feelings-->
@@ -102,5 +106,9 @@
     <string name="new_meal">New meal</string>
     <string name="whater_quantity">Quantidade de água</string>
     <string name="cups">Copos</string>
+    <string name="header">Header</string>
+    <string name="meals">Meals</string>
+    <string name="consumed_water">Consumed water</string>
+    <string name="liquids">Liquids</string>
 
 </resources>

@@ -21,6 +21,10 @@
         <item quantity="one" tools:ignore="ImpliedQuantity">e mais um alimento</item>
         <item quantity="other">mais %d alimentos</item>
     </plurals>
+    <plurals name="water_cups_consumed">
+        <item quantity="one">%d copo de água consumido</item>
+        <item quantity="other">%d copos de água consumidos</item>
+    </plurals>
     <string name="blank"></string>
 
     <!-- Feelings-->
@@ -100,4 +104,8 @@
     <string name="new_meal">Nova refeição</string>
     <string name="whater_quantity">Quantidade de água</string>
     <string name="cups">Copos</string>
+    <string name="header">Header</string>
+    <string name="meals">Refeições</string>
+    <string name="consumed_water">Água consumida</string>
+    <string name="liquids">Liquidos</string>
 </resources>

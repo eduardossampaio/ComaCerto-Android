@@ -13,27 +13,101 @@ import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.core.entity.*
 import apps.esampaio.com.comacerto.core.extensions.asString
 import apps.esampaio.com.comacerto.view.meals.edit.EditMealActivity
+import apps.esampaio.com.comacerto.view.water.ListWaterActivity
+import java.util.*
+import kotlin.collections.ArrayList
 
-class ListDailyMealRecyclerViewAdapter(val context: Context, var mealList:List<Meal>) : RecyclerView.Adapter<ListDailyMealRecyclerViewAdapter.ListDailyMealAdapterViewHolder>() {
+class ListDailyMealRecyclerViewAdapter : RecyclerView.Adapter<ListDailyMealRecyclerViewAdapter.ListDailyMealAdapterViewHolder> {
 
-    override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ListDailyMealAdapterViewHolder {
-        return ListDailyMealAdapterViewHolder(LayoutInflater.from(context).inflate(R.layout.list_daily_meal_view_item,null,false))
+    val ITEM_TYPE_HEADER = 1
+    val ITEM_TYPE_NO_HEADER = 2
+
+    val context: Context
+    var mealList:List<Meal>
+    var waterList:List<Water> = emptyList()
+
+    val hasWater : Boolean
+
+    constructor(context: Context, mealList: List<Meal>) : super() {
+        this.context = context
+        this.mealList = mealList
+        this.waterList = listOf(Water(Date(),1), Water(Date(),2),Water(Date(),2))
+        this.hasWater = true
+
+    }
+
+    constructor(context: Context,mealList: List<Meal>, waterList: List<Water>) : super() {
+        this.context = context
+        this.mealList = mealList
+        this.waterList = waterList
+        this.hasWater = waterList.isEmpty() == false
+    }
+
+
+    override fun onCreateViewHolder(viewGroup:  ViewGroup, type: Int): ListDailyMealAdapterViewHolder {
+        if ( ITEM_TYPE_HEADER == type){
+            return ListDailyMealAdapterViewHolder(LayoutInflater.from(context).inflate(R.layout.list_daily_meal_view_item_with_header,null,false))
+        }else{
+            return ListDailyMealAdapterViewHolder(LayoutInflater.from(context).inflate(R.layout.list_daily_meal_view_item,null,false))
+        }
     }
 
     override fun getItemCount(): Int {
-        return mealList.size;
+        if (!hasWater) {
+            return mealList.size
+        }else{
+            return mealList.size + 1
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        if ( position == 0){
+            return ITEM_TYPE_HEADER
+        }else if( hasWater && position == mealList.size){
+            return ITEM_TYPE_HEADER
+        }
+        return ITEM_TYPE_NO_HEADER
     }
 
     override fun onBindViewHolder(viewHolder: ListDailyMealAdapterViewHolder, index: Int) {
+
+        if ( hasWater && index == mealList.size){
+            bindWater(viewHolder,index);
+        }else{
+            bindMeal(viewHolder,index);
+        }
+        val headerName:String
+        if ( index == 0){
+            headerName = context.getString(R.string.meals)
+        }else{
+            headerName = context.getString(R.string.liquids)
+        }
+        viewHolder.header?.text = headerName
+    }
+    private fun bindMeal(viewHolder: ListDailyMealAdapterViewHolder, index: Int){
         val meal = mealList.get(index)
         viewHolder.mealName.text = meal.mealType.getName(context)
         setMealIcon(viewHolder,meal)
         setFoodsQuantityText(viewHolder,meal)
 
         viewHolder.mealHour.text = meal.date.asString("HH:mm")
-        viewHolder.view.setOnClickListener{
+        viewHolder.cell.setOnClickListener{
             val intent = Intent(context, EditMealActivity::class.java)
             intent.putExtra(EditMealActivity.MEAL_INTENT_PARAM,meal);
+            context.startActivity(intent)
+        }
+    }
+    private fun bindWater(viewHolder: ListDailyMealAdapterViewHolder, index: Int){
+        var waterQuantity = 0;
+        for (water in waterList){
+            waterQuantity += water.quantity
+        }
+        viewHolder.mealName.text = context.getString(R.string.consumed_water)
+        viewHolder.iconImage.setImageResource(R.drawable.ic_water_list)
+        viewHolder.foodCount.text = "${context.resources.getQuantityString(R.plurals.water_cups_consumed,waterQuantity,waterQuantity)}"
+        viewHolder.mealHour.text = "";
+        viewHolder.cell.setOnClickListener{
+            val intent =  ListWaterActivity.createIntent(context, ArrayList(waterList))
             context.startActivity(intent)
         }
     }
@@ -53,7 +127,7 @@ class ListDailyMealRecyclerViewAdapter(val context: Context, var mealList:List<M
         }
 
         for (newMeal in newItems){
-            if (mealList.contains(newMeal) == false){
+            if (!mealList.contains(newMeal)){
                 return false
             }
         }
@@ -82,19 +156,13 @@ class ListDailyMealRecyclerViewAdapter(val context: Context, var mealList:List<M
     }
 
     class ListDailyMealAdapterViewHolder(view:View) : RecyclerView.ViewHolder(view){
-        val iconImage:ImageView
-        val mealName:TextView
-        val foodCount:TextView
-        val mealHour:TextView
-        val view:View
-        init{
-            this.view = view
-            iconImage = view.findViewById(R.id.meal_image)
-            mealName = view.findViewById(R.id.meal_name)
-            foodCount = view.findViewById(R.id.food_count)
-            mealHour = view.findViewById(R.id.meal_hour)
-
-        }
+        val iconImage:ImageView = view.findViewById(R.id.meal_image)
+        val mealName:TextView = view.findViewById(R.id.meal_name)
+        val foodCount:TextView = view.findViewById(R.id.food_count)
+        val mealHour:TextView = view.findViewById(R.id.meal_hour)
+        val header:TextView? = view.findViewById(R.id.header)
+        val cell : ViewGroup = view.findViewById(R.id.cell)
+        val view:View = view
     }
 
 }

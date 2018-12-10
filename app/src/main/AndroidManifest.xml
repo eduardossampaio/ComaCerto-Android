@@ -30,7 +30,7 @@
         </activity>
         <activity
             android:name=".view.HomeActivity"
-            android:theme="@style/ComaCertoAppTheme_NoActionBar"></activity>
+            android:theme="@style/ComaCertoAppTheme_NoActionBar" />
         <activity android:name=".view.meals.register.AddNewMealActivity" />
         <activity android:name=".view.meals.edit.EditMealActivity" />
         <activity android:name=".view.help.ShowHelpTopicActivity" />
@@ -52,7 +52,8 @@
 
         <receiver android:name=".core.service.reminder.MealAlarmBroadcastReceiver" />
 
-        <activity android:name=".view.water.AddWaterActivity"></activity>
+        <activity android:name=".view.water.AddWaterActivity" />
+        <activity android:name=".view.water.ListWaterActivity"></activity>
     </application>
 
 </manifest>

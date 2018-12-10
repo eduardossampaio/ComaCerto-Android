@@ -1,15 +1,60 @@
 package apps.esampaio.com.comacerto.core.entity
 
 import android.content.Intent
+import android.os.Parcel
+import android.os.Parcelable
+import java.io.Serializable
 
 import java.util.Date
 
-class Water {
-    var dateAndTime: Date
-    var quantity: Int
+data class Water(var dateAndTime:Date,var quantity:Int) : Parcelable {
 
-    constructor(dateAndTime: Date, quantity: Int) {
-        this.dateAndTime = dateAndTime
-        this.quantity = quantity
+    constructor(parcel: Parcel) : this(
+            Date(parcel.readLong()),
+            parcel.readInt()) {
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeLong(dateAndTime.time)
+        parcel.writeInt(quantity)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Water> {
+        override fun createFromParcel(parcel: Parcel): Water {
+            return Water(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Water?> {
+            return arrayOfNulls(size)
+        }
     }
 }
+
+
+//constructor(parcel: Parcel) : this(
+//parcel.readString(),
+//parcel.readInt()) {
+//}
+//
+//override fun writeToParcel(parcel: Parcel, flags: Int) {
+//    parcel.writeString(dateAndTime)
+//    parcel.writeInt(quantity)
+//}
+//
+//override fun describeContents(): Int {
+//    return 0
+//}
+//
+//companion object CREATOR : Parcelable.Creator<Water> {
+//    override fun createFromParcel(parcel: Parcel): Water {
+//        return Water(parcel)
+//    }
+//
+//    override fun newArray(size: Int): Array<Water?> {
+//        return arrayOfNulls(size)
+//    }
+//}
