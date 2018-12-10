@@ -2,12 +2,15 @@ package apps.esampaio.com.comacerto.view.meals.list
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.support.v4.view.ViewPager
 import android.util.Log
 import android.view.*
 import android.widget.Toast
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.core.entity.Meal
+import apps.esampaio.com.comacerto.core.entity.Water
 import apps.esampaio.com.comacerto.core.extensions.dayOfYear
 import apps.esampaio.com.comacerto.core.service.meal.MealPresenter
 import apps.esampaio.com.comacerto.core.service.meal.MealService
@@ -42,7 +45,12 @@ class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener, DateLi
 
     override fun updateMealList(meals: List<Meal>) {
         pageViewAdapter.updateData(currentItemPosition,meals)
+    }
 
+    override fun updateWaterList(water: List<Water>) {
+        Handler(Looper.getMainLooper()).post{
+            Toast.makeText(context, "quantidade de agua:${water.size}", Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun daySelected(day: Date) {

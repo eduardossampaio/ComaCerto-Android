@@ -6,6 +6,7 @@ import android.arch.persistence.room.OnConflictStrategy
 import android.arch.persistence.room.Query
 import apps.esampaio.com.comacerto.core.persistence.entities.MealAndFoods
 import apps.esampaio.com.comacerto.core.persistence.entities.WaterEntity
+import java.util.*
 
 @Dao
 interface WaterDAO {
@@ -14,5 +15,8 @@ interface WaterDAO {
 
     @Query("SELECT * from WaterEntity")
     fun listAll(): List<WaterEntity>
+
+    @Query("SELECT * from WaterEntity where dateAndTime BETWEEN :from AND :to order by dateAndTime asc")
+    fun listAll(from: Long,to:Long): List<WaterEntity>
 
 }

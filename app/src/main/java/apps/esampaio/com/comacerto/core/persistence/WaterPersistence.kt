@@ -29,4 +29,22 @@ class WaterPersistence(val context: Context) {
         }
     }
 
+    fun getWater(date: Date, result: (List<Water>) -> Unit) {
+
+        doAsync {
+            var allWater = mutableListOf<Water>()
+            val waterDao = AppDatabase.getInstance(context)?.waterDAO()
+            val waterEntityList = waterDao?.listAll(date.beginOfDay().time,date.endOfDay().time)
+            if (waterEntityList != null) {
+                for (waterEntity in waterEntityList) {
+                    allWater.add(waterEntity.toWater())
+                }
+                result(allWater)
+            }else{
+                result(emptyList())
+            }
+        }
+
+    }
+
 }

@@ -66,9 +66,6 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
 
     }
 
-    override fun updateMealList(meals: List<Meal>) {
-
-    }
 
     override fun onProgressChanged(seekbar: SeekBar?, progress: Int, fromUser: Boolean) {
         if (seekbar?.id == hunger_level_seek_bar.id) {
