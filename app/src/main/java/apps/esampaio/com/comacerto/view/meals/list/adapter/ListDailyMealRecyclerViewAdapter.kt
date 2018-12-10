@@ -26,24 +26,19 @@ class ListDailyMealRecyclerViewAdapter : RecyclerView.Adapter<ListDailyMealRecyc
     var mealList:List<Meal>
     var waterList:List<Water> = emptyList()
 
-    val hasWater : Boolean
-
     constructor(context: Context, mealList: List<Meal>) : super() {
         this.context = context
         this.mealList = mealList
-        this.waterList = listOf(Water(Date(),1), Water(Date(),2),Water(Date(),2))
-        this.hasWater = true
-
     }
 
-    constructor(context: Context,mealList: List<Meal>, waterList: List<Water>) : super() {
-        this.context = context
-        this.mealList = mealList
+
+    fun addWaterList(waterList: List<Water>){
         this.waterList = waterList
-        this.hasWater = waterList.isEmpty() == false
+        notifyDataSetChanged()
     }
-
-
+    private fun hasWater() : Boolean{
+        return waterList!= null && !waterList.isEmpty()
+    }
     override fun onCreateViewHolder(viewGroup:  ViewGroup, type: Int): ListDailyMealAdapterViewHolder {
         if ( ITEM_TYPE_HEADER == type){
             return ListDailyMealAdapterViewHolder(LayoutInflater.from(context).inflate(R.layout.list_daily_meal_view_item_with_header,null,false))
@@ -53,7 +48,7 @@ class ListDailyMealRecyclerViewAdapter : RecyclerView.Adapter<ListDailyMealRecyc
     }
 
     override fun getItemCount(): Int {
-        if (!hasWater) {
+        if (!hasWater()) {
             return mealList.size
         }else{
             return mealList.size + 1
@@ -63,7 +58,7 @@ class ListDailyMealRecyclerViewAdapter : RecyclerView.Adapter<ListDailyMealRecyc
     override fun getItemViewType(position: Int): Int {
         if ( position == 0){
             return ITEM_TYPE_HEADER
-        }else if( hasWater && position == mealList.size){
+        }else if( hasWater() && position == mealList.size){
             return ITEM_TYPE_HEADER
         }
         return ITEM_TYPE_NO_HEADER
@@ -71,7 +66,7 @@ class ListDailyMealRecyclerViewAdapter : RecyclerView.Adapter<ListDailyMealRecyc
 
     override fun onBindViewHolder(viewHolder: ListDailyMealAdapterViewHolder, index: Int) {
 
-        if ( hasWater && index == mealList.size){
+        if ( hasWater() && index == mealList.size){
             bindWater(viewHolder,index);
         }else{
             bindMeal(viewHolder,index);

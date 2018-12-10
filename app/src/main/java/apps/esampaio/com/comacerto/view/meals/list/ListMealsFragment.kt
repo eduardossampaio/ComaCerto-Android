@@ -7,9 +7,9 @@ import android.os.Looper
 import android.support.v4.view.ViewPager
 import android.util.Log
 import android.view.*
-import android.widget.Toast
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.core.entity.Meal
+import apps.esampaio.com.comacerto.core.entity.MealType
 import apps.esampaio.com.comacerto.core.entity.Water
 import apps.esampaio.com.comacerto.core.extensions.dayOfYear
 import apps.esampaio.com.comacerto.core.service.meal.MealPresenter
@@ -21,21 +21,24 @@ import apps.esampaio.com.comacerto.view.meals.register.AddNewMealActivity
 import apps.esampaio.com.comacerto.view.water.AddWaterActivity
 import kotlinx.android.synthetic.main.fragment_list_meals_2.*
 import java.util.*
-import com.leinardi.android.speeddial.SpeedDialActionItem
-import com.leinardi.android.speeddial.SpeedDialView
 
 class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener, DateListView.DayItemSelectedListener,MealPresenter {
 
     var currentItemPosition = 0
     var mealIterator = MealService(this)
     lateinit var pageViewAdapter : ListMealPageViewAdapter
+    var lastSelectedDay = Date()
+    var lastRetrievedMeals:List<Meal> = emptyList()
 
     init {
         setHasOptionsMenu(true)
     }
 
     fun onNewMealClicked(){
-        val intent = AddNewMealActivity.buildIntent(context!!)
+        val templateMeal = Meal()
+        templateMeal.date = lastSelectedDay
+        templateMeal.mealType = getNextMealType()
+        val intent = AddNewMealActivity.buildIntent(context!!,templateMeal)
         startActivity(intent)
     }
     fun onAddWaterClicked(){
@@ -44,12 +47,13 @@ class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener, DateLi
     }
 
     override fun updateMealList(meals: List<Meal>) {
+        this.lastRetrievedMeals = meals
         pageViewAdapter.updateData(currentItemPosition,meals)
     }
 
-    override fun updateWaterList(water: List<Water>) {
-        Handler(Looper.getMainLooper()).post{
-            Toast.makeText(context, "quantidade de agua:${water.size}", Toast.LENGTH_LONG).show()
+    override fun updateWaterList(waterList: List<Water>) {
+        Handler(Looper.getMainLooper()).post {
+            pageViewAdapter.updateWaterList(waterList)
         }
     }
 
@@ -60,7 +64,25 @@ class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener, DateLi
         daily_meal_view_pager.currentItem = currentItemPosition
         newDaySelected(day)
     }
+    private fun getNextMealType() : MealType{
 
+        for (mealType in MealType.values()){
+            if(mealType == MealType.None){
+                continue
+            }
+            var found = false
+            for(meal in lastRetrievedMeals){
+                if(meal.mealType == mealType){
+                    found = true
+                }
+            }
+            if ( !found){
+                return mealType
+            }
+        }
+
+        return  MealType.Breakfast
+    }
     override fun onPageScrollStateChanged(state: Int) {
 
     }
@@ -71,6 +93,7 @@ class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener, DateLi
 
     fun newDaySelected(day: Date){
         mealIterator.dateSelected(day)
+        this.lastSelectedDay = day
     }
     override fun onPageSelected(pageIndex: Int) {
         val newPosition = pageIndex;
@@ -97,7 +120,7 @@ class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener, DateLi
         daily_meal_view_pager.addOnPageChangeListener(this)
         currentItemPosition = daily_meal_view_pager.currentItem
         navigation_header.onDayItemSelectedListener = this
-
+        onPageSelected(daily_meal_view_pager.currentItem)
         inflateFab()
     }
 

@@ -10,8 +10,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.core.entity.Meal
+import apps.esampaio.com.comacerto.core.entity.Water
 import apps.esampaio.com.comacerto.core.extensions.dayOfYear
 import com.asksira.loopingviewpager.LoopingPagerAdapter
+import org.jetbrains.anko.find
+import java.lang.Exception
 import java.util.*
 
 class ListMealPageViewAdapter(context: Context, private val viewPager: ViewPager, itemList: List<Meal>) : LoopingPagerAdapter<Meal>(context, itemList, false) {
@@ -33,17 +36,38 @@ class ListMealPageViewAdapter(context: Context, private val viewPager: ViewPager
         updateCurrent(position)
     }
 
+    fun updateWaterList(waterList: List<Water>){
+        for (i in 0 until viewPager.getChildCount()) {
+            val childAt = this.viewPager.getChildAt(i)
+            if (childAt.tag as Int == viewPager.getCurrentItem()) {
+                setWaterList(childAt,waterList);
+            }
+        }
+    }
+
+//    fun updateData(position:Int,waterList: List<Water>){
+//        allMeals[position] = mealList
+//        updateCurrent(position)
+//    }
+
 
     fun updateCurrent(position: Int){
         for (i in 0 until viewPager.getChildCount()) {
             val childAt = this.viewPager.getChildAt(i)
-            if (childAt.getTag() as Int == viewPager.getCurrentItem()) {
+            if (childAt.tag as Int == viewPager.getCurrentItem()) {
                 bindView(childAt,position,getItemViewType(position))
             }
         }
 
     }
 
+    private fun setWaterList(convertView: View?,waterList: List<Water>){
+        try {
+            val mealListRecyclerView = convertView?.findViewById<RecyclerView>(R.id.daily_meals_recycler_view)
+            var listAdapter = mealListRecyclerView?.adapter as ListDailyMealRecyclerViewAdapter?
+            listAdapter!!.addWaterList(waterList)
+        }catch (e:Exception){}
+    }
     override fun bindView(convertView: View?, listPosition: Int, viewType: Int) {
         convertView?.tag = listPosition
         val mealListRecyclerView = convertView?.findViewById<RecyclerView>(R.id.daily_meals_recycler_view)
