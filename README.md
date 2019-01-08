@@ -30,9 +30,7 @@ O usuário pode fazer o registro de sua alimentação, registrando as informaç�
 - Seu nível de fome e saciedade
 - Como a pessoa estava se sentindo no momento da refeição
 
-<img src="screenshots/screen-2.png" alt="drawing" height="300"/> <img src="screenshots/screen-2.1.png" alt="drawing" height="300"/>
-
- <img src="screenshots/screen-2.2.png" alt="drawing" height="300"/>
+<img src="screenshots/screen-2.png" alt="drawing" height="300"/> <img src="screenshots/screen-2.1.png" alt="drawing" height="300"/> <img src="screenshots/screen-2.2.png" alt="drawing" height="300"/>
 
 
 
