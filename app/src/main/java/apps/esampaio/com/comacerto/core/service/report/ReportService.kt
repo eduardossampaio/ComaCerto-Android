@@ -14,7 +14,7 @@ import java.util.*
 
 class ReportService : ReportIteractor{
 
-    val presenter:ReportPresenter
+    private val presenter:ReportPresenter
 
     val context:Context
     val mealPersistence:MealPersistence
@@ -37,13 +37,13 @@ class ReportService : ReportIteractor{
 
 
     private fun generateReport(initialDate: Date,finalDate: Date){
-        mealPersistence.getMeals(initialDate,finalDate,{ meals ->
+        mealPersistence.getMeals(initialDate,finalDate) { meals ->
             if ( meals.isEmpty()){
                 presenter.showError(context.getString(R.string.error_no_meal_in_period))
             }else{
                 requestReportFromServer(initialDate,finalDate,meals)
             }
-        })
+        }
     }
 
     private fun requestReportFromServer(initialDate: Date,finalDate: Date,meals:List<Meal>){

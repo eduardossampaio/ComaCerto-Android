@@ -10,7 +10,7 @@ import android.widget.TextView
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.core.entity.Meal
 import apps.esampaio.com.comacerto.view.BaseFragment
-import apps.esampaio.com.comacerto.view.meals.list.adapter.ListDailyMealRecyclerViewAdapter
+import apps.esampaio.com.comacerto.view.meals.list.adater2.ListDailyMealRecyclerViewAdapter
 import kotlinx.android.synthetic.main.fragment_daily_meals.*
 
 class MealFragment : BaseFragment() {

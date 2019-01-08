@@ -25,7 +25,7 @@ class DateListView : RelativeLayout {
     companion object {
         val weekDayFormatter = SimpleDateFormat("dd")
         val weekDayNameFormatter = SimpleDateFormat("EE")
-        val completeDayFormatter = DateFormat.getDateInstance(DateFormat.LONG)
+        val completeDayFormatter = DateFormat.getDateInstance(DateFormat.LONG)!!
     }
     interface DayItemSelectedListener{
         fun daySelected(day:Date)

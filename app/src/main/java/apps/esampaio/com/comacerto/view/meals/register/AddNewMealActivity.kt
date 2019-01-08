@@ -14,6 +14,7 @@ import apps.esampaio.com.comacerto.core.entity.*
 import apps.esampaio.com.comacerto.core.extensions.appendDate
 import apps.esampaio.com.comacerto.core.extensions.appendTime
 import apps.esampaio.com.comacerto.core.extensions.asString
+import apps.esampaio.com.comacerto.core.service.meal.MealIteractor
 import apps.esampaio.com.comacerto.core.service.meal.MealPresenter
 import apps.esampaio.com.comacerto.core.service.meal.MealService
 import apps.esampaio.com.comacerto.view.BaseActivity
@@ -47,7 +48,7 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
     }
 
     var meal = Meal()
-    val mealInteractor = MealService(this)
+    lateinit var mealIteractor:MealIteractor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +64,7 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
         setupAutocompleteFoods()
         setupHungerAndSatietySliders()
         setTitle(R.string.new_meal)
+        mealIteractor = MealService(this)
 
     }
 
@@ -187,7 +189,7 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
         meal.hunger = Level.hunger(hunger_level_seek_bar.progress)
         meal.satiety = Level.satiety(hunger_level_seek_bar.progress)
         meal.whatDoing = what_doing_text_view.text.toString()
-        mealInteractor.onSavePressed(meal)
+        mealIteractor.onSavePressed(meal)
     }
 
     private fun setupMealsList() {

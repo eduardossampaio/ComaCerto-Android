@@ -22,11 +22,16 @@ class MealService : MealIteractor {
 
     override fun dateSelected(date: Date) {
         mealPersistence.getMeals(date) {
-            mealPresenter.updateMealList(it)
+            val mealList = it
+            waterPersistence.getWater(date) {
+                val waterList = it
+                mealPresenter.updateMealAndWaterList(mealList,waterList)
+            }
+//            mealPresenter.updateMealList(it)
         }
-        waterPersistence.getWater(date){
-            mealPresenter.updateWaterList(it)
-        }
+//        waterPersistence.getWater(date){
+//            mealPresenter.updateWaterList(it)
+//        }
 
     }
 

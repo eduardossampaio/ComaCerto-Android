@@ -19,7 +19,7 @@ class EditMealActivity : AddNewMealActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.delete_meal_menu_item) {
-            mealInteractor.onDeletePressed(this.meal)
+            mealIteractor.onDeletePressed(this.meal)
             return true
         }
         return false
@@ -27,7 +27,7 @@ class EditMealActivity : AddNewMealActivity() {
 
     override fun onSaveClick(view: View){
         meal.whatDoing = what_doing_text_view.text.toString()
-        mealInteractor.onUpdatePressed(this.meal)
+        mealIteractor.onUpdatePressed(this.meal)
     }
 
 }

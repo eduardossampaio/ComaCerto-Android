@@ -17,16 +17,17 @@ import apps.esampaio.com.comacerto.core.service.meal.MealService
 import apps.esampaio.com.comacerto.view.BaseFragment
 import apps.esampaio.com.comacerto.view.custom.DateListView
 import apps.esampaio.com.comacerto.view.meals.list.adapter.ListMealPageViewAdapter
+import apps.esampaio.com.comacerto.view.meals.list.adater2.ListMealFragmentPageViewAdapter
 import apps.esampaio.com.comacerto.view.meals.register.AddNewMealActivity
 import apps.esampaio.com.comacerto.view.water.AddWaterActivity
 import kotlinx.android.synthetic.main.fragment_list_meals_2.*
 import java.util.*
 
-class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener, DateListView.DayItemSelectedListener,MealPresenter {
+class ListMealsFragment : BaseFragment(), DateListView.DayItemSelectedListener,MealPresenter {
 
     var currentItemPosition = 0
     var mealIterator = MealService(this)
-    lateinit var pageViewAdapter : ListMealPageViewAdapter
+    lateinit var pageViewAdapter : ListMealFragmentPageViewAdapter
     var lastSelectedDay = Date()
     var lastRetrievedMeals:List<Meal> = emptyList()
 
@@ -46,22 +47,18 @@ class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener, DateLi
         startActivity(intent)
     }
 
-    override fun updateMealList(meals: List<Meal>) {
-        this.lastRetrievedMeals = meals
-        pageViewAdapter.updateData(currentItemPosition,meals)
-    }
 
-    override fun updateWaterList(waterList: List<Water>) {
-        Handler(Looper.getMainLooper()).post {
-            pageViewAdapter.updateWaterList(waterList)
-        }
+    override fun updateMealAndWaterList(meals: List<Meal>,water: List<Water>) {
+//        this.lastRetrievedMeals = meals
+//        pageViewAdapter.updateData(currentItemPosition,meals,water )
+//        pageViewAdapter.notifyDataSetChanged()
     }
 
     override fun daySelected(day: Date) {
         val position = day.dayOfYear()
         Log.d("ListMealsFragment","day selected from header. day:${day} position: ${position}")
         currentItemPosition = position
-        daily_meal_view_pager.currentItem = currentItemPosition
+        //daily_meal_view_pager.currentItem = currentItemPosition
         newDaySelected(day)
     }
     private fun getNextMealType() : MealType{
@@ -83,28 +80,30 @@ class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener, DateLi
 
         return  MealType.Breakfast
     }
-    override fun onPageScrollStateChanged(state: Int) {
-
-    }
-
-    override fun onPageScrolled(pageIndex: Int, position1: Float, position2: Int) {
-
-    }
+//   override fun onPageScrollStateChanged(state: Int) {
+//
+//    }
+//
+//    override fun onPageScrolled(pageIndex: Int, position1: Float, position2: Int) {
+//
+//    }
 
     fun newDaySelected(day: Date){
         mealIterator.dateSelected(day)
         this.lastSelectedDay = day
     }
-    override fun onPageSelected(pageIndex: Int) {
-        val newPosition = pageIndex;
-        if ( newPosition < currentItemPosition){
-            navigation_header.selectNextDay()
-        }else if (newPosition > currentItemPosition){
-            navigation_header.selectPreviousDay()
-        }
-        currentItemPosition = newPosition
-        newDaySelected(navigation_header.selectedDay)
-    }
+
+
+//    override fun onPageSelected(pageIndex: Int) {
+//        val newPosition = pageIndex;
+//        if ( newPosition < currentItemPosition){
+//            navigation_header.selectNextDay()
+//        }else if (newPosition > currentItemPosition){
+//            navigation_header.selectPreviousDay()
+//        }
+//        currentItemPosition = newPosition
+//        newDaySelected(navigation_header.selectedDay)
+//    }
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -113,14 +112,15 @@ class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener, DateLi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var listOfMeal = mutableListOf<Meal>()
-        this.pageViewAdapter = ListMealPageViewAdapter(context!!, daily_meal_view_pager, listOfMeal)
+
+        this.pageViewAdapter = ListMealFragmentPageViewAdapter(fragmentManager!!)
+        val pageViewAdapter = this.pageViewAdapter
         daily_meal_view_pager.adapter = pageViewAdapter
         daily_meal_view_pager.currentItem = pageViewAdapter.count -1
-        daily_meal_view_pager.addOnPageChangeListener(this)
+//        daily_meal_view_pager.addOnPageChangeListener(this)
         currentItemPosition = daily_meal_view_pager.currentItem
         navigation_header.onDayItemSelectedListener = this
-        onPageSelected(daily_meal_view_pager.currentItem)
+//        onPageSelected(daily_meal_view_pager.currentItem)
         inflateFab()
     }
 
@@ -144,7 +144,7 @@ class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener, DateLi
 
     override fun onResume() {
         super.onResume()
-        onPageSelected(daily_meal_view_pager.currentItem)
+//        onPageSelected(daily_meal_view_pager.currentItem)
     }
 
     companion object {
