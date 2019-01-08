@@ -1,4 +1,4 @@
-package apps.esampaio.com.comacerto.view.meals.list.adater2
+package apps.esampaio.com.comacerto.view.meals.list.adater
 
 import android.content.Context
 import android.content.Intent

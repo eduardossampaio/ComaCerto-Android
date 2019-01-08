@@ -6,18 +6,16 @@ import android.support.v4.app.Fragment
 import android.util.Log
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.view.help.HelpFragment
-import apps.esampaio.com.comacerto.view.meals.list.ListMealFragment2
 import apps.esampaio.com.comacerto.view.meals.list.ListMealsFragment
 import apps.esampaio.com.comacerto.view.report.GenerateReportFragment
 import apps.esampaio.com.comacerto.view.settings.SettingsFragment
-import com.google.android.gms.ads.MobileAds
 import kotlinx.android.synthetic.main.activity_home.*
 
 
 class HomeActivity : BaseActivity() {
     var lastFragment : Fragment? = null
 
-    val listMealFragment = ListMealFragment2.newInstance()
+    val listMealFragment = ListMealsFragment.newInstance()
 
     val generateReportFragment = GenerateReportFragment.newInstance()
     val settingsFragment = SettingsFragment.newInstance()
