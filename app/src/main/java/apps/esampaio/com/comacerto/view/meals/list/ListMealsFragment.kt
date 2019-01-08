@@ -20,6 +20,7 @@ import apps.esampaio.com.comacerto.core.extensions.dayOfYear
 import apps.esampaio.com.comacerto.core.service.meal.MealPresenter
 import apps.esampaio.com.comacerto.core.service.meal.MealService
 import apps.esampaio.com.comacerto.view.BaseFragment
+import apps.esampaio.com.comacerto.view.custom.DateListView
 import apps.esampaio.com.comacerto.view.meals.list.adater.ListDailyMealRecyclerViewAdapter
 import apps.esampaio.com.comacerto.view.meals.register.AddNewMealActivity
 import apps.esampaio.com.comacerto.view.water.AddWaterActivity
@@ -27,13 +28,12 @@ import kotlinx.android.synthetic.main.fragment_list_meals_2.*
 import java.util.*
 
 
-class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener,MealPresenter {
-
+class ListMealsFragment : BaseFragment(), DateListView.DayItemSelectedListener,ViewPager.OnPageChangeListener,MealPresenter {
     var currentItemPosition = 0;
+
     lateinit var adapter:PageViewAdapter
     lateinit var mealService:MealService
     var lastSelectedDay = Date(System.currentTimeMillis())
-
     override fun onPageScrollStateChanged(state: Int) {
 
     }
@@ -51,6 +51,13 @@ class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener,MealPre
         }
         currentItemPosition = newPosition
         newDaySelected(navigation_header.selectedDay)
+    }
+
+    override fun daySelected(day: Date) {
+        val position = day.dayOfYear() - 1
+        currentItemPosition = position
+        daily_meal_view_pager.currentItem = currentItemPosition
+        newDaySelected(day)
     }
 
     companion object {
@@ -149,7 +156,7 @@ class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener,MealPre
         daily_meal_view_pager.currentItem = adapter.count - 1
         daily_meal_view_pager.addOnPageChangeListener(this)
         this.currentItemPosition = daily_meal_view_pager.currentItem
-
+        navigation_header.onDayItemSelectedListener = this
         inflateFab()
     }
 

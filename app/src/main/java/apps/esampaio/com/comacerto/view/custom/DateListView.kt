@@ -10,15 +10,13 @@ import android.widget.TextSwitcher
 import android.widget.TextView
 import android.widget.ViewSwitcher
 import apps.esampaio.com.comacerto.R
-import apps.esampaio.com.comacerto.core.extensions.getFirsDayOfWeek
-import apps.esampaio.com.comacerto.core.extensions.getWeek
-import apps.esampaio.com.comacerto.core.extensions.sameDay
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import android.view.animation.AnimationUtils.loadAnimation
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import apps.esampaio.com.comacerto.core.extensions.*
 
 
 class DateListView : RelativeLayout {
@@ -163,9 +161,13 @@ class DateListView : RelativeLayout {
             dayItem.text = weekDayFormatter.format(date)
             weekDayItem.text = weekDayNameFormatter.format(date)
             this.itemDate = date
-            this.enabled = date.time <= currentDay.time
+            this.enabled = isEnabled(date)
         }
 
+        private fun isEnabled(date: Date): Boolean{
+
+            return (date.time <= currentDay.time) && date.getDateYear() >= currentDay.getDateYear()
+        }
         fun setSelected(selected:Boolean){
             if (!enabled){
                 dayItem.background = ContextCompat.getDrawable(view.context,android.R.color.transparent)

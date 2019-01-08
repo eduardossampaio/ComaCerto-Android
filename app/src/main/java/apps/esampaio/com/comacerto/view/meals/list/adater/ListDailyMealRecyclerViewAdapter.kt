@@ -104,22 +104,31 @@ class ListDailyMealRecyclerViewAdapter : RecyclerView.Adapter<ListDailyMealRecyc
     }
 
     fun updateItems(newItems:List<Meal>,newWater:List<Water>){
-//        if(isEquals(newItems)){
-//
-//        }else{
+
+        if ( ! isEquals(newItems,newWater)){
             this.mealList = newItems
             this.waterList = newWater
-//            notifyDataSetChanged()
-//        }
+        }
+
     }
 
-    private fun isEquals(newItems:List<Meal>): Boolean{
-        if(newItems.size != mealList.size) {
+    private fun isEquals(newMeals:List<Meal>,newWater: List<Water>): Boolean{
+        if(newMeals.size != mealList.size) {
             return false
         }
 
-        for (newMeal in newItems){
+        if ( newWater.size != waterList.size){
+            return false
+        }
+
+        for (newMeal in newMeals){
             if (!mealList.contains(newMeal)){
+                return false
+            }
+        }
+
+        for (water in newWater){
+            if (!waterList.contains(water)){
                 return false
             }
         }

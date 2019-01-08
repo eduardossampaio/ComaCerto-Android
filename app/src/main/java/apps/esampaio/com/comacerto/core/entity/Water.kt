@@ -23,6 +23,11 @@ data class Water(var dateAndTime:Date,var quantity:Int) : Parcelable {
         return 0
     }
 
+    override fun toString(): String {
+        return "Water(dateAndTime=$dateAndTime, quantity=$quantity)"
+    }
+
+
     companion object CREATOR : Parcelable.Creator<Water> {
         override fun createFromParcel(parcel: Parcel): Water {
             return Water(parcel)
@@ -32,29 +37,7 @@ data class Water(var dateAndTime:Date,var quantity:Int) : Parcelable {
             return arrayOfNulls(size)
         }
     }
+
+
+
 }
-
-
-//constructor(parcel: Parcel) : this(
-//parcel.readString(),
-//parcel.readInt()) {
-//}
-//
-//override fun writeToParcel(parcel: Parcel, flags: Int) {
-//    parcel.writeString(dateAndTime)
-//    parcel.writeInt(quantity)
-//}
-//
-//override fun describeContents(): Int {
-//    return 0
-//}
-//
-//companion object CREATOR : Parcelable.Creator<Water> {
-//    override fun createFromParcel(parcel: Parcel): Water {
-//        return Water(parcel)
-//    }
-//
-//    override fun newArray(size: Int): Array<Water?> {
-//        return arrayOfNulls(size)
-//    }
-//}

@@ -2,6 +2,7 @@ package apps.esampaio.com.comacerto.core.extensions
 
 import java.text.DateFormat
 import java.text.SimpleDateFormat
+import java.time.Year
 import java.util.*
 
 fun Date.getWeek() : Int{
@@ -73,6 +74,11 @@ fun Date.endOfMonth(): Date{
     return calendar.time
 }
 
+fun Date.getDateYear() :Int{
+    val calendar = Calendar.getInstance()
+    calendar.time = this
+    return calendar.get(Calendar.YEAR)
+}
 fun Date.asString(format: DateFormat): String = format.format(this)
 
 fun Date.asString(format: String): String = asString(SimpleDateFormat(format))
