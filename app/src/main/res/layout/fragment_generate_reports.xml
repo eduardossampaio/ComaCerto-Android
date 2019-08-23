@@ -55,7 +55,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.v4.view.ViewPager
+    <com.github.barteksc.pdfviewer.PDFView
         android:id="@+id/pdfView"
         android:visibility="invisible"
         android:background="#fff"

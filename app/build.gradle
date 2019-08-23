@@ -8,8 +8,8 @@ android {
         applicationId "apps.esampaio.com.comacerto"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 7
-        versionName "1.0.1"
+        versionCode 10
+        versionName "1.0.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -22,23 +22,6 @@ android {
         }
     }
 
-//    bundle {
-//        language {
-//            // Specifies that the app bundle should not support
-//            // configuration APKs for language resources. These
-//            // resources are instead packaged with each base and
-//            // dynamic feature APK.
-//            enableSplit = false
-//        }
-//        density {
-//            // This property is set to true by default.
-//            enableSplit = true
-//        }
-//        abi {
-//            // This property is set to true by default.
-//            enableSplit = true
-//        }
-//    }
 
 }
 
@@ -75,11 +58,9 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation 'com.google.android.gms:play-services-base:16.0.1'
-    implementation 'com.google.android.gms:play-services-ads:17.1.1'
-    implementation 'com.google.android.gms:play-services-base:16.0.1'
 
     implementation "com.leinardi.android:speed-dial:2.0.0"
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
 }
 
 apply plugin: 'com.google.gms.google-services'

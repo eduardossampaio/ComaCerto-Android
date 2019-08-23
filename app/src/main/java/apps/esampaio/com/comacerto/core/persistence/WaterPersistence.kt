@@ -29,6 +29,14 @@ class WaterPersistence(val context: Context) {
         }
     }
 
+    fun remove(water: Water) {
+        doAsync {
+            val waterDAO = AppDatabase.getInstance(context)?.waterDAO()
+            if(water != null){
+                waterDAO?.delete(WaterEntity(water.dateAndTime,water.quantity,water.id))
+            }
+        }
+    }
     fun getWater(date: Date, result: (List<Water>) -> Unit) {
 
         doAsync {

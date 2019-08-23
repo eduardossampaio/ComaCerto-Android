@@ -26,8 +26,13 @@ class WaterEntity {
         this.quantity = quantity
     }
 
+    constructor(dateAndTime: Date, quantity: Int, id:Long) {
+        this.dateAndTime = dateAndTime
+        this.quantity = quantity
+        this.primaryKey = id;
+    }
     fun toWater() : Water{
-      return Water(this.dateAndTime,this.quantity)
+      return Water(this.dateAndTime,this.quantity,this.primaryKey!!)
     }
 
 

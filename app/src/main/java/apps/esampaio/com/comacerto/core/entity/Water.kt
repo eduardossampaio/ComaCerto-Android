@@ -7,16 +7,18 @@ import java.io.Serializable
 
 import java.util.Date
 
-data class Water(var dateAndTime:Date,var quantity:Int) : Parcelable {
+data class Water(var dateAndTime:Date,var quantity:Int,val id: Long = 0L) : Parcelable {
 
     constructor(parcel: Parcel) : this(
             Date(parcel.readLong()),
-            parcel.readInt()) {
+            parcel.readInt(),
+            parcel.readLong()) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeLong(dateAndTime.time)
         parcel.writeInt(quantity)
+        parcel.writeLong(id)
     }
 
     override fun describeContents(): Int {

@@ -1,10 +1,13 @@
 
 package apps.esampaio.com.comacerto.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
 import apps.esampaio.com.comacerto.R
+import apps.esampaio.com.comacerto.core.firebase.RemoteConfig
+import apps.esampaio.com.comacerto.core.service.preferences.PreferencesService
 import apps.esampaio.com.comacerto.view.help.HelpFragment
 import apps.esampaio.com.comacerto.view.meals.list.ListMealsFragment
 import apps.esampaio.com.comacerto.view.report.GenerateReportFragment
@@ -23,6 +26,7 @@ class HomeActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        verifyTermsAndConditions();
         setContentView(R.layout.activity_home)
         setSupportActionBar(toolbar)
         bottom_navigation_view.setOnNavigationItemSelectedListener { item ->
@@ -46,7 +50,14 @@ class HomeActivity : BaseActivity() {
 //        MobileAds.initialize(this, getString(R.string.admob_app_key));
     }
 
-
+    private fun verifyTermsAndConditions() {
+        val lastAcceptedUserTermsVersion = PreferencesService(this).getLastAcceptedUserTermsVersion();
+        //never accepted terms
+        val lastUserTermsVersion = RemoteConfig.getInstance().lastUserTermsVersion;
+        if (lastAcceptedUserTermsVersion == null || lastAcceptedUserTermsVersion == 0 || lastAcceptedUserTermsVersion < lastAcceptedUserTermsVersion){
+            startActivity(Intent(this,UserTermsActivity::class.java))
+        }
+    }
 
 
     private fun openFragment(fragment: Fragment) {

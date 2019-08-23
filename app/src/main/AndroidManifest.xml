@@ -15,9 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/ComaCertoAppTheme"
         tools:replace="android:theme">
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="@string/admob_app_key" />
 
         <activity
             android:name=".view.SplashActivity"
@@ -53,7 +50,8 @@
         <receiver android:name=".core.service.reminder.MealAlarmBroadcastReceiver" />
 
         <activity android:name=".view.water.AddWaterActivity" />
-        <activity android:name=".view.water.ListWaterActivity"></activity>
+        <activity android:name=".view.water.ListWaterActivity" />
+        <activity android:name=".view.UserTermsActivity"></activity>
     </application>
 
 </manifest>

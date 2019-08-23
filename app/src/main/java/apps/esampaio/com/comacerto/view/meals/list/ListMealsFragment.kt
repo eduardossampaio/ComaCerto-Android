@@ -167,6 +167,9 @@ class ListMealsFragment : BaseFragment(), DateListView.DayItemSelectedListener,V
     }
 
     private fun inflateFab() {
+//        add_new_meal_button.setOnClickListener {
+//            onNewMealClicked()
+//        }
         //inflate fab
         speedDial.inflate(R.menu.list_food_menu);
         speedDial.setOnActionSelectedListener { speedDialActionItem ->

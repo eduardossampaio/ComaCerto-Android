@@ -11,23 +11,36 @@ import apps.esampaio.com.comacerto.core.entity.Water
 import apps.esampaio.com.comacerto.core.extensions.asString
 import java.text.DateFormat
 
-class ListWaterRVAdapter(val context: Context,val waterList:List<Water>) : RecyclerView.Adapter<ListWaterRVAdapter.ListWaterRVAdapterAdapter>() {
+class ListWaterRVAdapter(val context: Context,val waterList:MutableList<Water>) : RecyclerView.Adapter<ListWaterRVAdapter.ListWaterRVAdapterAdapter>() {
     class ListWaterRVAdapterAdapter(itemView: View) : RecyclerView.ViewHolder(itemView){
-            val time:TextView = itemView.findViewById(android.R.id.text1)
-            val quantity:TextView = itemView.findViewById(android.R.id.text2)
+            val time:TextView = itemView.findViewById(R.id.water_hour)
+            var date: TextView = itemView.findViewById(R.id.water_day)
+            val quantity:TextView = itemView.findViewById(R.id.water_quantity)
+        //setHasStableIds(true)
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ListWaterRVAdapterAdapter {
-        return ListWaterRVAdapterAdapter(LayoutInflater.from(context).inflate(android.R.layout.simple_list_item_2,viewGroup,false))
+        return ListWaterRVAdapterAdapter(LayoutInflater.from(context).inflate(R.layout.list_water_item,viewGroup,false))
     }
 
     override fun getItemCount(): Int {
         return waterList.size
     }
 
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+    fun removeAt(position:Int): Water{
+        val removedItem = waterList.get(position);
+        waterList.removeAt(position)
+        notifyItemRemoved(position)
+        return removedItem;
+    }
+
     override fun onBindViewHolder(listWaterRVAdapterAdapter: ListWaterRVAdapterAdapter, i: Int) {
         val water = waterList.get(i);
-        listWaterRVAdapterAdapter.time.text = water.dateAndTime.asString("dd/MM/yyyy HH:mm")
+        listWaterRVAdapterAdapter.date.text = water.dateAndTime.asString("dd/MM/yyyy")
+        listWaterRVAdapterAdapter.time.text = water.dateAndTime.asString("HH:mm")
         listWaterRVAdapterAdapter.quantity.text = "${context.resources.getQuantityString(R.plurals.water_cups_consumed,water.quantity,water.quantity)}"
     }
 }

@@ -12,7 +12,7 @@ enum class Feeling {
     Anxiety(R.string.feeling_anxiety,R.drawable.ic_feeling_anxious),
     Frustration(R.string.feeling_frustration,R.drawable.ic_feeling_frustration),
     Irritation(R.string.feeling_irritation,R.drawable.ic_feeling_irritation),
-    Hurry(R.string.feeling_hurry,R.drawable.feeling_hurry_flat),
+    Hurry(R.string.feeling_hurry,R.drawable.ic_feeling_hurry),
     Rage(R.string.feeling_rage,R.drawable.ic_feeling_rage),
     Boredom(R.string.feeling_boredom,R.drawable.ic_feeling_boredom),
     Sad(R.string.feeling_sad,R.drawable.ic_feeling_sad);

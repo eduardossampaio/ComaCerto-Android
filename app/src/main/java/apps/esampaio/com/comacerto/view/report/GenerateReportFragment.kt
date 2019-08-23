@@ -45,7 +45,10 @@ class GenerateReportFragment : BaseFragment(), ReportPresenter {
         generate_report_message.visibility = View.GONE
         generatedReportFile = FileUtils.saveDataToFile("report.pdf",report)
         pdfView.visibility = View.VISIBLE
-        pdfView.adapter = PDFViewPagerAdapter(fragmentManager!!,generatedReportFile);
+        pdfView.fromBytes(report)
+                .defaultPage(0)
+                .swipeHorizontal(true)
+                .load()
     }
 
     init {
@@ -103,7 +106,7 @@ class GenerateReportFragment : BaseFragment(), ReportPresenter {
             }
 
         }
-
+        loadPreviousGeneratedReport();
     }
 
     private fun generateReport() {
@@ -131,11 +134,26 @@ class GenerateReportFragment : BaseFragment(), ReportPresenter {
             context?.runOnUiThread {
                 try {
                     period_expandable_layout.expand(true)
+
                 } catch (e: Exception) {
 
                 }
             }
         }, 200)
+
+    }
+
+    private fun loadPreviousGeneratedReport() {
+        val file = FileUtils.createFile("report.pdf");
+        if(file.exists()){
+            generate_report_message.visibility = View.GONE
+
+            pdfView.visibility = View.VISIBLE
+            pdfView.fromFile(file)
+                    .defaultPage(0)
+                    .swipeHorizontal(true)
+                    .load()
+        }
     }
 }
 

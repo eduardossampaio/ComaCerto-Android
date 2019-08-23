@@ -9,9 +9,11 @@ import android.support.v4.content.FileProvider
 import android.webkit.MimeTypeMap
 import android.widget.Toast
 import apps.esampaio.com.comacerto.BuildConfig
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
+import java.io.*
+import java.nio.file.Files
+import java.nio.file.Files.readAllBytes
+
+
 
 class FileUtils {
 

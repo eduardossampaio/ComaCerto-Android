@@ -20,11 +20,17 @@ class PreferencesService(val context: Context){
         val PREFERENCE_LUNCH_REMINDER_TIME_KEY = "PREFERENCE_LUNCH_REMINDER_TIME_VALUE"
         val PREFERENCE_SNACK_REMINDER_TIME_KEY = "PREFERENCE_SNACK_REMINDER_TIME_VALUE"
         val PREFERENCE_DINNER_REMINDER_TIME_KEY = "PREFERENCE_DINNER_REMINDER_TIME_VALUE"
+
+        val PREFERENCE_LAST_ACCEPTED_USER_TERMS = "PREFERENCE_LAST_ACCEPTED_USER_TERMS"
     }
 
     fun getPreferenceString(key: String,defaultValue:String):String{
         val sp = PreferenceManager.getDefaultSharedPreferences(context)
         return sp.getString(key,defaultValue)
+    }
+    fun getPreferenceInt(key: String,defaultValue:Int):Int{
+        val sp = PreferenceManager.getDefaultSharedPreferences(context)
+        return sp.getInt(key,defaultValue)
     }
     fun setPreferenceString(key: String,value:String){
         val sp = PreferenceManager.getDefaultSharedPreferences(context)
@@ -32,6 +38,13 @@ class PreferencesService(val context: Context){
         editor.putString(key,value)
         editor.apply()
     }
+    fun setPreferenceInt(key: String,value:Int){
+        val sp = PreferenceManager.getDefaultSharedPreferences(context)
+        val editor = sp.edit()
+        editor.putInt(key,value)
+        editor.apply()
+    }
+
 
     public fun getMealTypePreferenceKey(mealType: MealType): String{
         var prefKey = when(mealType){
@@ -64,6 +77,14 @@ class PreferencesService(val context: Context){
         val value = time.asString("HH:mm")
         setPreferenceString(preferenceKey,value)
 
+    }
+
+    fun getLastAcceptedUserTermsVersion(): Int{
+        return getPreferenceInt(PREFERENCE_LAST_ACCEPTED_USER_TERMS,0);
+    }
+
+    fun updateLastAcceptedUserTermsVersion(lastAcceptedVersion: Int){
+        setPreferenceInt(PREFERENCE_LAST_ACCEPTED_USER_TERMS,lastAcceptedVersion);
     }
 
 }
