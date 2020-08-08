@@ -18,7 +18,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import apps.esampaio.com.comacerto.core.extensions.*
 
-
+@Deprecated("Substituido")
 class DateListView : RelativeLayout {
     companion object {
         val weekDayFormatter = SimpleDateFormat("dd")

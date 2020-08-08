@@ -7,14 +7,21 @@
     android:paddingTop="15dp"
     tools:context=".view.meals.list.ListMealsFragment">
 
-    <apps.esampaio.com.comacerto.view.custom.DateListView
-        android:id="@+id/navigation_header"
-        app:layout_constraintEnd_toEndOf="parent"
+
+
+
+    <devs.mulham.horizontalcalendar.HorizontalCalendarView
+        android:id="@+id/calendarView"
+        app:textColorNormal="#bababa"
+
+        app:selectorColor="#c62828"
+    app:selectedDateBackground="#00ffffff"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_width="0dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:layout_height="wrap_content"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:textColorSelected="#000"/>
 
     <TextView
         android:visibility="gone"
@@ -33,7 +40,7 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/navigation_header"
+    app:layout_constraintTop_toBottomOf="@+id/calendarView"
     android:layout_width="0dp"
     android:layout_height="0dp"
     app:isInfinite="false" />

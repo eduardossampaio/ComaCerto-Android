@@ -6,7 +6,7 @@ import retrofit2.http.*
 
 interface ReportHttpService {
 
-    @Headers(*arrayOf("Content-Type: application/json", "version:v2"))
+    @Headers(*arrayOf("Content-Type: application/json", "version:v3"))
     @POST("/reports/meals")
     fun requestReport(@Body request: GenerateReportRequest): Call<ResponseBody>
 

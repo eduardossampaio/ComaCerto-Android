@@ -115,4 +115,15 @@
     <string name="user_terms_and_conditions">User Terms and Conditions</string>
     <string name="user_terms_agree_user_terms">I Agree use terms and conditions</string>
     <string name="no_internet_connection">No internet connection</string>
+
+    <string name="suggestions">Dúvidas ou sujestões?</string>
+    <string name="talk_with_developer">Fale com o desenvolvedor</string>
+    <!-- Email Strings -->
+    <string name="contact_email">apps.esampaio@outlook.com</string>
+    <string name="email_app_name">Aplicativo Coma Certo</string>
+    <string name="send_email">Enviar email...</string>
+    <string name="version_news">Novidades da versão</string>
+    <string name="start_use">Começar a usar</string>
+    <string name="version_news_description">Tem sido um bom tempo deste a última vez que nos vimos. Prometo que tratei novidades para este aplicativo em intervalos de tempo menores</string>
+    <string name="news">O que tem de novo</string>
 </resources>

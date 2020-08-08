@@ -59,6 +59,22 @@ fun Date.endOfDay() : Date{
     return Calendar.getInstance().appendTime(this,23,59,59);
 }
 
+fun Date.addDay(): Date{
+    val calendar = Calendar.getInstance()
+    calendar.time = this
+    calendar.add(Calendar.DAY_OF_MONTH,1);
+    return calendar.time
+}
+
+fun Date.subtractDay(): Date{
+    val calendar = Calendar.getInstance()
+    calendar.time = this
+    calendar.add(Calendar.DAY_OF_MONTH,-1);
+    return calendar.time
+}
+
+
+
 fun Date.beginOfMonth(): Date{
     val calendar = Calendar.getInstance()
     calendar.time = this

@@ -8,6 +8,8 @@ import android.util.Log
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.core.firebase.RemoteConfig
 import apps.esampaio.com.comacerto.core.service.preferences.PreferencesService
+import apps.esampaio.com.comacerto.view.dialogs.Dialogs
+import apps.esampaio.com.comacerto.view.dialogs.NewsDialog
 import apps.esampaio.com.comacerto.view.help.HelpFragment
 import apps.esampaio.com.comacerto.view.meals.list.ListMealsFragment
 import apps.esampaio.com.comacerto.view.report.GenerateReportFragment
@@ -23,6 +25,8 @@ class HomeActivity : BaseActivity() {
     val generateReportFragment = GenerateReportFragment.newInstance()
     val settingsFragment = SettingsFragment.newInstance()
     val helpFragment = HelpFragment.newInstance()
+
+    lateinit var preferencesService : PreferencesService;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,8 +50,17 @@ class HomeActivity : BaseActivity() {
             }
             true
         }
+        preferencesService = PreferencesService(this);
         openFragment(listMealFragment)
+        showNewsPopup()
 //        MobileAds.initialize(this, getString(R.string.admob_app_key));
+    }
+
+    private fun showNewsPopup() {
+        if(!preferencesService.haveShowedNewsPopup()){
+            NewsDialog(this).show()
+            preferencesService.setHaveShowedNewsPopup()
+        }
     }
 
     private fun verifyTermsAndConditions() {

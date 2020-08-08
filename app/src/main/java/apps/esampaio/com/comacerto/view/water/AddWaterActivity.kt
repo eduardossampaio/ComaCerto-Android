@@ -1,5 +1,7 @@
 package apps.esampaio.com.comacerto.view.water
 
+import android.content.Context
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -21,6 +23,16 @@ import java.text.DateFormat
 import java.util.*
 
 class AddWaterActivity : BaseActivity(), CalendarDatePickerDialogFragment.OnDateSetListener, RadialTimePickerDialogFragment.OnTimeSetListener {
+
+
+    companion object {
+        val PARAM_ADD_WATER_DATE_SELECTED = "PARAM_ADD_WATER_DATE_SELECTED"
+        fun createIntent(context: Context, selectedDate: Date) : Intent {
+            val intent = Intent(context,AddWaterActivity::class.java)
+            intent.putExtra(PARAM_ADD_WATER_DATE_SELECTED,selectedDate.time)
+            return intent
+        }
+    }
     lateinit var currentDate:Date;
 
     lateinit var waterIteractor:WaterIteractor
@@ -31,7 +43,13 @@ class AddWaterActivity : BaseActivity(), CalendarDatePickerDialogFragment.OnDate
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_water)
         setTitle(R.string.add_water)
-        currentDate = Date()
+
+        val currentDateMillis = intent.extras?.getLong(PARAM_ADD_WATER_DATE_SELECTED, -1)
+        if(currentDateMillis == null){
+            currentDate = Date()
+        }else{
+            currentDate = Date(currentDateMillis)
+        }
 
         minus_one_button.setOnClickListener {
             if(cupsQuantity>0){

@@ -2,6 +2,7 @@ package apps.esampaio.com.comacerto.core.service.preferences
 
 import android.content.Context
 import android.support.v7.preference.PreferenceManager
+import apps.esampaio.com.comacerto.BuildConfig
 import apps.esampaio.com.comacerto.core.entity.MealType
 import apps.esampaio.com.comacerto.core.extensions.asString
 import apps.esampaio.com.comacerto.core.extensions.fromFormat
@@ -22,6 +23,8 @@ class PreferencesService(val context: Context){
         val PREFERENCE_DINNER_REMINDER_TIME_KEY = "PREFERENCE_DINNER_REMINDER_TIME_VALUE"
 
         val PREFERENCE_LAST_ACCEPTED_USER_TERMS = "PREFERENCE_LAST_ACCEPTED_USER_TERMS"
+
+        val PREFERENCE_HAS_SHOWED_LAST_NEWS_POPUP = "PREFERENCE_HAS_SHOWED_LAST_NEWS_POPUP_V"+BuildConfig.VERSION_NAME
     }
 
     fun getPreferenceString(key: String,defaultValue:String):String{
@@ -31,6 +34,10 @@ class PreferencesService(val context: Context){
     fun getPreferenceInt(key: String,defaultValue:Int):Int{
         val sp = PreferenceManager.getDefaultSharedPreferences(context)
         return sp.getInt(key,defaultValue)
+    }
+    fun getPreferenceBoolean(key: String,defaultValue:Boolean):Boolean{
+        val sp = PreferenceManager.getDefaultSharedPreferences(context)
+        return sp.getBoolean(key,defaultValue)
     }
     fun setPreferenceString(key: String,value:String){
         val sp = PreferenceManager.getDefaultSharedPreferences(context)
@@ -45,8 +52,23 @@ class PreferencesService(val context: Context){
         editor.apply()
     }
 
+    fun setPreferenceBoolean(key: String,value:Boolean){
+        val sp = PreferenceManager.getDefaultSharedPreferences(context)
+        val editor = sp.edit()
+        editor.putBoolean(key,value)
+        editor.apply()
+    }
 
-    public fun getMealTypePreferenceKey(mealType: MealType): String{
+    fun haveShowedNewsPopup(): Boolean {
+        return getPreferenceBoolean(PREFERENCE_HAS_SHOWED_LAST_NEWS_POPUP,false);
+    }
+
+    fun setHaveShowedNewsPopup() {
+      setPreferenceBoolean(PREFERENCE_HAS_SHOWED_LAST_NEWS_POPUP,true)
+    }
+
+
+    fun getMealTypePreferenceKey(mealType: MealType): String{
         var prefKey = when(mealType){
             MealType.Breakfast -> PREFERENCE_BREAKFAST_REMINDER_TIME_KEY
             MealType.Lunch -> PREFERENCE_LUNCH_REMINDER_TIME_KEY

@@ -4,7 +4,9 @@ import android.content.Context
 import apps.esampaio.com.comacerto.MyApplication
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.core.entity.Meal
+import apps.esampaio.com.comacerto.core.entity.Water
 import apps.esampaio.com.comacerto.core.persistence.MealPersistence
+import apps.esampaio.com.comacerto.core.persistence.WaterPersistence
 import apps.esampaio.com.comacerto.core.service.http.RetrofitService
 import apps.esampaio.com.comacerto.core.service.report.http.GenerateReportRequest
 import apps.esampaio.com.comacerto.core.service.report.http.ReportHttpService
@@ -18,12 +20,14 @@ class ReportService : ReportIteractor{
 
     val context:Context
     val mealPersistence:MealPersistence
+    val waterPersistence: WaterPersistence
     val reportHttpService:ReportHttpService
 
     constructor(presenter: ReportPresenter){
         this.context = MyApplication.instance
         this.presenter = presenter
         this.mealPersistence = MealPersistence(context)
+        this.waterPersistence = WaterPersistence(context)
         this.reportHttpService = RetrofitService().getReportHttpService()
     }
 
@@ -41,15 +45,17 @@ class ReportService : ReportIteractor{
             if ( meals.isEmpty()){
                 presenter.showError(context.getString(R.string.error_no_meal_in_period))
             }else{
-                requestReportFromServer(initialDate,finalDate,meals)
+                waterPersistence.getWaterList(initialDate,finalDate) { waters ->
+                    requestReportFromServer(initialDate,finalDate,meals,waters)
+                }
             }
         }
     }
 
-    private fun requestReportFromServer(initialDate: Date,finalDate: Date,meals:List<Meal>){
+    private fun requestReportFromServer(initialDate: Date,finalDate: Date,meals:List<Meal>, waters:List<Water>){
         presenter.showLoading(context.getString(R.string.generating_meals_report))
         context.doAsync {
-            val generatedReport = reportHttpService.requestReport(GenerateReportRequest(initialDate, finalDate, meals)).execute()
+            val generatedReport = reportHttpService.requestReport(GenerateReportRequest(initialDate, finalDate, meals,waters)).execute()
             context.runOnUiThread {
                 presenter.hideLoading()
                 if (generatedReport.body() != null) {

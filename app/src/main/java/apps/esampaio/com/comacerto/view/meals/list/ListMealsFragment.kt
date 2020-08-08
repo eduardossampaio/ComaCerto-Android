@@ -1,7 +1,6 @@
 package apps.esampaio.com.comacerto.view.meals.list
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -16,23 +15,28 @@ import android.widget.TextView
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.core.entity.Meal
 import apps.esampaio.com.comacerto.core.entity.Water
+import apps.esampaio.com.comacerto.core.extensions.addDay
 import apps.esampaio.com.comacerto.core.extensions.dayOfYear
+import apps.esampaio.com.comacerto.core.extensions.getDateYear
+import apps.esampaio.com.comacerto.core.extensions.subtractDay
 import apps.esampaio.com.comacerto.core.service.meal.MealPresenter
 import apps.esampaio.com.comacerto.core.service.meal.MealService
 import apps.esampaio.com.comacerto.view.BaseFragment
-import apps.esampaio.com.comacerto.view.custom.DateListView
 import apps.esampaio.com.comacerto.view.meals.list.adater.ListDailyMealRecyclerViewAdapter
 import apps.esampaio.com.comacerto.view.meals.register.AddNewMealActivity
 import apps.esampaio.com.comacerto.view.water.AddWaterActivity
+import devs.mulham.horizontalcalendar.HorizontalCalendar
+import devs.mulham.horizontalcalendar.HorizontalCalendarListener
 import kotlinx.android.synthetic.main.fragment_list_meals_2.*
 import java.util.*
 
 
-class ListMealsFragment : BaseFragment(), DateListView.DayItemSelectedListener,ViewPager.OnPageChangeListener,MealPresenter {
+class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener,MealPresenter {
     var currentItemPosition = 0;
 
     lateinit var adapter:PageViewAdapter
     lateinit var mealService:MealService
+    lateinit var horizontalCalendar: HorizontalCalendar;
     var lastSelectedDay = Date(System.currentTimeMillis())
     override fun onPageScrollStateChanged(state: Int) {
 
@@ -42,23 +46,21 @@ class ListMealsFragment : BaseFragment(), DateListView.DayItemSelectedListener,V
 
     }
 
+    //TODO mudar aqui
     override fun onPageSelected(pageIndex: Int) {
         val newPosition = pageIndex;
+        var newDate = lastSelectedDay;
+
         if (newPosition < currentItemPosition) {
-            navigation_header.selectNextDay()
+            newDate = newDate.subtractDay();
         } else if (newPosition > currentItemPosition) {
-            navigation_header.selectPreviousDay()
+            newDate = newDate.addDay()
         }
         currentItemPosition = newPosition
-        newDaySelected(navigation_header.selectedDay)
+        newDaySelected(newDate);
+
     }
 
-    override fun daySelected(day: Date) {
-        val position = day.dayOfYear() - 1
-        currentItemPosition = position
-        daily_meal_view_pager.currentItem = currentItemPosition
-        newDaySelected(day)
-    }
 
     companion object {
         @JvmStatic
@@ -106,7 +108,7 @@ class ListMealsFragment : BaseFragment(), DateListView.DayItemSelectedListener,V
         }
 
 
-        fun  updateViews(view:View,mealsOfDay:List<Meal>?,waterOfDay:List<Water>?){
+        private fun  updateViews(view:View, mealsOfDay:List<Meal>?, waterOfDay:List<Water>?){
             val mealListRecyclerView = view.findViewById<RecyclerView>(R.id.daily_meals_recycler_view)
             val noMealTextView = view.findViewById<TextView>(R.id.no_meals_registered_text_view)
 
@@ -125,16 +127,17 @@ class ListMealsFragment : BaseFragment(), DateListView.DayItemSelectedListener,V
                 }else{
                     listAdapter.updateItems(mealsOfDay!!,waterOfDay!!)
                     listAdapter.notifyDataSetChanged()
-
                 }
-
             }
         }
     }
 
     private fun newDaySelected(day:Date){
+        day.getDateYear()
         mealService.dateSelected(day)
         this.lastSelectedDay = day;
+        horizontalCalendar.selectDate(day, false);
+
     }
 
     override fun updateMealAndWaterList(meals: List<Meal>, water: List<Water>) {
@@ -156,10 +159,33 @@ class ListMealsFragment : BaseFragment(), DateListView.DayItemSelectedListener,V
         daily_meal_view_pager.currentItem = adapter.count - 1
         daily_meal_view_pager.addOnPageChangeListener(this)
         this.currentItemPosition = daily_meal_view_pager.currentItem
-        navigation_header.onDayItemSelectedListener = this
+
+        setupHorizontalCalendar(view);
+
         inflateFab()
     }
 
+    private fun setupHorizontalCalendar(view: View) {
+        val endDate = Calendar.getInstance()
+        endDate.add(Calendar.YEAR, 1)
+
+        val startDate = Calendar.getInstance()
+        startDate.add(Calendar.YEAR, -1)
+
+        this.horizontalCalendar =  HorizontalCalendar.Builder(view, R.id.calendarView)
+                .startDate(startDate.time)
+                .endDate(endDate.time)
+                .build()
+
+        horizontalCalendar.calendarListener = object : HorizontalCalendarListener() {
+            override fun onDateSelected(date: Date?, position: Int) {
+                if( date != null) {
+                    newDaySelected(date)
+                }
+            }
+
+        }
+    }
 
     override fun onResume() {
         super.onResume()
@@ -167,10 +193,7 @@ class ListMealsFragment : BaseFragment(), DateListView.DayItemSelectedListener,V
     }
 
     private fun inflateFab() {
-//        add_new_meal_button.setOnClickListener {
-//            onNewMealClicked()
-//        }
-        //inflate fab
+
         speedDial.inflate(R.menu.list_food_menu);
         speedDial.setOnActionSelectedListener { speedDialActionItem ->
             when (speedDialActionItem.id) {
@@ -187,16 +210,15 @@ class ListMealsFragment : BaseFragment(), DateListView.DayItemSelectedListener,V
         }
     }
 
-    fun onNewMealClicked() {
+    private fun onNewMealClicked() {
         val templateMeal = Meal()
         templateMeal.date = lastSelectedDay
-//        templateMeal.mealType = getNextMealType()
         val intent = AddNewMealActivity.buildIntent(context!!, templateMeal)
         startActivity(intent)
     }
 
-    fun onAddWaterClicked() {
-        val intent = Intent(context, AddWaterActivity::class.java)
+    private fun onAddWaterClicked() {
+        val intent = AddWaterActivity.createIntent(context!!,lastSelectedDay);
         startActivity(intent)
     }
 }
