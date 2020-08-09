@@ -16,8 +16,6 @@ import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.core.entity.Meal
 import apps.esampaio.com.comacerto.core.entity.Water
 import apps.esampaio.com.comacerto.core.extensions.addDay
-import apps.esampaio.com.comacerto.core.extensions.dayOfYear
-import apps.esampaio.com.comacerto.core.extensions.getDateYear
 import apps.esampaio.com.comacerto.core.extensions.subtractDay
 import apps.esampaio.com.comacerto.core.service.meal.MealPresenter
 import apps.esampaio.com.comacerto.core.service.meal.MealService
@@ -46,7 +44,6 @@ class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener,MealPre
 
     }
 
-    //TODO mudar aqui
     override fun onPageSelected(pageIndex: Int) {
         val newPosition = pageIndex;
         var newDate = lastSelectedDay;
@@ -58,7 +55,7 @@ class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener,MealPre
         }
         currentItemPosition = newPosition
         newDaySelected(newDate);
-
+        horizontalCalendar.selectDate(newDate, false);
     }
 
 
@@ -69,7 +66,7 @@ class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener,MealPre
         }
     }
 
-    class PageViewAdapter(val context: Context) : PagerAdapter() {
+    class PageViewAdapter(val context: Context, var itemCount: Int =365) : PagerAdapter() {
 
         var meals = mutableMapOf<Int,List<Meal>?>()
         var water = mutableMapOf<Int,List<Water>?>()
@@ -81,7 +78,7 @@ class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener,MealPre
         }
 
         override fun getCount(): Int {
-            return Date(System.currentTimeMillis()).dayOfYear()
+            return itemCount;
         }
 
         override fun destroyItem(collection: ViewGroup, position: Int, view: Any) {
@@ -133,11 +130,8 @@ class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener,MealPre
     }
 
     private fun newDaySelected(day:Date){
-        day.getDateYear()
         mealService.dateSelected(day)
         this.lastSelectedDay = day;
-        horizontalCalendar.selectDate(day, false);
-
     }
 
     override fun updateMealAndWaterList(meals: List<Meal>, water: List<Water>) {
@@ -154,33 +148,38 @@ class ListMealsFragment : BaseFragment(), ViewPager.OnPageChangeListener,MealPre
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         this.mealService = MealService(this)
-        this.adapter = PageViewAdapter(context!!)
-        daily_meal_view_pager.adapter = adapter
-        daily_meal_view_pager.currentItem = adapter.count - 1
+
         daily_meal_view_pager.addOnPageChangeListener(this)
         this.currentItemPosition = daily_meal_view_pager.currentItem
 
         setupHorizontalCalendar(view);
 
+        //ta quebrando aqui
+        val pos = 365;
+        this.adapter = PageViewAdapter(context!!,pos);
+
+        daily_meal_view_pager.adapter = adapter
+        daily_meal_view_pager.currentItem = pos -1;
         inflateFab()
+        newDaySelected(Date(System.currentTimeMillis()))
+
     }
 
     private fun setupHorizontalCalendar(view: View) {
-        val endDate = Calendar.getInstance()
-        endDate.add(Calendar.YEAR, 1)
 
         val startDate = Calendar.getInstance()
-        startDate.add(Calendar.YEAR, -1)
+        startDate.add(Calendar.DAY_OF_YEAR, -365)
 
         this.horizontalCalendar =  HorizontalCalendar.Builder(view, R.id.calendarView)
                 .startDate(startDate.time)
-                .endDate(endDate.time)
+                .endDate(Date(System.currentTimeMillis()))
                 .build()
 
         horizontalCalendar.calendarListener = object : HorizontalCalendarListener() {
             override fun onDateSelected(date: Date?, position: Int) {
                 if( date != null) {
                     newDaySelected(date)
+                    daily_meal_view_pager.currentItem = currentItemPosition// horizontalCalendar.selectedDatePosition;
                 }
             }
 

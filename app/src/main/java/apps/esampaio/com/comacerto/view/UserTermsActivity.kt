@@ -21,8 +21,9 @@ class UserTermsActivity : AppCompatActivity() {
         if(lastAcceptedUserTermsUrl.isBlank()){
             Dialogs.openErrorDialog(this,getString(R.string.no_internet_connection)) {
 
-                finishAffinity();
-                System.exit(0);
+//                finishAffinity();
+//                System.exit(0);
+                finish();
             }
         }else {
             terms_and_conditions_view.loadFromUrl(lastAcceptedUserTermsUrl)

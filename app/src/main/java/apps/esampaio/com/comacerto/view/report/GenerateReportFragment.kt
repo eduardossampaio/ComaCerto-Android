@@ -51,6 +51,16 @@ class GenerateReportFragment : BaseFragment(), ReportPresenter {
                 .load()
     }
 
+    override fun displayGeneratedReport(file: File) {
+        generate_report_message.visibility = View.GONE
+        pdfView.visibility = View.VISIBLE
+        generatedReportFile = file;
+        pdfView.fromFile(file)
+                .defaultPage(0)
+                .swipeHorizontal(true)
+                .load()
+    }
+
     init {
         setHasOptionsMenu(true)
         reportIteractor = ReportService(this)
