@@ -27,7 +27,7 @@ import java.util.*
 class GenerateReportFragment : BaseFragment(), ReportPresenter {
 
     companion object {
-        val REQUEST_PERMISSIONS_FOR_GENERATE_REPORT =  123
+        const val REQUEST_PERMISSIONS_FOR_GENERATE_REPORT =  123
         @JvmStatic
         fun newInstance() = GenerateReportFragment().apply {
 
@@ -75,7 +75,7 @@ class GenerateReportFragment : BaseFragment(), ReportPresenter {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.generate_report_menu_item) {
             generateReport()
-            shareMenuItem.setEnabled(true)
+            shareMenuItem.isEnabled = true
         } else if (item?.itemId == R.id.share_report_menu_item) {
             shareGeneratedReport()
         }
@@ -100,7 +100,7 @@ class GenerateReportFragment : BaseFragment(), ReportPresenter {
             override fun onNothingSelected(p0: AdapterView<*>?) {}
 
             override fun onItemSelected(adapter: AdapterView<*>?, view: View?, position: Int, p3: Long) {
-                shareMenuItem.setEnabled(false)
+                shareMenuItem.isEnabled = false
                 selectedPeriod = adapter?.getItemAtPosition(position) as Period
 
                 if (selectedPeriod?.isCustomPeriod!!){

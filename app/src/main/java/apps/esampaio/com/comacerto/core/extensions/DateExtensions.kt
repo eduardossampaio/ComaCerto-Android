@@ -2,8 +2,9 @@ package apps.esampaio.com.comacerto.core.extensions
 
 import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.time.Year
 import java.util.*
+import java.util.concurrent.TimeUnit
+import kotlin.math.abs
 
 fun Date.getWeek() : Int{
     val calendar = Calendar.getInstance();
@@ -73,6 +74,20 @@ fun Date.subtractDay(): Date{
     return calendar.time
 }
 
+fun Date.subtractDay(totalDays: Int): Date{
+    val calendar = Calendar.getInstance()
+    calendar.time = this
+    calendar.add(Calendar.DAY_OF_MONTH,-totalDays);
+    return calendar.time
+}
+
+fun Date.differenceInDays(other:Date) : Int{
+    val diffInMillis: Long = abs(other.time - this.time)
+    val diff: Long = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS)
+    return diff.toInt();
+
+//    return abs(other.dayOfYear() - this.dayOfYear());
+}
 
 
 fun Date.beginOfMonth(): Date{

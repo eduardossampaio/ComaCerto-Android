@@ -25,7 +25,7 @@ class MealService : MealIteractor {
             val mealList = it
             waterPersistence.getWater(date) {
                 val waterList = it
-                mealPresenter.updateMealAndWaterList(mealList,waterList)
+                mealPresenter.updateMealAndWaterList(date,mealList,waterList)
             }
 //            mealPresenter.updateMealList(it)
         }

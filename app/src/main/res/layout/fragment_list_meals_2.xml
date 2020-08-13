@@ -1,68 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingTop="15dp"
     tools:context=".view.meals.list.ListMealsFragment">
 
 
-
-
     <devs.mulham.horizontalcalendar.HorizontalCalendarView
         android:id="@+id/calendarView"
-        app:textColorNormal="#bababa"
-
-        app:selectorColor="#c62828"
-    app:selectedDateBackground="#00ffffff"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
-        app:textColorSelected="#000"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:selectedDateBackground="#00ffffff"
+        app:selectorColor="@color/primary"
+        app:textColorNormal="#bababa"
+        app:textColorSelected="#000" />
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/no_meals_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/no_meals_registered"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <android.support.v4.view.ViewPager
-    android:id="@+id/daily_meal_view_pager"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/calendarView"
-    android:layout_width="0dp"
-    android:layout_height="0dp"
-    app:isInfinite="false" />
+<!--    <android.support.v4.view.ViewPager-->
+<!--        android:id="@+id/daily_meal_view_pager"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        app:isInfinite="false"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/calendarView" />-->
 
-<com.leinardi.android.speeddial.SpeedDialView
-    android:id="@+id/speedDial"
-    app:layout_constraintBottom_toBottomOf="parent"
-app:layout_constraintEnd_toEndOf="parent"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="bottom|end"
-    app:sdMainFabClosedSrc="@drawable/ic_add" />
 
-<android.support.design.widget.FloatingActionButton
-android:visibility="gone"
-android:id="@+id/add_new_meal_button"
-android:src="@drawable/ic_add"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:layout_marginBottom="8dp"
-android:layout_marginEnd="8dp"
-app:layout_constraintBottom_toBottomOf="parent"
-app:layout_constraintEnd_toEndOf="parent" />
+        <com.huanhailiuxin.coolviewpager.CoolViewPager
+            android:id="@+id/daily_meal_view_pager"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:isInfinite="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/calendarView" />
+
+
+
+
+    <com.leinardi.android.speeddial.SpeedDialView
+        android:id="@+id/speedDial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:sdMainFabClosedSrc="@drawable/ic_add" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_new_meal_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/ic_add"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
