@@ -42,6 +42,7 @@
     <string name="meal_lunch">Almoço</string>
     <string name="meal_snack">Lanche</string>
     <string name="meal_dinner">Janta</string>
+    <string name="meal_candies">Guloseimas</string>
     <string name="hungry">Fome</string>
     <string name="hungry_level">nível de fome</string>
     <string name="satiety">Saciedade</string>
@@ -122,6 +123,6 @@
     <string name="send_email">Enviar email...</string>
     <string name="version_news">Novidades da versão</string>
     <string name="start_use">Começar a usar</string>
-    <string name="version_news_description">Tem sido um bom tempo deste a última vez que nos vimos. Prometo que tratei novidades para este aplicativo em intervalos de tempo menores</string>
+    <string name="version_news_description">Atualizações sutis na interface\nNova refeição adicionada\nmelhorias na velocidade de geração de relatório</string>
     <string name="news">O que tem de novo</string>
 </resources>

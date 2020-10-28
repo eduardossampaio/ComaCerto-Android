@@ -11,19 +11,20 @@ enum class MealType {
     Breakfast(R.string.meal_breakfast,R.drawable.meal_breakfast_flat),
     Lunch(R.string.meal_lunch,R.drawable.meal_lunch_flat),
     Snack(R.string.meal_snack,R.drawable.meal_snack_flat),
+    Candies(R.string.meal_candies,R.drawable.meal_candy_flat),
     Dinner(R.string.meal_dinner,R.drawable.meal_dinner_flat);
 
-    val nameId:Int
-    val imageId:Int
-    val imageDrawable : Drawable?
+    private val nameId:Int
+    private val imageId:Int
+    private val imageDrawable : Drawable?
 
     constructor(nameId:Int,imageId:Int){
         this.nameId = nameId
         this.imageId = imageId
-        if ( imageId != 0) {
-            imageDrawable = ContextCompat.getDrawable(MyApplication.instance, imageId)
+        imageDrawable = if ( imageId != 0) {
+            ContextCompat.getDrawable(MyApplication.instance, imageId)
         }else{
-            imageDrawable = null
+            null
         }
     }
 

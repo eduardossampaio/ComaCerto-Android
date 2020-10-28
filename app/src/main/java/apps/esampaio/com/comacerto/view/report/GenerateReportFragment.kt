@@ -116,7 +116,7 @@ class GenerateReportFragment : BaseFragment(), ReportPresenter {
             }
 
         }
-        loadPreviousGeneratedReport();
+        //loadPreviousGeneratedReport();
     }
 
     private fun generateReport() {

@@ -59,5 +59,12 @@ class FileUtils {
 
             }
         }
+
+        fun deleteFile(root: String, fileName:  String) {
+            val file = File(root,fileName);
+            if(file.exists()) {
+                file.delete();
+            }
+        }
     }
 }

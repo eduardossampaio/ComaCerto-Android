@@ -72,7 +72,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="- Esta caixinha com as novidades aparecerá a cada nova versão"
+                android:text="- Melhorias visuais"
                 android:textColor="#5d5d5d"
                 android:textSize="18sp" />
 
@@ -80,7 +80,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="- Agora você pode registrar em seu diário cada vez que ingerir água"
+                android:text="- Melhoria na velocidade de geração de relatórios"
                 android:textColor="#5d5d5d"
                 android:textSize="18sp" />
 
@@ -88,7 +88,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="- Agora você pode entrar em contato comigo, na opção de ajuda(último item)"
+                android:text="- Adição de um novo tipo de refeição"
                 android:textColor="#5d5d5d"
                 android:textSize="18sp" />
 
@@ -96,7 +96,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="- Mudanças sutis no layout do aplicativo"
+                android:text="- Novas melhorias a caminho"
                 android:textColor="#5d5d5d"
                 android:textSize="18sp" />
 

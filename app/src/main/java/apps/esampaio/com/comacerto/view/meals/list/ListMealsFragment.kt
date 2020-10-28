@@ -28,7 +28,7 @@ import devs.mulham.horizontalcalendar.HorizontalCalendar
 import devs.mulham.horizontalcalendar.HorizontalCalendarListener
 import kotlinx.android.synthetic.main.fragment_list_meals_2.*
 import java.util.*
-
+import apps.esampaio.com.comacerto.core.extensions.beginOfMonth;
 
 class ListMealsFragment : BaseFragment(), MealPresenter {
 
@@ -61,8 +61,6 @@ class ListMealsFragment : BaseFragment(), MealPresenter {
             val view = LayoutInflater.from(context).inflate(R.layout.fragment_daily_meals, collection, false)
             view.tag = position
             collection.addView(view)
-//            val noMelaTextView = view.findViewById<TextView>(R.id.no_meals_registered_text_view);
-//            noMelaTextView.text = "$position";
             viewHolders[position] = view
             updateDataAt(position,meals[position],water[position])
             return view
@@ -176,7 +174,6 @@ class ListMealsFragment : BaseFragment(), MealPresenter {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
         return inflater.inflate(R.layout.fragment_list_meals_2, container, false)
     }
 
@@ -189,11 +186,12 @@ class ListMealsFragment : BaseFragment(), MealPresenter {
         super.onViewCreated(view, savedInstanceState)
         this.mealService = MealService(this)
 
-        val startDateCalendar = Calendar.getInstance()
-        startDateCalendar.time = Date(System.currentTimeMillis());
-        startDateCalendar.add(Calendar.YEAR, -1)
 
-        this.initialDate = startDateCalendar.time;
+        var startDateCalendar = Calendar.getInstance()
+        startDateCalendar.time = Date(System.currentTimeMillis());
+        startDateCalendar.add(Calendar.MONTH, -2)
+
+        this.initialDate = startDateCalendar.time.beginOfMonth();
         this.finalDate = Date(System.currentTimeMillis());
         val totalDaysItems = finalDate.differenceInDays(initialDate);
 
