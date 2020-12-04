@@ -125,4 +125,7 @@
     <string name="start_use">Começar a usar</string>
     <string name="version_news_description">Atualizações sutis na interface\nNova refeição adicionada\nmelhorias na velocidade de geração de relatório</string>
     <string name="news">O que tem de novo</string>
+    <string name="manage_meals">Gerir tipos de refeição</string>
+    <string name="manage_reminders">Meus alarmes</string>
+    <string name="default_meals">Refeições padrão</string>
 </resources>

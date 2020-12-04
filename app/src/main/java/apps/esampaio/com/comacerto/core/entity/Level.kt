@@ -33,7 +33,10 @@ class Level : Serializable{
     }
 
     fun selectedLevelName(): String{
-        return levelNames[level - 1]
+        if(level >=0 && level <levelNames.size) {
+            return levelNames[level]
+        }
+        return "";
     }
 
     override fun equals(other: Any?): Boolean {

@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/ComaCertoAppTheme"
         tools:replace="android:theme">
-
+        <activity android:name=".view.settings.subsettings.ManageMealsActivity"></activity>
         <activity
             android:name=".view.SplashActivity"
             android:theme="@style/ComaCertoAppTheme_NoActionBar">
@@ -51,7 +51,7 @@
 
         <activity android:name=".view.water.AddWaterActivity" />
         <activity android:name=".view.water.ListWaterActivity" />
-        <activity android:name=".view.UserTermsActivity"></activity>
+        <activity android:name=".view.UserTermsActivity" />
     </application>
 
 </manifest>
