@@ -8,7 +8,7 @@ import apps.esampaio.com.comacerto.core.entity.MealType
 
 
 
-class MealListRecyclerViewAdapter(context: Context) : ImageRecyclerViewAdapter(context) {
+open class MealListRecyclerViewAdapter(context: Context) : ImageRecyclerViewAdapter(context) {
     var onMealSelectedListener : ((MealType) -> Unit)? = null
     var meals = MealType.values().drop(1)
 

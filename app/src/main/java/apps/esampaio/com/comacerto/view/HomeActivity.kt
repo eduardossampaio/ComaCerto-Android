@@ -24,7 +24,7 @@ class HomeActivity : BaseActivity() {
     val listMealFragment = ListMealsFragment.newInstance()
 
     val generateReportFragment = GenerateReportFragment.newInstance()
-    val settingsFragment = SettingsFragment.newInstance()
+//    val settingsFragment = SettingsFragment.newInstance()
     val newSettingsFragment = NewSettingsFragment.newInstance();
 
     val helpFragment = HelpFragment.newInstance()
@@ -45,7 +45,7 @@ class HomeActivity : BaseActivity() {
                     openFragment(generateReportFragment)
                 }
                 R.id.navigation_meal_settings -> {
-                    openFragment(settingsFragment)
+                    openFragment(newSettingsFragment)
                 }
                 R.id.navigation_meal_help -> {
                     openFragment(helpFragment)

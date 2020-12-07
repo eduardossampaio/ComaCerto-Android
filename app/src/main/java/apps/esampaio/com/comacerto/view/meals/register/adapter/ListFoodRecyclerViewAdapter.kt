@@ -53,7 +53,7 @@ class ListFoodRecyclerViewAdapter(val context: Context, var foodsList:MutableLis
         for(food in presetFoods){
             if(allFoodsList.contains(food)){
                 val foodIndex = allFoodsList.indexOf(food)
-                allFoodsList.get(foodIndex).portion = food.portion
+                allFoodsList[foodIndex].portion = food.portion
             }else{
                 allFoodsList.add(0,food)
             }
@@ -73,6 +73,10 @@ class ListFoodRecyclerViewAdapter(val context: Context, var foodsList:MutableLis
                 }
             }
             this.foodsList = filteredList
+
+//            this.foodsList.filter {
+//                it.name.startsWith(searchText!! ,ignoreCase = true) || it.category.startsWith(searchText ,ignoreCase = true)
+//            }
         }
         notifyDataSetChanged()
     }

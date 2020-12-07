@@ -128,4 +128,5 @@
     <string name="manage_meals">Gerir tipos de refeição</string>
     <string name="manage_reminders">Meus alarmes</string>
     <string name="default_meals">Refeições padrão</string>
+    <string name="my_meals">Minhas refeições</string>
 </resources>

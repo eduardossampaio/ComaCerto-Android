@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/title"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+        style="@style/DefaultTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/default_meals"
@@ -24,7 +24,6 @@
         app:layout_constraintTop_toBottomOf="@+id/title"
         tools:listitem="@layout/image_collection_recycler_view_item"
         tools:itemCount="5"
-        app:layoutManager="android.support.v7.widget.GridLayoutManager"
         android:id="@+id/default_meal_list_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,4 +40,26 @@
         android:layout_margin="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        style="@style/DefaultTitle"
+        android:id="@+id/title_my_meals"
+        android:layout_width="0dp"
+        android:text="@string/my_meals"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/default_meal_list_rv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/default_meal_list_rv" />
+
+
+    <android.support.v7.widget.RecyclerView
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_my_meals"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:listitem="@layout/list_add_meal_view_item"
+        android:id="@+id/my_meals_list_rv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
 </android.support.constraint.ConstraintLayout>
