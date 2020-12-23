@@ -1,7 +1,7 @@
 package apps.esampaio.com.comacerto.core.service.preferences
 
-import android.support.v7.preference.Preference
-import android.support.v7.preference.PreferenceManager
+import androidx.preference.Preference
+import androidx.preference.PreferenceManager
 
 fun Preference.update(value : String){
     val sp = PreferenceManager.getDefaultSharedPreferences(context)

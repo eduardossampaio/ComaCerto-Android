@@ -1,9 +1,7 @@
-package apps.esampaio.com.comacerto.core.persistence.DAO
+package apps.esampaio.com.comacerto.core.persistence.dao
 
-import android.arch.persistence.room.*
-import apps.esampaio.com.comacerto.core.persistence.entities.MealAndFoods
+import androidx.room.*
 import apps.esampaio.com.comacerto.core.persistence.entities.WaterEntity
-import java.util.*
 
 @Dao
 interface WaterDAO {

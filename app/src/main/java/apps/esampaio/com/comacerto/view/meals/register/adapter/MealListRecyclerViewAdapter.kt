@@ -5,29 +5,37 @@ import android.util.Log
 import apps.esampaio.com.comacerto.core.entity.Meal
 
 import apps.esampaio.com.comacerto.core.entity.MealType
+import apps.esampaio.com.comacerto.core.entity.MealTypeIcon
 
 
-
-open class MealListRecyclerViewAdapter(context: Context) : ImageRecyclerViewAdapter(context) {
+open class MealListRecyclerViewAdapter(context: Context,private val meals: Array<MealType> = MealType.defaultMealTypes) : ImageRecyclerViewAdapter(context) {
     var onMealSelectedListener : ((MealType) -> Unit)? = null
-    var meals = MealType.values().drop(1)
+
 
     override fun onBindViewHolder(imageRecyclerViewAdapterViewHolder: ImageRecyclerViewAdapter.ImageRecyclerViewAdapterViewHolder, i: Int) {
         super.onBindViewHolder(imageRecyclerViewAdapterViewHolder, i)
         val mealType = meals[i]
-        imageRecyclerViewAdapterViewHolder.itemImage!!.setImageDrawable( mealType.getImage(context))
-        imageRecyclerViewAdapterViewHolder.itemName!!.text = mealType.getName(context)
+        imageRecyclerViewAdapterViewHolder.itemImage!!.setImageDrawable( mealType.getIcon())
+        imageRecyclerViewAdapterViewHolder.itemName!!.text = mealType.name
     }
 
     override fun getItemCount(): Int {
-        //disconsidering None
         return meals.size
     }
 
     override fun itemSelectedAtPosition(position:Int){
-        Log.d("MealsAdapter", "positions is ${position}")
+        Log.d("MealsAdapter", "positions is $position")
         if ( position in 0..meals.size) {
             onMealSelectedListener?.invoke(meals[position])
+        }
+    }
+
+    fun selectItem(mealType: MealType){
+        for(i in meals.indices){
+            if(mealType == meals[i]){
+                selectedItem = i;
+                break;
+            }
         }
     }
 

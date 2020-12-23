@@ -2,7 +2,7 @@ package apps.esampaio.com.comacerto.core.entity
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import apps.esampaio.com.comacerto.MyApplication
 import apps.esampaio.com.comacerto.R
 

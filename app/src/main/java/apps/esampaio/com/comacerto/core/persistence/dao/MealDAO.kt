@@ -1,11 +1,9 @@
-package apps.esampaio.com.comacerto.core.persistence.DAO
+package apps.esampaio.com.comacerto.core.persistence.dao
 
-import android.arch.persistence.room.*
-import android.arch.persistence.room.OnConflictStrategy.REPLACE
-import apps.esampaio.com.comacerto.core.entity.Meal
+import androidx.room.*
+import androidx.room.OnConflictStrategy.REPLACE
 import apps.esampaio.com.comacerto.core.persistence.entities.MealAndFoods
 import apps.esampaio.com.comacerto.core.persistence.entities.MealEntity
-import java.util.*
 
 @Dao
 interface MealDAO{

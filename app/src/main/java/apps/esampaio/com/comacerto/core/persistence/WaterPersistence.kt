@@ -1,7 +1,7 @@
 package apps.esampaio.com.comacerto.core.persistence;
 
 import android.content.Context
-import android.support.annotation.UiThread
+import androidx.annotation.UiThread
 import apps.esampaio.com.comacerto.core.entity.Food
 import apps.esampaio.com.comacerto.core.entity.Meal
 import apps.esampaio.com.comacerto.core.entity.Water
@@ -23,18 +23,14 @@ class WaterPersistence(val context: Context) {
     fun saveWater(water: Water) {
         doAsync {
             val waterDAO = AppDatabase.getInstance(context)?.waterDAO()
-            if(water != null){
-                waterDAO?.save(WaterEntity(water.dateAndTime,water.quantity))
-            }
+            waterDAO?.save(WaterEntity(water.dateAndTime,water.quantity))
         }
     }
 
     fun remove(water: Water) {
         doAsync {
             val waterDAO = AppDatabase.getInstance(context)?.waterDAO()
-            if(water != null){
-                waterDAO?.delete(WaterEntity(water.dateAndTime,water.quantity,water.id))
-            }
+            waterDAO?.delete(WaterEntity(water.dateAndTime,water.quantity,water.id))
         }
     }
     fun getWater(date: Date, result: (List<Water>) -> Unit) {

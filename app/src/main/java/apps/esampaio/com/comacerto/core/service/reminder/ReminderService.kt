@@ -18,9 +18,9 @@ class ReminderService {
 
         val intent = Intent(context, MealAlarmBroadcastReceiver::class.java)
 
-        val mealName = mealType.getName(context)
+        val mealName = mealType.name
         intent.putExtra("MESSAGE","Está quase na hora do seu ${mealName}")
-        intent.putExtra("MEAL_TYPE_ORDINAL",mealType.ordinal)
+        intent.putExtra("MEAL_TYPE_ORDINAL",mealType.mealId)
 
         val alarmIntent = PendingIntent.getBroadcast(context, idForMealType(mealType), intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
@@ -39,6 +39,6 @@ class ReminderService {
     }
 
     private fun idForMealType(mealType: MealType) : Int{
-        return mealType.ordinal + 100
+        return mealType.mealId + 100
     }
 }

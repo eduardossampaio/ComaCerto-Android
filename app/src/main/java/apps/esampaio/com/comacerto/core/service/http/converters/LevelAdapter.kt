@@ -10,7 +10,7 @@ class LevelAdapter : JsonSerializer<Level> {
     override fun serialize(src: Level?, typeOfSrc: Type?, context: JsonSerializationContext): JsonElement {
         var levelValue = ""
         if ( src != null){
-            val level = src as Level
+            val level = src
             levelValue = level.levelNames[level.level]
         }
         return  context.serialize(levelValue, String::class.java)

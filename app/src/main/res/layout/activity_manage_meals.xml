@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.settings.subsettings.ManageMealsActivity">
+    tools:context=".view.settings.subsettings.manageMeals.ManageMealsActivity">
 
     <TextView
         android:id="@+id/title"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,9 +29,9 @@
         android:layout_height="wrap_content"
         android:minHeight="?android:attr/listPreferredItemHeight">
 
-    </android.support.v7.widget.RecyclerView>
+    </androidx.recyclerview.widget.RecyclerView>
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -52,8 +52,8 @@
         app:layout_constraintTop_toBottomOf="@+id/default_meal_list_rv" />
 
 
-    <android.support.v7.widget.RecyclerView
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_my_meals"
@@ -62,4 +62,16 @@
         android:id="@+id/my_meals_list_rv"
         android:layout_width="match_parent"
         android:layout_height="0dp"/>
-</android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:gravity="center"
+        android:text="@string/no_meals_registered"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_my_meals"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:listitem="@layout/list_add_meal_view_item"
+        android:id="@+id/no_meals_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,7 @@
 package apps.esampaio.com.comacerto.view
 
 import android.app.Dialog
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.widget.Toast
 
 import apps.esampaio.com.comacerto.core.service.ViewPresenter

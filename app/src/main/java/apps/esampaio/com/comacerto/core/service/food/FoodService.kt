@@ -35,7 +35,7 @@ class FoodService(val context: Context, val foodPresenter: FoodPresenter) : Food
     }
 
 
-    fun fetchFoodsList(){
+    private fun fetchFoodsList(){
         context.doAsync {
             try {
                 val firebaseRemoteConfig = RemoteConfig.getInstance()

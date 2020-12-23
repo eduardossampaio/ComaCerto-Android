@@ -2,8 +2,8 @@ package apps.esampaio.com.comacerto.view.meals.list.adater
 
 import android.content.Context
 import android.content.Intent
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.RecyclerView
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -77,7 +77,7 @@ class ListDailyMealRecyclerViewAdapter : RecyclerView.Adapter<ListDailyMealRecyc
     }
     private fun bindMeal(viewHolder: ListDailyMealAdapterViewHolder, index: Int){
         val meal = mealList.get(index)
-        viewHolder.mealName.text = meal.mealType.getName(context)
+        viewHolder.mealName.text = meal.mealType.name
         setMealIcon(viewHolder,meal)
         setFoodsQuantityText(viewHolder,meal)
 
@@ -137,11 +137,11 @@ class ListDailyMealRecyclerViewAdapter : RecyclerView.Adapter<ListDailyMealRecyc
 
     private fun setMealIcon(viewHolder: ListDailyMealAdapterViewHolder, meal: Meal){
         val previousIconSettedId = viewHolder.iconImage.tag as Int?
-        if (previousIconSettedId != null && previousIconSettedId == meal.mealType.ordinal){
+        if (previousIconSettedId != null && previousIconSettedId == meal.mealType.mealId){
 
         }else{
-            viewHolder.iconImage.tag = meal.mealType.ordinal
-            viewHolder.iconImage.setImageDrawable(meal.mealType.getImage(context))
+            viewHolder.iconImage.tag = meal.mealType.mealId
+            viewHolder.iconImage.setImageDrawable(meal.mealType.getIcon())
         }
     }
 

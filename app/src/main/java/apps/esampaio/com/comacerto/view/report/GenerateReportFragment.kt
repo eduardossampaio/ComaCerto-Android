@@ -7,7 +7,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
 
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import android.view.*
 import android.widget.AdapterView
 import apps.esampaio.com.comacerto.R

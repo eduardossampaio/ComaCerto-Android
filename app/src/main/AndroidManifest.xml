@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/ComaCertoAppTheme"
         tools:replace="android:theme">
-        <activity android:name=".view.settings.subsettings.ManageMealsActivity"></activity>
+        <activity android:name=".view.settings.subsettings.manageMeals.ManageMealsActivity"/>
         <activity
             android:name=".view.SplashActivity"
             android:theme="@style/ComaCertoAppTheme_NoActionBar">
@@ -38,7 +38,7 @@
         </activity>
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">

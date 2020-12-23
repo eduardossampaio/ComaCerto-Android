@@ -1,7 +1,7 @@
 package apps.esampaio.com.comacerto.core.service.preferences
 
 import android.content.Context
-import android.support.v7.preference.PreferenceManager
+import androidx.preference.PreferenceManager
 import apps.esampaio.com.comacerto.BuildConfig
 import apps.esampaio.com.comacerto.core.entity.MealType
 import apps.esampaio.com.comacerto.core.extensions.asString
@@ -69,7 +69,7 @@ class PreferencesService(val context: Context){
 
 
     fun getMealTypePreferenceKey(mealType: MealType): String{
-        var prefKey = when(mealType){
+        return when(mealType){
             MealType.Breakfast -> PREFERENCE_BREAKFAST_REMINDER_TIME_KEY
             MealType.Lunch -> PREFERENCE_LUNCH_REMINDER_TIME_KEY
             MealType.Snack -> PREFERENCE_SNACK_REMINDER_TIME_KEY
@@ -78,20 +78,15 @@ class PreferencesService(val context: Context){
                 ""
             }
         }
-        return prefKey
     }
 
     fun getMealTimeReminder(mealType: MealType):Date?{
         val preferenceKey = getMealTypePreferenceKey(mealType)
-        if ( preferenceKey != null) {
-            val value = getPreferenceString(preferenceKey,"")
-            if( value.isEmpty()){
-                return null
-            }
-            return Date().fromFormat("HH:mm", value)
-        }else{
+        val value = getPreferenceString(preferenceKey,"")
+        if( value.isEmpty()){
             return null
         }
+        return Date().fromFormat("HH:mm", value)
     }
 
     fun updateMealTimeValue(mealType: MealType,time:Date){

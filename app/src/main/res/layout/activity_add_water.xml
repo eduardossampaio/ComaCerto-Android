@@ -8,7 +8,7 @@
     tools:context=".view.meals.register.AddNewMealActivity">
 
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,6 +23,7 @@
             android:layout_marginBottom="8dp"
             android:scaleType="center"
             android:src="@drawable/ic_calendar"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,14 +45,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         style="@style/divider"
         android:layout_width="match_parent"
         android:layout_height="1px" />
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,6 +60,7 @@
         android:orientation="horizontal">
 
         <ImageView
+            app:layout_constraintStart_toStartOf="parent"
             android:id="@+id/imageView2"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -86,7 +88,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
             app:layout_constraintTop_toTopOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         style="@style/divider"
@@ -112,7 +114,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:backgroundTint="@color/primary"
-            android:onClick="onAddWaterClicked"
             android:text="@string/save"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent" />

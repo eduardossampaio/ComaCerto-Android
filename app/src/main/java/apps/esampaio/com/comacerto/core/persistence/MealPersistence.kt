@@ -1,9 +1,10 @@
 package apps.esampaio.com.comacerto.core.persistence;
 
 import android.content.Context
-import android.support.annotation.UiThread
+import androidx.annotation.UiThread
 import apps.esampaio.com.comacerto.core.entity.Food
 import apps.esampaio.com.comacerto.core.entity.Meal
+import apps.esampaio.com.comacerto.core.entity.MealType
 import apps.esampaio.com.comacerto.core.extensions.asString
 import apps.esampaio.com.comacerto.core.extensions.beginOfDay
 import apps.esampaio.com.comacerto.core.extensions.endOfDay
@@ -78,6 +79,16 @@ class MealPersistence(val context: Context) {
                     if (meal != null) {
                         meal.foods = foodsEntityToFood(foodsEntity)
                         selectedMeals.add(meal)
+
+                        if (!MealType.isDefaultMealType(mealEntity.mealType)) {
+                            val mealTypeDAO = AppDatabase.getInstance(context)?.mealTypeDAO();
+                            val mealTYpeEntity = mealTypeDAO?.getById(mealEntity.customMeal);
+                            if (mealTYpeEntity != null) {
+                                meal.mealType =if( mealTYpeEntity.toMealType() != null ) mealTYpeEntity.toMealType()!! else {MealType.None};
+
+                            }
+
+                        }
                     }
                 }
                 context.runOnUiThread {

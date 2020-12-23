@@ -2,7 +2,7 @@ package apps.esampaio.com.comacerto.view.dialogs
 
 import android.app.Dialog
 import android.content.Context
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import apps.esampaio.com.comacerto.MyApplication
 
 import com.droidbyme.dialoglib.DroidDialog

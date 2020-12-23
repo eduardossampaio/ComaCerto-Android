@@ -5,7 +5,7 @@ import apps.esampaio.com.comacerto.core.entity.Feeling
 import apps.esampaio.com.comacerto.core.entity.MealType
 import apps.esampaio.com.comacerto.core.firebase.RemoteConfig
 import st.lowlevel.storo.StoroBuilder
-import android.support.v4.os.ConfigurationCompat.getLocales
+import androidx.core.os.ConfigurationCompat.getLocales
 import android.os.Build
 import java.util.*
 
@@ -20,7 +20,7 @@ class MyApplication : Application() {
         instance = this
         //to load images
         Feeling.values()
-        MealType.values()
+        MealType.setup(this)
 
         //fetch remote config
         RemoteConfig.getInstance()

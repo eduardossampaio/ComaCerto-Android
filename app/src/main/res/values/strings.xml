@@ -132,4 +132,7 @@
     <string name="manage_reminders">Meus alarmes</string>
     <string name="default_meals">Refeições padrão</string>
     <string name="my_meals">Minhas refeições</string>
+    <string name="add_new_meal">Nova Refeição</string>
+    <string name="enter_meal_name">Nome da refeição</string>
+    <string name="meal_icon_title">Ícone</string>
 </resources>

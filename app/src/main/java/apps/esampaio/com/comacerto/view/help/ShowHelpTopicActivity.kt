@@ -2,7 +2,7 @@ package apps.esampaio.com.comacerto.view.help
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.core.entity.HelpTopic

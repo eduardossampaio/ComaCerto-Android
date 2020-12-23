@@ -10,7 +10,7 @@ import java.lang.reflect.Type
 
 class MealTypeAdapter : JsonSerializer<MealType> {
     override fun serialize(src: MealType, typeOfSrc: Type?, context: JsonSerializationContext): JsonElement {
-        return  context.serialize(src.getName(MyApplication.instance), String::class.java)
+        return  context.serialize(src.name, String::class.java)
     }
 
 }

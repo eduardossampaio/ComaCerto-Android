@@ -126,7 +126,11 @@
     <string name="version_news_description">Atualizações sutis na interface\nNova refeição adicionada\nmelhorias na velocidade de geração de relatório</string>
     <string name="news">O que tem de novo</string>
     <string name="manage_meals">Gerir tipos de refeição</string>
+    <string name="manage_feelings">Gerir tipos de sentimentos</string>
     <string name="manage_reminders">Meus alarmes</string>
     <string name="default_meals">Refeições padrão</string>
     <string name="my_meals">Minhas refeições</string>
+    <string name="add_new_meal">Nova Refeição</string>
+    <string name="enter_meal_name">Nome da refeição</string>
+    <string name="meal_icon_title">Ícone</string>
 </resources>

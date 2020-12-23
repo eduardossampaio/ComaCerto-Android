@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,9 +7,7 @@
     android:orientation="vertical"
     tools:context=".view.meals.register.AddNewMealActivity">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
@@ -20,7 +18,7 @@
         tools:context=".view.meals.register.AddNewMealActivity">
 
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -56,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1px" />
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cell_meal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -81,7 +79,9 @@
                     android:layout_height="wrap_content"
                     android:text="@string/meal"
                     android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="@+id/meal_name" />
+                    app:layout_constraintBottom_toTopOf="@+id/meal_name"
+                    app:layout_constraintStart_toStartOf="@+id/meal_name"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/meal_name"
@@ -112,7 +112,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             <com.github.chuross.library.ExpandableLayout
@@ -122,13 +122,13 @@
                 android:layout_height="wrap_content"
                 android:background="@null">
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/meal_list_rv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="?android:attr/listPreferredItemHeight">
 
-                </android.support.v7.widget.RecyclerView>
+                </androidx.recyclerview.widget.RecyclerView>
             </com.github.chuross.library.ExpandableLayout>
 
             <View
@@ -137,7 +137,7 @@
                 android:layout_height="1px" />
 
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -152,6 +152,7 @@
                     android:layout_marginBottom="8dp"
                     android:scaleType="center"
                     android:src="@drawable/icon_clock"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -186,7 +187,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View
                 style="@style/divider"
@@ -203,7 +204,7 @@
                 android:layout_height="1px" />
 
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cell_feeling"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -229,6 +230,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/feeling"
                     android:textSize="12sp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/feeling_name"
                     app:layout_constraintStart_toStartOf="@+id/feeling_name" />
 
                 <TextView
@@ -259,20 +262,20 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.github.chuross.library.ExpandableLayout
                 android:id="@+id/list_feelings_expandable_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/feeling_list_rv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="?android:attr/listPreferredItemHeight">
 
-                </android.support.v7.widget.RecyclerView>
+                </androidx.recyclerview.widget.RecyclerView>
             </com.github.chuross.library.ExpandableLayout>
 
 
@@ -289,7 +292,7 @@
                 android:minHeight="?android:attr/listPreferredItemHeight"
                 android:orientation="horizontal">
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center">
@@ -301,7 +304,7 @@
                         android:layout_marginLeft="8dp"
                         android:background="@android:color/transparent"
                         android:hint="@string/what_was_doing" />
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
 
@@ -325,4 +328,4 @@
         android:text="@string/save"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent" />
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

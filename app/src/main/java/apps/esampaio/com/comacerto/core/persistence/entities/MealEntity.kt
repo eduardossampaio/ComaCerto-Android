@@ -1,14 +1,13 @@
 package apps.esampaio.com.comacerto.core.persistence.entities
 
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.PrimaryKey
-import android.arch.persistence.room.TypeConverters
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
 import apps.esampaio.com.comacerto.core.entity.Feeling
 import apps.esampaio.com.comacerto.core.entity.Level
 import apps.esampaio.com.comacerto.core.entity.Meal
 import apps.esampaio.com.comacerto.core.entity.MealType
 import apps.esampaio.com.comacerto.core.persistence.converters.DateConverter
-import apps.esampaio.com.comacerto.core.persistence.converters.TimestampConverter
 import java.util.*
 
 @Entity
@@ -22,24 +21,35 @@ class MealEntity {
     var hunger: Int = 0
     var satiety:Int = 0
     var feeling: Int = 0
+    var customMeal : Int =0;
 
     constructor(){
 
     }
     constructor(meal: Meal){
         this.primaryKey = meal.primaryKey
-        this.mealType = meal.mealType.ordinal
         this.whatDoing = meal.whatDoing
         this.date = meal.date
         this.hunger = meal.hunger.level
         this.satiety = meal.satiety.level
         this.feeling = meal.feeling.ordinal
+
+        if(MealType.isDefaultMealType(meal.mealType)){
+            this.mealType = meal.mealType.mealId;
+            this.customMeal = -1
+        }else{
+            this.customMeal = meal.mealType.mealId;
+            this.mealType = -1
+        }
+
     }
 
     fun toMeal() : Meal{
         var meal = Meal()
         meal.primaryKey = this.primaryKey
-        meal.mealType = MealType.getByOrdinal(this.mealType)
+        if(MealType.isDefaultMealType(meal.mealType)) {
+            meal.mealType = MealType.getDefaultMealType(this.mealType!!)
+        }
         meal.whatDoing = this.whatDoing
         meal.date = this.date
         meal.hunger = Level.hunger(this.hunger)

@@ -1,6 +1,6 @@
 package apps.esampaio.com.comacerto.core.persistence.converters
 
-import android.arch.persistence.room.TypeConverter
+import androidx.room.TypeConverter
 import android.content.Intent
 
 import java.util.Date

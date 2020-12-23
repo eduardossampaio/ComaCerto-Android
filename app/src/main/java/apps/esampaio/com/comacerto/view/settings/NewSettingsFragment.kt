@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.view.BaseFragment
-import apps.esampaio.com.comacerto.view.settings.subsettings.ManageMealsActivity
+import apps.esampaio.com.comacerto.view.settings.subsettings.manageMeals.ManageMealsActivity
 import kotlinx.android.synthetic.main.fragment_settings_v2.*
 
 class NewSettingsFragment : BaseFragment() {

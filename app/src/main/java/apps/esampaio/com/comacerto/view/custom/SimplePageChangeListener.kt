@@ -1,6 +1,6 @@
 package apps.esampaio.com.comacerto.view.custom
 
-import android.support.v4.view.ViewPager
+import androidx.viewpager.widget.ViewPager
 
 open class SimplePageChangeListener() : ViewPager.OnPageChangeListener {
 

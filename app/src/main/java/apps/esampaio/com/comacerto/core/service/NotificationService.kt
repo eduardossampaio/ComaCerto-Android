@@ -6,8 +6,8 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.support.v4.app.NotificationCompat
-import android.support.v4.app.NotificationManagerCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.core.entity.Meal
 import apps.esampaio.com.comacerto.core.entity.MealType
@@ -23,7 +23,7 @@ class NotificationService {
                 val importance = NotificationManager.IMPORTANCE_DEFAULT
                 val channel = NotificationChannel(chanelId, chanelName, importance)
                 channel.description = chanelDescription
-                val notificationManager = context?.getSystemService(NotificationManager::class.java)
+                val notificationManager = context.getSystemService(NotificationManager::class.java)
                 notificationManager!!.createNotificationChannel(channel)
             }
         }
@@ -48,7 +48,7 @@ class NotificationService {
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
             val notificationManager = NotificationManagerCompat.from(context)
-            notificationManager.notify(mealType.ordinal + 100, mBuilder.build())
+            notificationManager.notify(mealType.mealId + 100, mBuilder.build())
 
         }
     }

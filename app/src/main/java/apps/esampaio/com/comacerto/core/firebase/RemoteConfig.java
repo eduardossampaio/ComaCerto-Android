@@ -1,13 +1,10 @@
 package apps.esampaio.com.comacerto.core.firebase;
 
-import android.support.annotation.NonNull;
-import android.widget.Toast;
+import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
-
-import apps.esampaio.com.comacerto.MyApplication;
 
 public class RemoteConfig {
     private static final String HELP_TOPICS_CONFIG_KEY = "HELP_TOPICS";

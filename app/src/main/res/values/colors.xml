@@ -6,6 +6,7 @@
     <color name="text_error">#f44336</color>
     <color name="divider">#BDBDBD</color>
     <color name="white">#FFF</color>
+    <color name="red">#D32F2F</color>
 
     <color name="item_selected_color">#d7d4d4</color>
     <color name="item_deselected_color">#FFF</color>

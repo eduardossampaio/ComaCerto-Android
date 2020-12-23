@@ -1,10 +1,10 @@
 package apps.esampaio.com.comacerto.view.settings
 
 import android.os.Bundle
-import android.support.v14.preference.SwitchPreference
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.preference.Preference
-import android.support.v7.preference.PreferenceFragmentCompat
+import androidx.preference.SwitchPreference
+import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
 import apps.esampaio.com.comacerto.R
 import apps.esampaio.com.comacerto.core.entity.MealType
 import apps.esampaio.com.comacerto.core.extensions.appendTime
@@ -75,16 +75,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val supportFragmentManager = (context as AppCompatActivity).supportFragmentManager
         var timeSet = false
         val rtpd = RadialTimePickerDialogFragment()
-                .setOnTimeSetListener(object : RadialTimePickerDialogFragment.OnTimeSetListener {
-                    override fun onTimeSet(dialog: RadialTimePickerDialogFragment?, hourOfDay: Int, minute: Int) {
-                        val newDate = Calendar.getInstance().appendTime(Date(),hourOfDay,minute)
-                        val dateText = newDate.asString("HH:mm")
-                        targetPreference.summary = dateText
-                        preferenceService.updateMealTimeValue(mealType,newDate)
-                        timeSet = true
-                        reminderService.scheduleReminder(context!!,mealType,newDate)
-                    }
-                }).setOnDismissListener {
+                .setOnTimeSetListener { dialog, hourOfDay, minute ->
+                    val newDate = Calendar.getInstance().appendTime(Date(), hourOfDay, minute)
+                    val dateText = newDate.asString("HH:mm")
+                    targetPreference.summary = dateText
+                    preferenceService.updateMealTimeValue(mealType, newDate)
+                    timeSet = true
+                    reminderService.scheduleReminder(context!!, mealType, newDate)
+                }.setOnDismissListener {
                     if ( ! timeSet) {
                         targetPreference.isChecked = false
                     }

@@ -7,7 +7,7 @@
     tools:context=".view.meals.register.SelectFoodsActivity">
 
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/foods_list_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

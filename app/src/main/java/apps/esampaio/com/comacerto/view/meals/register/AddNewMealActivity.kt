@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.support.v7.widget.GridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import android.view.View
 import android.view.animation.LinearInterpolator
 import android.widget.SeekBar
@@ -17,6 +17,9 @@ import apps.esampaio.com.comacerto.core.extensions.asString
 import apps.esampaio.com.comacerto.core.service.meal.MealIteractor
 import apps.esampaio.com.comacerto.core.service.meal.MealPresenter
 import apps.esampaio.com.comacerto.core.service.meal.MealService
+import apps.esampaio.com.comacerto.core.service.meal.mealtype.MealTypeIteractor
+import apps.esampaio.com.comacerto.core.service.meal.mealtype.MealTypePresenter
+import apps.esampaio.com.comacerto.core.service.meal.mealtype.MealTypeService
 import apps.esampaio.com.comacerto.view.BaseActivity
 import apps.esampaio.com.comacerto.view.meals.register.adapter.FeelingsListRecyclerViewAdapter
 import apps.esampaio.com.comacerto.view.meals.register.adapter.ImageRecyclerViewAdapter
@@ -29,7 +32,7 @@ import java.text.DateFormat
 import java.util.*
 
 
-open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment.OnDateSetListener, RadialTimePickerDialogFragment.OnTimeSetListener, SeekBar.OnSeekBarChangeListener, MealPresenter {
+open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment.OnDateSetListener, RadialTimePickerDialogFragment.OnTimeSetListener, SeekBar.OnSeekBarChangeListener, MealPresenter, MealTypePresenter {
     companion object {
         val FRAG_TAG_DATE_PICKER = "FRAG_TAG_DATE_PICKER"
         val FRAG_TAG_TIME_PICKER = "FRAG_TAG_TIME_PICKER"
@@ -49,6 +52,7 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
 
     var meal = Meal()
     lateinit var mealIteractor:MealIteractor
+    lateinit var mealTypeIteractor: MealTypeIteractor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,15 +63,28 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
             this.meal = receivedMeal
         }
         setupDateTimeDialogs()
-        setupMealsList()
+
         setupFeelingsList()
         setupAutocompleteFoods()
         setupHungerAndSatietySliders()
         setTitle(R.string.new_meal)
         mealIteractor = MealService(this)
+        mealTypeIteractor= MealTypeService(this,this)
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        mealTypeIteractor.onScreenLoaded();
+
+        updateDateTextView(meal.date)
+        updateTimeTextView(meal.date)
+        updateFoodsLabel()
+        setSelectedFeeling(meal.feeling)
+
+        setHungerAndSatietyLevels(meal.hunger, meal.satiety)
+        what_doing_text_view.setText(meal.whatDoing)
+    }
 
     override fun onProgressChanged(seekbar: SeekBar?, progress: Int, fromUser: Boolean) {
         if (seekbar?.id == hunger_level_seek_bar.id) {
@@ -97,15 +114,9 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
         updateDateTextView(meal.date)
     }
 
-    override fun onResume() {
-        super.onResume()
-        updateDateTextView(meal.date)
-        updateTimeTextView(meal.date)
-        updateFoodsLabel()
-        setSelectedFeeling(meal.feeling)
+    override fun updateAllMealTypeList(mealTypeList: List<MealType>) {
+        setupMealsList(mealTypeList)
         setSelectedMealType(meal.mealType)
-        setHungerAndSatietyLevels(meal.hunger, meal.satiety)
-        what_doing_text_view.setText(meal.whatDoing)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -162,8 +173,8 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
 
     private fun setSelectedMealType(mealType: MealType) {
         meal.mealType = mealType;
-        (meal_list_rv.adapter as ImageRecyclerViewAdapter).selectedItem = (mealType.ordinal - 1)
-        meal_name.text = mealType.getName(this)
+        (meal_list_rv.adapter as MealListRecyclerViewAdapter).selectItem(mealType);
+        meal_name.text = mealType.name
         Handler().postDelayed({
             list_meal_expandable_layout.collapse()
         }, 100)
@@ -172,7 +183,7 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
     private fun setSelectedFeeling(feeling: Feeling) {
         meal.feeling = feeling;
         (feeling_list_rv.adapter as ImageRecyclerViewAdapter).selectedItem = (feeling.ordinal - 1)
-        feeling_name.text = feeling.getName(this)
+        feeling_name.text = feeling.name
         Handler().postDelayed({
             list_feelings_expandable_layout.collapse()
         }, 100)
@@ -192,16 +203,16 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
         mealIteractor.onSavePressed(meal)
     }
 
-    private fun setupMealsList() {
+    private fun setupMealsList(mealTypeList: List<MealType>) {
         cell_meal.setOnClickListener {
             var targetAngle = 0f
             list_meal_expandable_layout.apply {
-                if (isExpanded) {
+                targetAngle = if (isExpanded) {
                     collapse(true)
-                    targetAngle = 0f
+                    0f
                 } else {
                     expand(true)
-                    targetAngle = 90f
+                    90f
                 }
                 meal_expandable_indicator
                         .animate()
@@ -211,7 +222,7 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
                         .start()
             }
         }
-        val adapter = MealListRecyclerViewAdapter(this)
+        val adapter = MealListRecyclerViewAdapter(this, meals = mealTypeList.toTypedArray())
         meal_list_rv.adapter = adapter
         meal_list_rv.layoutManager = GridLayoutManager(this, 4)
         adapter.onMealSelectedListener = {
@@ -223,12 +234,12 @@ open class AddNewMealActivity : BaseActivity(), CalendarDatePickerDialogFragment
         cell_feeling.setOnClickListener {
             var targetAngle = 0f
             list_feelings_expandable_layout.apply {
-                if (isExpanded) {
+                targetAngle = if (isExpanded) {
                     collapse(true)
-                    targetAngle = 0f
+                    0f
                 } else {
                     expand(true)
-                    targetAngle = 90f
+                    90f
                 }
                 feeling_expandable_indicator
                         .animate()

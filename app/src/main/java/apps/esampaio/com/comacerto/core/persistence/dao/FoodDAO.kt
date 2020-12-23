@@ -1,9 +1,9 @@
-package apps.esampaio.com.comacerto.core.persistence.DAO
+package apps.esampaio.com.comacerto.core.persistence.dao
 
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.OnConflictStrategy
-import android.arch.persistence.room.Query
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import apps.esampaio.com.comacerto.core.persistence.entities.FoodEntity
 
 @Dao

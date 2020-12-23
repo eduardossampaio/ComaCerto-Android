@@ -1,14 +1,15 @@
 package apps.esampaio.com.comacerto.view.meals.register.adapter
 
 import android.content.Context
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.RecyclerView
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import apps.esampaio.com.comacerto.R
+import apps.esampaio.com.comacerto.core.entity.MealType
 
 abstract class ImageRecyclerViewAdapter(val context:Context): RecyclerView.Adapter<ImageRecyclerViewAdapter.ImageRecyclerViewAdapterViewHolder>(){
 
@@ -39,7 +40,7 @@ abstract class ImageRecyclerViewAdapter(val context:Context): RecyclerView.Adapt
         }
 
         override fun onClick(view: View?) {
-            val position = getPosition()
+            val position = adapterPosition
             selectedItem = position
             notifyDataSetChanged()
             itemSelectedAtPosition(position)
@@ -52,6 +53,7 @@ abstract class ImageRecyclerViewAdapter(val context:Context): RecyclerView.Adapt
             itemView.setBackgroundColor(ContextCompat.getColor(itemView.context,R.color.item_deselected_color))
         }
     }
+
 
     open fun itemSelectedAtPosition(position: Int){
 

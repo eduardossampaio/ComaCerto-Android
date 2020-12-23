@@ -113,7 +113,7 @@ class HtmlReportGenerator(val context: Context) {
     private fun mealHeader(meal: Meal): ContainerTag {
         return div(
                 div(
-                        h1(meal.mealType.getName(context)).withStyle("font-size: 22px ;color: aliceblue; margin-top: 2px;margin-bottom: 2px;")
+                        h1(meal.mealType.name).withStyle("font-size: 22px ;color: aliceblue; margin-top: 2px;margin-bottom: 2px;")
                 ).withStyle("background-color: #42718b; text-align: center; padding: 5px;"),
                 div("Resumo").withStyle("text-align: center; padding: 5px;"),
 

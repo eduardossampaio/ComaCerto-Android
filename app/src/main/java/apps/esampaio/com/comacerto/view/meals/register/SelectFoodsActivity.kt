@@ -5,9 +5,9 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.SearchView
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.appcompat.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
 import apps.esampaio.com.comacerto.R

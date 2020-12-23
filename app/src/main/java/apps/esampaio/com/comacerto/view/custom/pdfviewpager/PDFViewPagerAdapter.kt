@@ -3,11 +3,11 @@ package apps.esampaio.com.comacerto.view.custom.pdfviewpager
 import android.graphics.Bitmap
 import android.graphics.pdf.PdfRenderer
 import android.os.ParcelFileDescriptor
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
-import android.support.v4.view.PagerAdapter
-import android.support.v4.view.ViewPager
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager.widget.PagerAdapter
+import androidx.viewpager.widget.ViewPager
 import android.view.View
 import java.io.File
 
@@ -15,7 +15,7 @@ import java.io.File
  * Created by eduar on 23/09/2018.
  */
 
-class PDFViewPagerAdapter(fm: FragmentManager,filePath : File) : FragmentPagerAdapter(fm) {
+class PDFViewPagerAdapter(fm: FragmentManager, filePath : File) : FragmentPagerAdapter(fm) {
     var pdfRenderer : PdfRenderer
     init {
         var fileDescriptor: ParcelFileDescriptor? = null
