@@ -23,6 +23,12 @@ class MealTypeService(context: Context,var  mealTypePresenter: MealTypePresenter
         }
     }
 
+    override fun deleteMealType(mealType: MealType) {
+       mealTypePersistence.deleteMealType(mealType){
+           loadAllAndPresent()
+       }
+    }
+
     private fun loadAllAndPresent(){
         if(mealTypePresenter != null){
             mealTypePersistence.getAll {

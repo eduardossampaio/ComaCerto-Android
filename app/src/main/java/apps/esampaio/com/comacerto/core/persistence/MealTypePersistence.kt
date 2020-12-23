@@ -14,7 +14,7 @@ class MealTypePersistence (val context: Context) {
     fun saveMealType(mealType: MealType, onFinish: (() -> Unit) ?) {
         doAsync {
             if (mealTypeDao != null) {
-                val mealEntity = MealTypeEntity(mealType.mealId.toLong(), mealType.name, mealType.mealTypeIcon.iconName)
+                val mealEntity = MealTypeEntity(null, mealType.name, mealType.mealTypeIcon.iconName)
                 mealTypeDao.save(mealEntity);
                 if (onFinish != null) {
                     context.runOnUiThread {
@@ -24,7 +24,18 @@ class MealTypePersistence (val context: Context) {
             }
         }
     }
+    fun deleteMealType(mealType: MealType, onFinish: (() -> Unit) ?) {
+        doAsync {
+            val mealEntity = MealTypeEntity(mealType.mealId.toLong(), mealType.name, mealType.mealTypeIcon.iconName)
+            mealTypeDao?.delete(mealEntity);
 
+            if (onFinish != null) {
+                context.runOnUiThread {
+                    onFinish()
+                }
+            };
+        }
+    }
 
     fun getAll(onFinish: ((mealTypes:List<MealType>) -> Unit) ?) {
         doAsync {

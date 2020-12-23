@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/ComaCertoAppTheme"
         tools:replace="android:theme">
-        <activity android:name=".view.settings.subsettings.manageMeals.ManageMealsActivity"/>
+        <activity android:name=".view.settings.subsettings.manageMeals.ManageMealTypesActivity"/>
         <activity
             android:name=".view.SplashActivity"
             android:theme="@style/ComaCertoAppTheme_NoActionBar">

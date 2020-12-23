@@ -13,10 +13,11 @@ import apps.esampaio.com.comacerto.core.service.meal.mealtype.MealTypePresenter
 import apps.esampaio.com.comacerto.core.service.meal.mealtype.MealTypeService
 import apps.esampaio.com.comacerto.databinding.ActivityManageMealsBinding
 import apps.esampaio.com.comacerto.view.BaseActivity
+import apps.esampaio.com.comacerto.view.dialogs.Dialogs
 import apps.esampaio.com.comacerto.view.meals.register.adapter.MealListRecyclerViewAdapter
 import apps.esampaio.com.comacerto.view.settings.subsettings.manageMeals.dialog.AddMealDialog
 
-class ManageMealsActivity : BaseActivity(), AddMealDialog.Listener, MealTypePresenter {
+class ManageMealTypesActivity : BaseActivity(), AddMealDialog.Listener, MealTypePresenter {
     lateinit var mealTypeIteractor: MealTypeIteractor;
     lateinit var layout: ActivityManageMealsBinding;
     var myMealsListAdapter = MyMealTypesRecyclerViewAdapter(emptyList());
@@ -39,6 +40,12 @@ class ManageMealsActivity : BaseActivity(), AddMealDialog.Listener, MealTypePres
         dialog.listener = this;
         layout.floatingActionButton.setOnClickListener {
             dialog.show();
+        }
+        myMealsListAdapter.deleteListener = {
+            Dialogs.openAskDialog(this, resources.getString(R.string.delete_this_meal, it.name), onYesPressed = {
+                this.mealTypeIteractor.deleteMealType(it)
+            });
+
         }
         layout.myMealsListRv.layoutManager = LinearLayoutManager(this)
         layout.myMealsListRv.adapter = myMealsListAdapter;
@@ -67,8 +74,4 @@ class ManageMealsActivity : BaseActivity(), AddMealDialog.Listener, MealTypePres
     }
 
 
-    override fun newMealTypeAdded(mealType: MealType) {
-        Toast.makeText(this, "meal name :${mealType.name} icon : ${mealType.mealTypeIcon.iconName}", Toast.LENGTH_LONG).show();
-
-    }
 }

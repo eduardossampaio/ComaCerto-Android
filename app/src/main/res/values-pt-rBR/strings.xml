@@ -133,4 +133,5 @@
     <string name="add_new_meal">Nova Refeição</string>
     <string name="enter_meal_name">Nome da refeição</string>
     <string name="meal_icon_title">Ícone</string>
+    <string name="delete_this_meal">Deseja deletar a refeição %s</string>
 </resources>

@@ -41,7 +41,7 @@ enum class Feeling {
 
     companion object {
         fun getByOrdinal(ordinal: Int): Feeling {
-            for (feeling in Feeling.values()) {
+            for (feeling in values()) {
                 if (feeling.ordinal == ordinal) {
                     return feeling
                 }

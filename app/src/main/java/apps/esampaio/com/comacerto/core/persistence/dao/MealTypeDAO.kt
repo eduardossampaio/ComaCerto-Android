@@ -1,6 +1,7 @@
 package apps.esampaio.com.comacerto.core.persistence.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import apps.esampaio.com.comacerto.core.persistence.entities.MealAndFoods
@@ -17,4 +18,7 @@ interface MealTypeDAO {
 
     @Query("SELECT * FROM MealTypeEntity m where m.primaryKey = :id")
     fun getById(id:Int) : MealTypeEntity
+
+    @Delete
+    fun delete(entity: MealTypeEntity)
 }

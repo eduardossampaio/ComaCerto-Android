@@ -53,4 +53,8 @@
         <item name="android:gravity">center</item>
 
     </style>
+
+    <style name="ButtonPositive" parent="Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:textColor">@color/positive_button_text_color</item>
+    </style>
 </resources>
